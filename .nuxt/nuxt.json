@@ -1,0 +1,9 @@
+{
+  "_hash": "Mn5fP3Z0oSwSsI2qA6LxDCqWMEsqjtqJtyf9K8Vra5M",
+  "project": {
+    "rootDir": "/var/www/html/nuro-solutions"
+  },
+  "versions": {
+    "nuxt": "3.21.2"
+  }
+}
