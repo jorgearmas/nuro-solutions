@@ -78,12 +78,12 @@
         </div>
 
         <!-- Form -->
-        <div class="lg:col-span-3">
-          <div class="form-card">
+        <div class="lg:col-span-3 flex flex-col">
+          <div class="form-card flex-1">
             <h2 class="font-display text-2xl mb-1">Send us a message</h2>
             <p class="text-muted text-sm mb-8">We'll respond personally and help you uncover your next move.</p>
 
-            <form @submit.prevent="handleSubmit" class="space-y-5">
+            <form @submit.prevent="handleSubmit" class="space-y-6">
               <div class="grid sm:grid-cols-2 gap-5">
                 <div class="form-group">
                   <label class="form-label">First name *</label>
@@ -108,7 +108,7 @@
               </div>
               <div class="form-group">
                 <label class="form-label">Message *</label>
-                <textarea v-model="form.message" class="form-input form-textarea" rows="5" placeholder="Tell us what you're building, what keeps you curious, or where you're stuck..." required></textarea>
+                <textarea v-model="form.message" class="form-input form-textarea" rows="8" placeholder="Tell us what you're building, what keeps you curious, or where you're stuck..." required></textarea>
               </div>
 
               <!-- Status messages -->
@@ -151,8 +151,9 @@ const sending = ref(false)
 
 const team = [
   { initials: 'CR', name: 'Christopher Ramirez', role: 'Founder & CEO', quote: 'Every dollar we invest in creativity has a measurable purpose behind it.' },
-  { initials: 'MR', name: 'Manolo Ramirez', role: 'Co-founder & CFO', quote: 'We turn strategy into repeatable systems that drive real results.' },
-  { initials: 'RA', name: 'Rodrigo Arevalo', role: 'COO', quote: 'Operational excellence is where ideas become impact.' },
+  { initials: 'MP', name: 'Melissa Payes', role: 'Co-founder & CFO', quote: 'We turn strategy into repeatable systems that drive real results.' },
+  { initials: 'DC', name: 'Diego Cardoza', role: 'CMO', quote: 'Great marketing does not interrupt people, it connects with them.' },
+  { initials: 'JA', name: 'Jorge Armas', role: 'CTO', quote: 'Technology is the foundation that transforms vision into scalable reality.' },
 ]
 
 async function handleSubmit() {
@@ -242,7 +243,7 @@ async function handleSubmit() {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: 16px;
-  padding: 2.5rem;
+  padding: 3rem;
 }
 .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
 .form-label {
@@ -270,7 +271,7 @@ async function handleSubmit() {
   border-color: var(--color-accent);
   box-shadow: 0 0 0 3px var(--color-accent-glow);
 }
-.form-textarea { resize: vertical; min-height: 130px; }
+.form-textarea { resize: vertical; min-height: 180px; }
 
 .status-msg {
   display: flex;
