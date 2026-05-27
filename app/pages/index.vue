@@ -1,9 +1,28 @@
 <template>
-  <div class="min-h-screen">
+  <div class="page-snap">
     <AppNavbar />
 
     <!-- ── Hero ─────────────────────────────────────────── -->
-    <section class="hero relative min-h-screen flex items-center overflow-hidden">
+    <section class="hero snap-sec relative min-h-screen flex items-center overflow-hidden">
+
+      <!-- Background Video -->
+      <video
+        class="hero-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        aria-hidden="true"
+      >
+        <source
+          src="https://res.cloudinary.com/dpi6oudmk/video/upload/v1779842551/corp_hero_nuro_meck7m.mp4"
+          type="video/mp4"
+        />
+      </video>
+
+      <!-- Video Overlay -->
+      <div class="hero-overlay" aria-hidden="true"></div>
 
       <!-- Orbs -->
       <div class="orb orb-1" aria-hidden="true"></div>
@@ -20,9 +39,9 @@
 
           <!-- Headline -->
           <h1 class="hero-headline">
-            <span class="block text-text">Your</span>
+            <span class="block text-white">Your</span>
             <span class="block accent-word">Growthcraft</span>
-            <span class="block text-text">Partner</span>
+            <span class="block text-white">Partner</span>
           </h1>
 
           <!-- Subheadline -->
@@ -39,7 +58,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </NuxtLink>
-            <NuxtLink to="/portfolio" class="btn-ghost">See Our Work</NuxtLink>
+            <NuxtLink to="/portfolio" class="btn-ghost btn-white">See Our Work</NuxtLink>
           </div>
 
           <!-- Stats -->
@@ -53,31 +72,71 @@
       </div>
     </section>
 
-    <!-- ── CTA Band ───────────────────────────────────────── -->
-    <section class="cta-band">
-      <div class="max-w-7xl mx-auto px-6 lg:px-10 text-center">
-        <p class="section-tag justify-center"><span class="glow-dot"></span>Ready to Scale</p>
-        <h2 class="text-4xl lg:text-6xl font-display mb-6">
-          Making People's Dreams<br />Come True™
-        </h2>
-        <p class="text-muted mb-10 max-w-md mx-auto">
-          Some dreams deserve more than talk — they need someone to believe in the details.
-        </p>
-        <NuxtLink to="/contact" class="btn-primary">
-          Start the Conversation
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </NuxtLink>
-      </div>
+    <!-- ── Can your ideas change the world? ────────────────── -->
+    <section ref="ideasRef" class="ideas-section snap-sec">
+      <h2 class="ideas-title">
+        <span class="line-wrap">
+          <span class="line-inner" :class="{ 'line-up': ideasVisible }">
+            Can your ideas
+          </span>
+        </span>
+        <span class="line-wrap">
+          <span class="line-inner line-delay" :class="{ 'line-up': ideasVisible }">
+            change the World?
+          </span>
+        </span>
+      </h2>
     </section>
+
+    <!-- ── Experimental Mindset ─────────────────────────────── -->
+    <section
+      ref="mindsetRef"
+      class="mindset-section snap-sec"
+      :class="{ 'section-visible': mindsetVisible }"
+    >
+      <h2 class="mindset-title">
+        <span class="line-wrap">
+          <span class="line-inner" :class="{ 'line-up': mindsetVisible }">
+            Experimental Mindset,
+          </span>
+        </span>
+        <span class="line-wrap">
+          <span class="line-inner line-delay" :class="{ 'line-up': mindsetVisible }">
+            Beyond Goal-Obsession
+          </span>
+        </span>
+      </h2>
+    </section>
+
+    <!-- ── Journey Section ──────────────────────────────────── -->
+    <div
+      ref="journeyRef"
+      class="journey-wrap snap-sec"
+      :class="{ 'section-visible': journeyVisible }"
+    >
+      <NuroJourney />
+    </div>
 
     <AppFooter />
   </div>
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const ideasRef       = ref(null)
+const mindsetRef     = ref(null)
+const journeyRef     = ref(null)
+const ideasVisible   = ref(false)
+const mindsetVisible = ref(false)
+const journeyVisible = ref(false)
+
+let io = null
+
+onUnmounted(() => {
+  document.documentElement.style.scrollSnapType = ''
+  document.documentElement.style.overflowY = ''
+})
 
 const heroStats = [
   { value: '3+', label: 'Years in Market' },
@@ -85,7 +144,28 @@ const heroStats = [
   { value: '200%', label: 'Avg. ROI Increase' },
 ]
 
+onUnmounted(() => {
+  io?.disconnect()
+})
+
 onMounted(async () => {
+  // Scroll-snap: cada sección ocupa la pantalla
+  document.documentElement.style.scrollSnapType = 'y proximity'
+
+  io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(e => {
+        if (e.target === ideasRef.value   && e.isIntersecting) ideasVisible.value   = true
+        if (e.target === mindsetRef.value && e.isIntersecting) mindsetVisible.value = true
+        if (e.target === journeyRef.value && e.isIntersecting) journeyVisible.value = true
+      })
+    },
+    { threshold: 0 }
+  )
+  if (ideasRef.value)   io.observe(ideasRef.value)
+  if (mindsetRef.value) io.observe(mindsetRef.value)
+  if (journeyRef.value) io.observe(journeyRef.value)
+
   const { gsap } = await import('gsap')
 
   gsap.from('.hero-headline span', {
@@ -104,12 +184,26 @@ onMounted(async () => {
 
 <style scoped>
 .hero {
-  background: linear-gradient(
-    to bottom,
-    #F9F0E5 0%,
-    rgba(112, 64, 172, 0.15) 60%,
-    rgba(112, 64, 172, 0.3) 100%
-  );
+  background: #0a0a0f;
+}
+
+/* ── Video de fondo ─────────────────────────── */
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+
+/* Overlay: oscuro arriba, se difumina hacia el color de la siguiente sección */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(10, 10, 15, 0.82);
 }
 
 .orb {
@@ -117,15 +211,16 @@ onMounted(async () => {
   border-radius: 50%;
   filter: blur(100px);
   pointer-events: none;
+  z-index: 2;
 }
 .orb-1 {
   width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(112,64,172,0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(112,64,172,0.25) 0%, transparent 70%);
   top: -150px; left: -100px;
 }
 .orb-2 {
   width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(242,119,0,0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(242,119,0,0.15) 0%, transparent 70%);
   bottom: 100px; right: 0;
 }
 
@@ -134,6 +229,7 @@ onMounted(async () => {
   line-height: 1;
   letter-spacing: -0.04em;
   margin-bottom: 1.5rem;
+  color: #ffffff;
 }
 .accent-word {
   background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-2) 100%);
@@ -143,7 +239,7 @@ onMounted(async () => {
 }
 .hero-sub {
   font-size: 1.1rem;
-  color: var(--color-muted);
+  color: rgba(255, 255, 255, 0.72);
   line-height: 1.7;
   max-width: 520px;
 }
@@ -153,20 +249,112 @@ onMounted(async () => {
   gap: 2.5rem;
   margin-top: 3rem;
   padding-top: 2rem;
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid rgba(10, 10, 15, 0.15);
 }
 .stat-item { display: flex; flex-direction: column; gap: 2px; }
 .stat-value {
   font-family: var(--font-display);
   font-size: 1.75rem;
   font-weight: 700;
-  color: var(--color-text);
+  color: #ffffff;
 }
 .stat-label {
   font-size: 0.75rem;
-  color: var(--color-muted);
+  color: #ffffff;
+  font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+}
+
+/* Botón blanco (override de btn-ghost para el Hero) */
+.btn-white {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #0a0a0f !important;
+}
+.btn-white:hover {
+  background: rgba(255, 255, 255, 0.88) !important;
+  border-color: rgba(255, 255, 255, 0.88) !important;
+  transform: translateY(-1px);
+}
+
+/* ── Snap ────────────────────────────────────────────────── */
+.page-snap {
+  /* El snap se activa via JS en html, aquí solo el layout */
+}
+.snap-sec {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* ── Entrada dinámica ────────────────────────────────────── */
+.mindset-section,
+.journey-wrap {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.85s ease, transform 0.85s ease;
+}
+.section-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Can your ideas ─────────────────────────────────────── */
+.ideas-section {
+  height: 100vh;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 2rem;
+}
+.ideas-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.5vw, 3rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  color: #0a0a0f;
+  text-align: center;
+  line-height: 1.2;
+  max-width: 900px;
+}
+
+/* ── Experimental Mindset ───────────────────────────────── */
+.mindset-section {
+  height: 100vh;
+  background: #F27700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 2rem;
+}
+.mindset-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.5vw, 3rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.2;
+  max-width: 900px;
+}
+
+/* ── Split line ─────────────────────────────────────────── */
+.line-wrap {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em; /* evita que se corte el descender */
+}
+.line-inner {
+  display: block;
+  transform: translateY(115%);
+  transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.7s;
+}
+.line-inner.line-up {
+  transform: translateY(0);
+}
+.line-delay {
+  transition-delay: calc(0.7s + 0.18s);
 }
 
 /* CTA Band */

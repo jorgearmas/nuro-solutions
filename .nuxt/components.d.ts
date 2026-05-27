@@ -17,6 +17,7 @@ type LazyComponent<T> = DefineComponent<HydrationStrategies, {}, {}, {}, {}, {},
 export const AppFooter: typeof import("../app/components/ui/AppFooter.vue")['default']
 export const AppNavbar: typeof import("../app/components/ui/AppNavbar.vue")['default']
 export const IndustryPage: typeof import("../app/components/sections/IndustryPage.vue")['default']
+export const NuroJourney: typeof import("../app/components/sections/NuroJourney.vue")['default']
 export const NuxtWelcome: typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']
 export const NuxtLayout: typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']
 export const NuxtErrorBoundary: typeof import("../node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue")['default']
@@ -43,6 +44,7 @@ export const NuxtIsland: typeof import("../node_modules/nuxt/dist/app/components
 export const LazyAppFooter: LazyComponent<typeof import("../app/components/ui/AppFooter.vue")['default']>
 export const LazyAppNavbar: LazyComponent<typeof import("../app/components/ui/AppNavbar.vue")['default']>
 export const LazyIndustryPage: LazyComponent<typeof import("../app/components/sections/IndustryPage.vue")['default']>
+export const LazyNuroJourney: LazyComponent<typeof import("../app/components/sections/NuroJourney.vue")['default']>
 export const LazyNuxtWelcome: LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']>
 export const LazyNuxtLayout: LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']>
 export const LazyNuxtErrorBoundary: LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue")['default']>

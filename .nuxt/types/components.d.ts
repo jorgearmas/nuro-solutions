@@ -17,6 +17,7 @@ interface _GlobalComponents {
   AppFooter: typeof import("../../app/components/ui/AppFooter.vue")['default']
   AppNavbar: typeof import("../../app/components/ui/AppNavbar.vue")['default']
   IndustryPage: typeof import("../../app/components/sections/IndustryPage.vue")['default']
+  NuroJourney: typeof import("../../app/components/sections/NuroJourney.vue")['default']
   NuxtWelcome: typeof import("../../node_modules/nuxt/dist/app/components/welcome.vue")['default']
   NuxtLayout: typeof import("../../node_modules/nuxt/dist/app/components/nuxt-layout")['default']
   NuxtErrorBoundary: typeof import("../../node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue")['default']
@@ -43,6 +44,7 @@ interface _GlobalComponents {
   LazyAppFooter: LazyComponent<typeof import("../../app/components/ui/AppFooter.vue")['default']>
   LazyAppNavbar: LazyComponent<typeof import("../../app/components/ui/AppNavbar.vue")['default']>
   LazyIndustryPage: LazyComponent<typeof import("../../app/components/sections/IndustryPage.vue")['default']>
+  LazyNuroJourney: LazyComponent<typeof import("../../app/components/sections/NuroJourney.vue")['default']>
   LazyNuxtWelcome: LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/welcome.vue")['default']>
   LazyNuxtLayout: LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/nuxt-layout")['default']>
   LazyNuxtErrorBoundary: LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue")['default']>

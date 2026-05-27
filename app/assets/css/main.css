@@ -83,6 +83,12 @@ body::before {
   border-radius: 50%;
   background: var(--color-accent);
   box-shadow: 0 0 8px var(--color-accent), 0 0 20px var(--color-accent-glow);
+  animation: dot-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes dot-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--color-accent), 0 0 20px var(--color-accent-glow); }
+  50%       { opacity: 0.35; box-shadow: none; }
 }
 
 .btn-primary {
