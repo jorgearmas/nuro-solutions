@@ -294,12 +294,12 @@ onMounted(async () => {
   bottom: -4px;
   left: 0;
   right: 0;
-  height: calc(18vh + 4px);
+  height: calc(100vh + 4px); /* cubre los 100vh de zona muerta del sticky */
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    rgba(249, 240, 229, 0.08) 40%,
-    rgba(249, 240, 229, 0.55) 70%,
+    rgba(249, 240, 229, 0.06) 50%,
+    rgba(249, 240, 229, 0.6) 80%,
     #F9F0E5 100%
   );
   z-index: 10;

@@ -124,6 +124,7 @@ function onScroll () {
 .journey-scroll-container {
   height: 600vh;
   position: relative;
+  background: #7040AC; /* cubre la zona muerta cuando el sticky se va */
 }
 
 /* ── Sticky frame ───────────────────────────────────────── */

@@ -1,5 +1,5 @@
 <template>
-  <footer class="border-t border-border mt-32">
+  <footer class="border-t border-border">
     <div class="max-w-7xl mx-auto px-6 lg:px-10 py-16">
 
       <!-- Top row -->
