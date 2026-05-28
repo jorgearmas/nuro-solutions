@@ -283,6 +283,10 @@ const flowSteps = ['Analytical Targeting', 'Creative Integration', 'Automation &
 .driver-section--reverse .driver-num-bg {
   left: -1rem; right: auto;
 }
+/* Mobile: número detrás del título → ocultarlo */
+@media (max-width: 1024px) {
+  .driver-num-bg { display: none; }
+}
 .driver-points { display: flex; flex-direction: column; gap: 0.75rem; list-style: none; padding: 0; }
 .driver-point {
   display: flex;
@@ -346,6 +350,30 @@ const flowSteps = ['Analytical Targeting', 'Creative Integration', 'Automation &
   0%   { transform: translateX(0);    opacity: 0.3; }
   50%  { transform: translateX(5px);  opacity: 0.9; }
   100% { transform: translateX(0);    opacity: 0.3; }
+}
+
+/* Mobile: diagrama vertical, flechas apuntan hacia abajo */
+@media (max-width: 768px) {
+  .flow-diagram {
+    flex-direction: column;
+    align-items: center;
+  }
+  .flow-step {
+    flex-direction: column;
+    align-items: center;
+  }
+  .flow-arrow {
+    transform: rotate(90deg);
+    animation: arrow-pulse-down 1.4s ease-in-out infinite;
+  }
+  .flow-step:nth-child(2) .flow-arrow { animation-delay: 0.18s; }
+  .flow-step:nth-child(3) .flow-arrow { animation-delay: 0.36s; }
+
+  @keyframes arrow-pulse-down {
+    0%   { transform: rotate(90deg) translateX(0);    opacity: 0.3; }
+    50%  { transform: rotate(90deg) translateX(5px);  opacity: 0.9; }
+    100% { transform: rotate(90deg) translateX(0);    opacity: 0.3; }
+  }
 }
 .cta-row {
   display: flex;
