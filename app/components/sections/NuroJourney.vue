@@ -1,24 +1,72 @@
 <template>
-  <!-- Scroll container — da 500vh de captura para el scroll horizontal -->
+
+  <!-- ── MOBILE: carrusel táctil estándar ──────────────────── -->
+  <div class="mobile-carousel">
+    <div
+      class="mobile-track"
+      :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
+      @touchstart.passive="onTouchStart"
+      @touchend.passive="onTouchEnd"
+    >
+      <!-- Rooms 1–4 -->
+      <div v-for="n in 4" :key="n" class="mobile-slide">
+        <div class="mobile-card">
+          <img :src="`/room_${n}.png`" class="mobile-card-img" :alt="`Room ${n}`" />
+          <span class="mobile-card-num">0{{ n }}</span>
+        </div>
+      </div>
+
+      <!-- Room 5: Impact -->
+      <div class="mobile-slide">
+        <div class="mobile-card mobile-card--impact">
+          <p class="impact-eyebrow">Our Impact</p>
+          <div class="impact-stats">
+            <div v-for="stat in impactStats" :key="stat.label" class="impact-stat">
+              <span class="impact-value">{{ stat.value }}</span>
+              <span class="impact-label">{{ stat.label }}</span>
+            </div>
+          </div>
+          <NuxtLink to="/contact" class="impact-cta">
+            Let's get the conversation started
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </NuxtLink>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dots -->
+    <div class="mobile-dots">
+      <span
+        v-for="n in 5"
+        :key="n"
+        class="mobile-dot"
+        :class="{ active: currentSlide === n - 1 }"
+        @click="currentSlide = n - 1"
+      />
+    </div>
+
+    <!-- Prev / Next -->
+    <button class="mobile-arrow mobile-arrow--prev" @click="prev" :disabled="currentSlide === 0" aria-label="Previous">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+    </button>
+    <button class="mobile-arrow mobile-arrow--next" @click="next" :disabled="currentSlide === 4" aria-label="Next">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+
+  <!-- ── DESKTOP: scroll horizontal con GSAP ───────────────── -->
   <div ref="scrollContainerRef" class="journey-scroll-container">
     <div class="journey-sticky">
 
-      <!-- ── Track horizontal con los 5 rooms ─────────────── -->
       <div ref="trackRef" class="h-track">
-
-        <!-- Rooms 1–4: imagen de fondo -->
         <div v-for="n in 4" :key="n" class="h-panel" :class="{ 'panel-small': n === 1 }">
-          <img
-            :src="`/room_${n}.png`"
-            class="panel-img"
-            draggable="false"
-            alt=""
-          />
+          <img :src="`/room_${n}.png`" class="panel-img" draggable="false" alt="" />
           <div class="panel-overlay" />
           <span class="panel-num">0{{ n }}</span>
         </div>
 
-        <!-- Room 5: Impact Numbers + CTA -->
         <div class="h-panel impact-panel">
           <div class="impact-inner">
             <p class="impact-eyebrow">Our Impact</p>
@@ -36,10 +84,8 @@
             </NuxtLink>
           </div>
         </div>
-
       </div>
 
-      <!-- ── Hint de scroll ────────────────────────────────── -->
       <div class="scroll-hint" :style="{ opacity: titleOpacity }">
         <span class="hint-label">Scroll</span>
         <div class="hint-arrow">
@@ -49,45 +95,52 @@
         </div>
       </div>
 
-      <!-- ── Progress bar en la base ───────────────────────── -->
       <div class="progress-bar-wrap">
         <div class="progress-bar" :style="{ width: `${progress * 100}%` }" />
       </div>
 
-      <!-- ── Dots laterales ────────────────────────────────── -->
       <div class="side-nav">
-        <span
-          v-for="n in 5"
-          :key="n"
-          class="nav-dot"
-          :class="{ active: activeRoom === n }"
-        />
+        <span v-for="n in 5" :key="n" class="nav-dot" :class="{ active: activeRoom === n }" />
       </div>
 
     </div>
   </div>
+
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
-const scrollContainerRef = ref(null)
-const trackRef           = ref(null)
-
-const activeRoom = ref(1)
-const progress   = ref(0)
-
+/* ── Shared ────────────────────────────── */
 const impactStats = [
   { value: '3+',   label: 'Years in Market' },
   { value: '20+',  label: 'Brands Grown' },
   { value: '200%', label: 'Avg. ROI Increase' },
 ]
 
-let gsapLib  = null
-let isMobile = false
+/* ── Mobile carousel ───────────────────── */
+const currentSlide = ref(0)
+let touchStartX = 0
+
+function onTouchStart(e) { touchStartX = e.touches[0].clientX }
+function onTouchEnd(e) {
+  const dx = e.changedTouches[0].clientX - touchStartX
+  if (dx < -40) next()
+  else if (dx > 40) prev()
+}
+function next() { if (currentSlide.value < 4) currentSlide.value++ }
+function prev() { if (currentSlide.value > 0) currentSlide.value-- }
+
+/* ── Desktop scroll journey ────────────── */
+const scrollContainerRef = ref(null)
+const trackRef           = ref(null)
+const activeRoom         = ref(1)
+const progress           = ref(0)
+const titleOpacity       = ref(1)
+
+let gsapLib = null
 
 onMounted(async () => {
-  isMobile = window.innerWidth < 1024
   const mod = await import('gsap')
   gsapLib = mod.gsap
   window.addEventListener('scroll', onScroll, { passive: true })
@@ -97,24 +150,16 @@ onUnmounted(() => {
   window.removeEventListener('scroll', onScroll)
 })
 
-function onScroll () {
-  if (!scrollContainerRef.value) return
+function onScroll() {
+  if (!scrollContainerRef.value || !trackRef.value || !gsapLib) return
 
   const rect       = scrollContainerRef.value.getBoundingClientRect()
   const totalRange = scrollContainerRef.value.offsetHeight - window.innerHeight
   const scrolled   = Math.max(0, -rect.top)
   const p          = Math.min(1, scrolled / totalRange)
 
-  progress.value = p
-
-  // Mobile: rooms verticales, solo actualizamos room activa
-  if (isMobile) {
-    activeRoom.value = Math.min(5, Math.floor(p * 5) + 1)
-    return
-  }
-
-  // Desktop: track horizontal con GSAP
-  if (!trackRef.value || !gsapLib) return
+  progress.value     = p
+  titleOpacity.value = Math.max(0, 1 - p * 8)
 
   const DWELL_START = 0.85
   const trackP = Math.min(p / DWELL_START, 1)
@@ -125,11 +170,137 @@ function onScroll () {
 </script>
 
 <style scoped>
+/* ════════════════════════════════════════
+   MOBILE CAROUSEL  (< 1024px)
+   ════════════════════════════════════════ */
+.mobile-carousel {
+  display: none; /* oculto en desktop */
+}
+
+@media (max-width: 1023px) {
+  /* Mostrar carrusel, ocultar scroll-journey */
+  .mobile-carousel       { display: block; }
+  .journey-scroll-container { display: none; }
+
+  .mobile-carousel {
+    position: relative;
+    background: #7040AC;
+    padding: 2rem 0 3.5rem;
+    overflow: hidden;
+  }
+
+  /* Track deslizante */
+  .mobile-track {
+    display: flex;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+
+  /* Cada slide ocupa el 100% del viewport */
+  .mobile-slide {
+    min-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1.5rem;
+  }
+
+  /* Card de imagen */
+  .mobile-card {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/3;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+  }
+
+  .mobile-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .mobile-card-num {
+    position: absolute;
+    bottom: 0.75rem;
+    right: 1rem;
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: rgba(255,255,255,0.1);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    user-select: none;
+  }
+
+  /* Card de impacto */
+  .mobile-card--impact {
+    background: #0a0a0f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 2rem 1.5rem;
+    aspect-ratio: auto;
+    min-height: 240px;
+  }
+
+  /* Dots */
+  .mobile-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 1.25rem;
+  }
+
+  .mobile-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+  }
+
+  .mobile-dot.active {
+    background: #fff;
+    transform: scale(1.6);
+  }
+
+  /* Flechas prev/next */
+  .mobile-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-60%);
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    padding: 0;
+  }
+  .mobile-arrow svg { width: 18px; height: 18px; }
+  .mobile-arrow:disabled { opacity: 0.25; cursor: default; }
+  .mobile-arrow--prev { left: 0.5rem; }
+  .mobile-arrow--next { right: 0.5rem; }
+  .mobile-arrow:not(:disabled):hover { background: rgba(255,255,255,0.28); }
+}
+
+/* ════════════════════════════════════════
+   DESKTOP SCROLL JOURNEY  (≥ 1024px)
+   ════════════════════════════════════════ */
+
 /* ── Scroll container ───────────────────────────────────── */
 .journey-scroll-container {
   height: 600vh;
   position: relative;
-  background: #7040AC; /* cubre la zona muerta cuando el sticky se va */
+  background: #7040AC;
 }
 
 /* ── Sticky frame ───────────────────────────────────────── */
@@ -169,7 +340,6 @@ function onScroll () {
   object-position: center;
 }
 
-/* Room 1 — más pequeña, sin caja, fondo morado visible alrededor */
 .panel-small {
   display: flex;
   align-items: center;
@@ -184,17 +354,10 @@ function onScroll () {
 }
 .panel-small .panel-overlay { display: none; }
 
-
 .panel-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.20) 0%,
-    transparent      30%,
-    transparent      65%,
-    rgba(0,0,0,0.55) 100%
-  );
+  background: linear-gradient(to bottom, rgba(0,0,0,0.20) 0%, transparent 30%, transparent 65%, rgba(0,0,0,0.55) 100%);
   pointer-events: none;
 }
 
@@ -212,7 +375,6 @@ function onScroll () {
   pointer-events: none;
 }
 
-
 /* ── Scroll hint ────────────────────────────────────────── */
 .scroll-hint {
   position: absolute;
@@ -227,7 +389,6 @@ function onScroll () {
   pointer-events: none;
   transition: opacity 0.1s linear;
 }
-
 .hint-label {
   font-size: 0.7rem;
   font-weight: 600;
@@ -235,14 +396,11 @@ function onScroll () {
   text-transform: uppercase;
   color: rgba(255,255,255,0.6);
 }
-
 .hint-arrow {
-  width: 20px;
-  height: 20px;
+  width: 20px; height: 20px;
   color: rgba(255,255,255,0.6);
   animation: bounce-down 1.4s ease-in-out infinite;
 }
-
 @keyframes bounce-down {
   0%,100% { transform: translateY(0);   opacity: 0.6; }
   50%     { transform: translateY(6px); opacity: 1;   }
@@ -251,14 +409,11 @@ function onScroll () {
 /* ── Progress bar ───────────────────────────────────────── */
 .progress-bar-wrap {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  bottom: 0; left: 0; right: 0;
   height: 3px;
   background: rgba(255,255,255,0.1);
   z-index: 30;
 }
-
 .progress-bar {
   height: 100%;
   background: var(--color-accent);
@@ -277,87 +432,15 @@ function onScroll () {
   gap: 10px;
   z-index: 30;
 }
-
 .nav-dot {
-  width: 6px;
-  height: 6px;
+  width: 6px; height: 6px;
   border-radius: 50%;
   background: rgba(255,255,255,0.30);
   transition: background 0.3s, transform 0.3s;
 }
-
 .nav-dot.active {
   background: #ffffff;
   transform: scale(1.7);
-}
-
-/* ── Mobile: rooms en vertical ─────────────────────────── */
-@media (max-width: 1023px) {
-  .journey-scroll-container {
-    height: auto;
-    background: transparent;
-  }
-
-  .journey-sticky {
-    position: static;
-    height: auto;
-    overflow: visible;
-    background: transparent;
-  }
-
-  .h-track {
-    position: static;
-    width: 100%;
-    height: auto;
-    flex-direction: column;
-    will-change: auto;
-    transform: none !important; /* anula cualquier transform de GSAP */
-  }
-
-  .h-panel {
-    width: 100%;
-    height: 100svh; /* svh respeta la barra del browser en mobile */
-    flex-shrink: 0;
-  }
-
-  /* Todas las imágenes contenidas y centradas en mobile */
-  .h-panel {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #7040AC;
-    overflow: hidden;
-  }
-
-  .h-panel .panel-img {
-    position: relative;
-    inset: auto;
-    width: 85%;
-    height: 72%;
-    object-fit: cover;
-    border-radius: 14px;
-    flex-shrink: 0;
-  }
-
-  .panel-small .panel-img {
-    width: 80%;
-    height: 65%;
-  }
-
-  .panel-overlay { display: none; }
-
-  .panel-num {
-    bottom: 1.5rem;
-    right: 1.5rem;
-    font-size: clamp(4rem, 18vw, 7rem);
-  }
-
-  /* Ocultar controles de navegación horizontal */
-  .scroll-hint,
-  .progress-bar-wrap,
-  .side-nav {
-    display: none;
-  }
 }
 
 /* ── Room 5: Impact Panel ───────────────────────────────── */
@@ -367,7 +450,6 @@ function onScroll () {
   align-items: center;
   justify-content: center;
 }
-
 .impact-inner {
   display: flex;
   flex-direction: column;
@@ -376,7 +458,6 @@ function onScroll () {
   text-align: center;
   padding: 2rem;
 }
-
 .impact-eyebrow {
   font-family: var(--font-display);
   font-size: 0.75rem;
@@ -385,7 +466,6 @@ function onScroll () {
   text-transform: uppercase;
   color: var(--color-accent);
 }
-
 .impact-stats {
   display: flex;
   gap: clamp(2rem, 8vw, 6rem);
@@ -393,17 +473,15 @@ function onScroll () {
   justify-content: center;
   flex-wrap: wrap;
 }
-
 .impact-stat {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
 }
-
 .impact-value {
   font-family: var(--font-display);
-  font-size: clamp(3.5rem, 9vw, 7.5rem);
+  font-size: clamp(2.5rem, 7vw, 7.5rem);
   font-weight: 700;
   line-height: 1;
   letter-spacing: -0.04em;
@@ -412,7 +490,6 @@ function onScroll () {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-
 .impact-label {
   font-size: 0.8rem;
   font-weight: 600;
@@ -420,7 +497,6 @@ function onScroll () {
   text-transform: uppercase;
   color: rgba(255,255,255,0.45);
 }
-
 .impact-cta {
   display: inline-flex;
   align-items: center;
@@ -439,6 +515,6 @@ function onScroll () {
 .impact-cta:hover {
   background: #5a32a0;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(112, 64, 172, 0.4);
+  box-shadow: 0 8px 24px rgba(112,64,172,0.4);
 }
 </style>
