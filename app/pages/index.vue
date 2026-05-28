@@ -16,7 +16,7 @@
         aria-hidden="true"
       >
         <source
-          src="https://res.cloudinary.com/dpi6oudmk/video/upload/v1779842551/corp_hero_nuro_meck7m.mp4"
+          src="https://res.cloudinary.com/dpi6oudmk/video/upload/v1779937898/nuro_hero_ydesyu.mp4"
           type="video/mp4"
         />
       </video>
