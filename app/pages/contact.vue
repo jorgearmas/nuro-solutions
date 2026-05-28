@@ -1,10 +1,11 @@
 <template>
-  <div class="min-h-screen">
+  <div class="contact-page">
     <AppNavbar />
 
-    <section class="page-hero">
+    <!-- ── 1. Hero ────────────────────────────────────────── -->
+    <section class="snap-sec page-hero">
       <div class="orb" aria-hidden="true"></div>
-      <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-40 pb-24">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-24 pb-16 w-full">
         <div class="section-tag"><span class="glow-dot"></span>Contact</div>
         <h1 class="text-5xl lg:text-7xl font-display mb-6 max-w-3xl">
           Open door,<br /><em class="accent-em">real dialogue.</em>
@@ -15,135 +16,155 @@
       </div>
     </section>
 
-    <section class="max-w-7xl mx-auto px-6 lg:px-10 py-24">
-      <div class="grid lg:grid-cols-5 gap-16">
+    <!-- ── 2. Form + Info + Footer ────────────────────────── -->
+    <section class="snap-sec form-section">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10 w-full py-16">
+        <div class="grid lg:grid-cols-5 gap-16">
 
-        <!-- Contact info -->
-        <div class="lg:col-span-2 space-y-10">
+          <!-- Contact info -->
+          <div class="lg:col-span-2 space-y-10">
 
-          <div>
-            <p class="section-tag mb-4"><span class="glow-dot"></span>Get in Touch</p>
-            <div class="space-y-4">
-              <a href="mailto:start@nurosolutions.com" class="contact-item group">
-                <div class="contact-item__icon">
-                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <div>
-                  <p class="text-xs text-muted font-display uppercase tracking-widest mb-1">Email</p>
-                  <p class="text-text group-hover:text-accent transition-colors">start@nurosolutions.com</p>
-                </div>
-              </a>
-              <a href="tel:18007242047" class="contact-item group">
-                <div class="contact-item__icon">
-                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                </div>
-                <div>
-                  <p class="text-xs text-muted font-display uppercase tracking-widest mb-1">Phone</p>
-                  <p class="text-text group-hover:text-accent transition-colors">1 (800) 724-2047</p>
-                </div>
-              </a>
-              <div class="contact-item">
-                <div class="contact-item__icon">
-                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                </div>
-                <div>
-                  <p class="text-xs text-muted font-display uppercase tracking-widest mb-1">Location</p>
-                  <p class="text-text">Dover City, Delaware 19901</p>
+            <div>
+              <p class="section-tag mb-4"><span class="glow-dot"></span>Get in Touch</p>
+              <div class="space-y-4">
+                <a href="mailto:start@nurosolutions.com" class="contact-item group">
+                  <div class="contact-item__icon">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-xs text-muted font-display uppercase tracking-widest mb-1">Email</p>
+                    <p class="text-text group-hover:text-accent transition-colors">start@nurosolutions.com</p>
+                  </div>
+                </a>
+                <a href="tel:18007242047" class="contact-item group">
+                  <div class="contact-item__icon">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-xs text-muted font-display uppercase tracking-widest mb-1">Phone</p>
+                    <p class="text-text group-hover:text-accent transition-colors">1 (800) 724-2047</p>
+                  </div>
+                </a>
+                <a href="https://wa.me/50236928009" target="_blank" class="contact-item group">
+                  <div class="contact-item__icon contact-item__icon--wa">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-xs text-muted font-display uppercase tracking-widest mb-1">WhatsApp</p>
+                    <p class="text-text group-hover:text-accent transition-colors">+502 3692-8009</p>
+                  </div>
+                </a>
+                <div class="contact-item">
+                  <div class="contact-item__icon">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-xs text-muted font-display uppercase tracking-widest mb-1">Location</p>
+                    <p class="text-text">Dover City, Delaware 19901</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- Team -->
-          <div>
-            <p class="section-tag mb-4"><span class="glow-dot"></span>Frontline Team</p>
-            <div class="space-y-4">
-              <div v-for="member in team" :key="member.name" class="team-card">
-                <div class="team-card__avatar">{{ member.initials }}</div>
-                <div>
-                  <p class="font-display font-600">{{ member.name }}</p>
-                  <p class="text-muted text-xs">{{ member.role }}</p>
-                  <p class="text-muted text-xs mt-1 leading-relaxed italic">"{{ member.quote }}"</p>
+            <!-- Team -->
+            <div>
+              <p class="section-tag mb-4"><span class="glow-dot"></span>Frontline Team</p>
+              <div class="space-y-4">
+                <div v-for="member in team" :key="member.name" class="team-card">
+                  <div class="team-card__avatar">{{ member.initials }}</div>
+                  <div>
+                    <p class="font-display font-600">{{ member.name }}</p>
+                    <p class="text-muted text-xs">{{ member.role }}</p>
+                    <p class="text-muted text-xs mt-1 leading-relaxed italic">"{{ member.quote }}"</p>
+                  </div>
                 </div>
               </div>
             </div>
+
           </div>
 
-        </div>
+          <!-- Form -->
+          <div class="lg:col-span-3 flex flex-col">
+            <div class="form-card flex-1">
+              <h2 class="font-display text-2xl mb-1">Send us a message</h2>
+              <p class="text-muted text-sm mb-8">We'll respond personally and help you uncover your next move.</p>
 
-        <!-- Form -->
-        <div class="lg:col-span-3 flex flex-col">
-          <div class="form-card flex-1">
-            <h2 class="font-display text-2xl mb-1">Send us a message</h2>
-            <p class="text-muted text-sm mb-8">We'll respond personally and help you uncover your next move.</p>
-
-            <form @submit.prevent="handleSubmit" class="space-y-6">
-              <div class="grid sm:grid-cols-2 gap-5">
-                <div class="form-group">
-                  <label class="form-label">First name *</label>
-                  <input v-model="form.firstName" type="text" class="form-input" placeholder="Chris" required />
+              <form @submit.prevent="handleSubmit" class="space-y-6">
+                <div class="grid sm:grid-cols-2 gap-5">
+                  <div class="form-group">
+                    <label class="form-label">First name *</label>
+                    <input v-model="form.firstName" type="text" class="form-input" placeholder="Chris" required />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Last name *</label>
+                    <input v-model="form.lastName" type="text" class="form-input" placeholder="Ramirez" required />
+                  </div>
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Last name *</label>
-                  <input v-model="form.lastName" type="text" class="form-input" placeholder="Ramirez" required />
+                  <label class="form-label">Business name *</label>
+                  <input v-model="form.business" type="text" class="form-input" placeholder="Nuro Solutions" required />
                 </div>
-              </div>
-              <div class="form-group">
-                <label class="form-label">Business name *</label>
-                <input v-model="form.business" type="text" class="form-input" placeholder="Nuro Solutions" required />
-              </div>
-              <div class="form-group">
-                <label class="form-label">Email *</label>
-                <input v-model="form.email" type="email" class="form-input" placeholder="you@company.com" required />
-              </div>
-              <div class="form-group">
-                <label class="form-label">Phone</label>
-                <input v-model="form.phone" type="tel" class="form-input" placeholder="+1 (800) 000-0000" />
-              </div>
-              <div class="form-group">
-                <label class="form-label">Message *</label>
-                <textarea v-model="form.message" class="form-input form-textarea" rows="8" placeholder="Tell us what you're building, what keeps you curious, or where you're stuck..." required></textarea>
-              </div>
+                <div class="form-group">
+                  <label class="form-label">Email *</label>
+                  <input v-model="form.email" type="email" class="form-input" placeholder="you@company.com" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Phone</label>
+                  <input v-model="form.phone" type="tel" class="form-input" placeholder="+1 (800) 000-0000" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Message *</label>
+                  <textarea v-model="form.message" class="form-input form-textarea" rows="6" placeholder="Tell us what you're building, what keeps you curious, or where you're stuck..." required></textarea>
+                </div>
 
-              <!-- Status messages -->
-              <div v-if="status === 'success'" class="status-msg status-msg--success">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                Message sent! We'll get back to you shortly.
-              </div>
-              <div v-if="status === 'error'" class="status-msg status-msg--error">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Something went wrong. Please email us directly.
-              </div>
+                <div v-if="status === 'success'" class="status-msg status-msg--success">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  Message sent! We'll get back to you shortly.
+                </div>
+                <div v-if="status === 'error'" class="status-msg status-msg--error">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Something went wrong. Please email us directly.
+                </div>
 
-              <button type="submit" class="btn-primary w-full justify-center" :disabled="sending">
-                <span v-if="sending">Sending...</span>
-                <span v-else>Send Message</span>
-                <svg v-if="!sending" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </button>
-            </form>
+                <button type="submit" class="btn-primary w-full justify-center" :disabled="sending">
+                  <span v-if="sending">Sending...</span>
+                  <span v-else>Send Message</span>
+                  <svg v-if="!sending" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
+      <AppFooter />
     </section>
 
-    <AppFooter />
   </div>
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted, onUnmounted } from 'vue'
+
+onMounted(() => {
+  document.documentElement.style.scrollSnapType = 'y proximity'
+})
+onUnmounted(() => {
+  document.documentElement.style.scrollSnapType = ''
+})
 
 const form = reactive({ firstName: '', lastName: '', business: '', email: '', phone: '', message: '' })
 const status = ref(null)
@@ -160,10 +181,7 @@ async function handleSubmit() {
   sending.value = true
   status.value = null
   try {
-    // EmailJS integration — replace with your IDs
-    // const emailjs = await import('emailjs-com')
-    // await emailjs.send('SERVICE_ID', 'TEMPLATE_ID', { ...form }, 'PUBLIC_KEY')
-    await new Promise(r => setTimeout(r, 1200)) // Remove this line when EmailJS is configured
+    await new Promise(r => setTimeout(r, 1200))
     status.value = 'success'
     Object.keys(form).forEach(k => form[k] = '')
   } catch {
@@ -175,10 +193,23 @@ async function handleSubmit() {
 </script>
 
 <style scoped>
+/* ── Snap ────────────────────────────────────── */
+.snap-sec {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* ── Hero ────────────────────────────────────── */
 .page-hero {
   position: relative;
   overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
   border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg);
 }
 .orb {
   position: absolute;
@@ -186,17 +217,29 @@ async function handleSubmit() {
   width: 500px; height: 500px;
   border-radius: 50%;
   filter: blur(120px);
-  background: radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(112,64,172,0.12) 0%, transparent 70%);
   pointer-events: none;
 }
 .accent-em {
   font-style: italic;
-  background: linear-gradient(135deg, var(--color-accent) 0%, #60a5fa 100%);
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-2) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
+/* ── Form section ────────────────────────────── */
+.form-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+  margin-top: -2px;
+}
+
+/* ── Contact items ───────────────────────────── */
 .contact-item {
   display: flex;
   align-items: flex-start;
@@ -212,12 +255,18 @@ async function handleSubmit() {
   width: 40px; height: 40px;
   border-radius: 8px;
   background: var(--color-accent-glow);
-  border: 1px solid rgba(37,99,235,0.2);
+  border: 1px solid rgba(112,64,172,0.2);
   display: flex; align-items: center; justify-content: center;
   color: var(--color-accent);
   flex-shrink: 0;
 }
+.contact-item__icon--wa {
+  background: rgba(37,211,102,0.08);
+  border-color: rgba(37,211,102,0.25);
+  color: #25d366;
+}
 
+/* ── Team cards ──────────────────────────────── */
 .team-card {
   display: flex;
   gap: 1rem;
@@ -239,6 +288,7 @@ async function handleSubmit() {
   flex-shrink: 0;
 }
 
+/* ── Form card ───────────────────────────────── */
 .form-card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -271,8 +321,9 @@ async function handleSubmit() {
   border-color: var(--color-accent);
   box-shadow: 0 0 0 3px var(--color-accent-glow);
 }
-.form-textarea { resize: vertical; min-height: 180px; }
+.form-textarea { resize: vertical; min-height: 160px; }
 
+/* ── Status messages ─────────────────────────── */
 .status-msg {
   display: flex;
   align-items: center;

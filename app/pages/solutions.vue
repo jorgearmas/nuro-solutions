@@ -1,57 +1,60 @@
 <template>
-  <div class="min-h-screen">
+  <div class="sol-page">
     <AppNavbar />
 
-    <section class="page-hero">
+    <!-- ── 1. Hero ────────────────────────────────────────── -->
+    <section class="snap-sec page-hero">
       <div class="orb" aria-hidden="true"></div>
-      <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-40 pb-24">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-24 pb-16 w-full">
         <div class="section-tag"><span class="glow-dot"></span>Solutions</div>
         <h1 class="text-5xl lg:text-7xl font-display mb-6 max-w-3xl">
           Everything you need to <em class="accent-em">scale with intent.</em>
         </h1>
         <p class="text-muted text-lg max-w-xl leading-relaxed">
-          Four integrated service lines that work together to build a complete, high-performance marketing engine for your business.
+          Four integrated service lines that work together to build a complete,
+          high-performance marketing engine for your business.
         </p>
       </div>
     </section>
 
-    <!-- Service Lines -->
-    <section class="max-w-7xl mx-auto px-6 lg:px-10 py-24">
-      <div class="space-y-6">
-        <div
-          v-for="(service, i) in services"
-          :key="service.title"
-          class="service-row"
-          :class="{ 'service-row--open': openIndex === i }"
-          @click="openIndex = openIndex === i ? null : i"
-        >
-          <div class="service-row__header">
-            <div class="service-row__num">0{{ i + 1 }}</div>
-            <div class="service-row__title-group">
-              <h2 class="font-display text-2xl lg:text-3xl">{{ service.title }}</h2>
-              <div class="service-row__tags">
-                <span v-for="tag in service.tags" :key="tag" class="tag">{{ tag }}</span>
+    <!-- ── 2. Service Lines ───────────────────────────────── -->
+    <section class="snap-sec services-section">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10 w-full">
+        <div class="space-y-6">
+          <div
+            v-for="(service, i) in services"
+            :key="service.title"
+            class="service-row"
+            :class="{ 'service-row--open': openIndex === i }"
+            @click="openIndex = openIndex === i ? null : i"
+          >
+            <div class="service-row__header">
+              <div class="service-row__num">0{{ i + 1 }}</div>
+              <div class="service-row__title-group">
+                <h2 class="font-display text-2xl lg:text-3xl">{{ service.title }}</h2>
+                <div class="service-row__tags">
+                  <span v-for="tag in service.tags" :key="tag" class="tag">{{ tag }}</span>
+                </div>
+              </div>
+              <div class="service-row__toggle">
+                <svg
+                  class="w-5 h-5 transition-transform duration-300"
+                  :class="openIndex === i ? 'rotate-45' : ''"
+                  fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
               </div>
             </div>
-            <div class="service-row__toggle">
-              <svg
-                class="w-5 h-5 transition-transform duration-300"
-                :class="openIndex === i ? 'rotate-45' : ''"
-                fill="none" viewBox="0 0 24 24" stroke="currentColor"
-              >
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-              </svg>
-            </div>
-          </div>
 
-          <!-- Expanded content -->
-          <div class="service-row__body">
-            <div class="service-body-inner">
-              <p class="text-muted leading-relaxed mb-8 max-w-2xl">{{ service.description }}</p>
-              <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <div v-for="item in service.items" :key="item" class="service-item">
-                  <span class="glow-dot"></span>
-                  {{ item }}
+            <div class="service-row__body">
+              <div class="service-body-inner">
+                <p class="text-muted leading-relaxed mb-8 max-w-2xl">{{ service.description }}</p>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div v-for="item in service.items" :key="item" class="service-item">
+                    <span class="glow-dot"></span>
+                    {{ item }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -60,26 +63,35 @@
       </div>
     </section>
 
-    <!-- CTA -->
-    <section class="max-w-7xl mx-auto px-6 lg:px-10 pb-32">
-      <div class="cta-band">
-        <p class="section-tag justify-center mb-4"><span class="glow-dot"></span>Let's Build Together</p>
-        <h2 class="font-display text-4xl lg:text-5xl mb-4 text-center">Not sure where to start?</h2>
-        <p class="text-muted text-center mb-8 max-w-md mx-auto">Tell us about your business and goals. We'll map out exactly which solutions fit your stage.</p>
-        <div class="flex justify-center">
-          <NuxtLink to="/contact" class="btn-primary">Book a Free Consultation</NuxtLink>
+    <!-- ── 3. CTA + Footer ────────────────────────────────── -->
+    <section class="snap-sec cta-section">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10 w-full py-16">
+        <div class="cta-band">
+          <p class="section-tag justify-center mb-4"><span class="glow-dot"></span>Let's Build Together</p>
+          <h2 class="font-display text-4xl lg:text-5xl mb-4 text-center">Not sure where to start?</h2>
+          <p class="text-muted text-center mb-8 max-w-md mx-auto">Tell us about your business and goals. We'll map out exactly which solutions fit your stage.</p>
+          <div class="flex justify-center">
+            <NuxtLink to="/contact" class="btn-primary">Book a Free Consultation</NuxtLink>
+          </div>
         </div>
       </div>
+      <AppFooter />
     </section>
 
-    <AppFooter />
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
-const openIndex = ref(0)
+const openIndex = ref(null)
+
+onMounted(() => {
+  document.documentElement.style.scrollSnapType = 'y proximity'
+})
+onUnmounted(() => {
+  document.documentElement.style.scrollSnapType = ''
+})
 
 const services = [
   {
@@ -138,10 +150,23 @@ const services = [
 </script>
 
 <style scoped>
+/* ── Snap ────────────────────────────────────── */
+.snap-sec {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* ── Hero ────────────────────────────────────── */
 .page-hero {
   position: relative;
   overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
   border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg);
 }
 .orb {
   position: absolute;
@@ -149,18 +174,40 @@ const services = [
   width: 500px; height: 500px;
   border-radius: 50%;
   filter: blur(120px);
-  background: radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(112,64,172,0.12) 0%, transparent 70%);
   pointer-events: none;
 }
 .accent-em {
   font-style: italic;
-  background: linear-gradient(135deg, var(--color-accent) 0%, #60a5fa 100%);
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-2) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Service rows */
+/* ── Services section ────────────────────────── */
+.services-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+  margin-top: -2px;
+  padding: 5rem 0;
+}
+
+/* ── CTA section ─────────────────────────────── */
+.cta-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+  margin-top: -2px;
+}
+
+/* ── Service rows ────────────────────────────── */
 .service-row {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -169,9 +216,12 @@ const services = [
   cursor: pointer;
   transition: border-color 0.3s;
 }
-.service-row:hover,
+.service-row:hover {
+  border-color: var(--color-accent);
+}
 .service-row--open {
   border-color: var(--color-accent);
+  background: linear-gradient(135deg, rgba(112, 64, 172, 0.30) 0%, rgba(242, 119, 0, 0.30) 100%);
 }
 .service-row__header {
   display: flex;
@@ -228,7 +278,6 @@ const services = [
 .service-row--open .service-body-inner {
   padding: 0 2rem 2rem;
 }
-
 .service-item {
   display: flex;
   align-items: center;
@@ -241,6 +290,7 @@ const services = [
   border-radius: 6px;
 }
 
+/* ── CTA band ────────────────────────────────── */
 .cta-band {
   padding: 5rem 3rem;
   background: var(--color-surface);
@@ -253,7 +303,7 @@ const services = [
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(37,99,235,0.06) 0%, transparent 70%);
+  background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(112,64,172,0.07) 0%, transparent 70%);
 }
 .cta-band > * { position: relative; }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <!-- Outer wrapper — positions the pill -->
-  <div class="nav-wrapper">
+  <div class="nav-wrapper" :class="{ 'nav-wrapper--hidden': hideNav }">
     <nav class="nav-pill" :class="scrolled ? 'nav-pill--scrolled' : ''">
 
       <!-- Logo -->
@@ -106,6 +106,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
+const hideNav  = useState('hideNav', () => false)
 const scrolled = ref(false)
 const menuOpen = ref(false)
 const activeDropdown = ref(null)
@@ -114,10 +115,13 @@ let dropdownTimer = null
 
 const navLinks = [
   { label: 'Industries', to: '/industries', children: [
-    { label: 'Healthcare', to: '/industries/healthcare' },
-    { label: 'Power Generation', to: '/industries/power_generation' },
-    { label: 'Mining', to: '/industries/mining' },
-    { label: 'Retail', to: '/industries/retail' },
+    { label: 'Healthcare',  to: '/industries/healthcare' },
+    { label: 'Wellness',    to: '/industries/wellness' },
+    { label: 'Real Estate', to: '/industries/real-estate' },
+    { label: 'Hospitality', to: '/industries/hospitality' },
+    { label: 'Retail',      to: '/industries/retail' },
+    { label: 'E-Commerce',  to: '/industries/e-commerce' },
+    { label: 'Education',   to: '/industries/education' },
   ]},
   { label: 'Solutions', to: '/solutions' },
   { label: 'Core Drivers', to: '/core_drivers' },
@@ -153,8 +157,18 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   padding-left: 1.5rem;
   padding-right: 1.5rem;
   pointer-events: none; /* let clicks pass through wrapper */
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 .nav-wrapper > * { pointer-events: all; }
+
+.nav-wrapper--hidden {
+  opacity: 0;
+  transform: translateY(-20px);
+  pointer-events: none;
+}
+.nav-wrapper--hidden > * { pointer-events: none; }
 
 /* ── Pill ────────────────────────────────────────────────── */
 .nav-pill {
@@ -255,6 +269,8 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   pointer-events: none;
   transition: opacity 0.2s, transform 0.2s;
   box-shadow: 0 8px 30px rgba(112,64,172,0.12), 0 2px 8px rgba(0,0,0,0.06);
+  max-height: 360px;
+  overflow-y: auto;
 }
 .dropdown--open {
   opacity: 1;

@@ -3,7 +3,7 @@
     <AppNavbar />
 
     <!-- ── Hero ─────────────────────────────────────────── -->
-    <section class="hero snap-sec relative min-h-screen flex items-center overflow-hidden">
+    <section class="hero snap-sec relative flex items-start overflow-hidden">
 
       <!-- Background Video -->
       <video
@@ -28,7 +28,7 @@
       <div class="orb orb-1" aria-hidden="true"></div>
       <div class="orb orb-2" aria-hidden="true"></div>
 
-      <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-32 pb-24 w-full">
+      <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-32 w-full hero-content">
         <div class="max-w-4xl">
 
           <!-- Tag -->
@@ -61,13 +61,6 @@
             <NuxtLink to="/portfolio" class="btn-ghost btn-white">See Our Work</NuxtLink>
           </div>
 
-          <!-- Stats -->
-          <div class="stats-row">
-            <div v-for="stat in heroStats" :key="stat.label" class="stat-item">
-              <span class="stat-value">{{ stat.value }}</span>
-              <span class="stat-label">{{ stat.label }}</span>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -92,7 +85,6 @@
     <section
       ref="mindsetRef"
       class="mindset-section snap-sec"
-      :class="{ 'section-visible': mindsetVisible }"
     >
       <h2 class="mindset-title">
         <span class="line-wrap">
@@ -112,7 +104,6 @@
     <div
       ref="journeyRef"
       class="journey-wrap snap-sec"
-      :class="{ 'section-visible': journeyVisible }"
     >
       <NuroJourney />
     </div>
@@ -130,19 +121,16 @@ const journeyRef     = ref(null)
 const ideasVisible   = ref(false)
 const mindsetVisible = ref(false)
 const journeyVisible = ref(false)
+const hideNav        = useState('hideNav', () => false)
 
 let io = null
 
 onUnmounted(() => {
   document.documentElement.style.scrollSnapType = ''
   document.documentElement.style.overflowY = ''
+  hideNav.value = false
 })
 
-const heroStats = [
-  { value: '3+', label: 'Years in Market' },
-  { value: '20+', label: 'Brands Grown' },
-  { value: '200%', label: 'Avg. ROI Increase' },
-]
 
 onUnmounted(() => {
   io?.disconnect()
@@ -158,9 +146,10 @@ onMounted(async () => {
         if (e.target === ideasRef.value   && e.isIntersecting) ideasVisible.value   = true
         if (e.target === mindsetRef.value && e.isIntersecting) mindsetVisible.value = true
         if (e.target === journeyRef.value && e.isIntersecting) journeyVisible.value = true
+        if (e.target === journeyRef.value) hideNav.value = e.isIntersecting
       })
     },
-    { threshold: 0 }
+    { threshold: 0.1 }
   )
   if (ideasRef.value)   io.observe(ideasRef.value)
   if (mindsetRef.value) io.observe(mindsetRef.value)
@@ -178,13 +167,18 @@ onMounted(async () => {
   })
   gsap.from('.hero-sub', { y: 30, opacity: 0, duration: 0.8, ease: 'power3.out', delay: 0.7 })
   gsap.from('.btn-primary, .btn-ghost', { y: 20, opacity: 0, duration: 0.6, stagger: 0.1, ease: 'power3.out', delay: 0.9 })
-  gsap.from('.stat-item', { y: 20, opacity: 0, duration: 0.6, stagger: 0.1, ease: 'power3.out', delay: 1.1 })
 })
 </script>
 
 <style scoped>
 .hero {
   background: #0a0a0f;
+  overflow: visible;
+}
+
+/* El content empuja el hero hasta que el gradiente quede 0.5cm abajo de los botones */
+.hero-content {
+  padding-bottom: calc(18vh + 0.5cm);
 }
 
 /* ── Video de fondo ─────────────────────────── */
@@ -204,6 +198,25 @@ onMounted(async () => {
   inset: 0;
   z-index: 1;
   background: rgba(10, 10, 15, 0.82);
+}
+
+/* ── Fade hacia la sección siguiente ────────────────────── */
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: calc(18vh + 4px);
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 40%,
+    rgba(255, 255, 255, 0.55) 70%,
+    #ffffff 100%
+  );
+  z-index: 4;
+  pointer-events: none;
 }
 
 .orb {
@@ -244,27 +257,6 @@ onMounted(async () => {
   max-width: 520px;
 }
 
-.stats-row {
-  display: flex;
-  gap: 2.5rem;
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(10, 10, 15, 0.15);
-}
-.stat-item { display: flex; flex-direction: column; gap: 2px; }
-.stat-value {
-  font-family: var(--font-display);
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: #ffffff;
-}
-.stat-label {
-  font-size: 0.75rem;
-  color: #ffffff;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
 
 /* Botón blanco (override de btn-ghost para el Hero) */
 .btn-white {
@@ -285,18 +277,33 @@ onMounted(async () => {
 .snap-sec {
   scroll-snap-align: start;
   scroll-snap-stop: always;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
-/* ── Entrada dinámica ────────────────────────────────────── */
-.mindset-section,
+/* ── Entrada dinámica (eliminada para evitar fondo transparente) */
+
+/* ── Fade journey → footer (crema) ──────────────────────── */
 .journey-wrap {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.85s ease, transform 0.85s ease;
+  position: relative;
+  margin-top: -4px;
 }
-.section-visible {
-  opacity: 1;
-  transform: translateY(0);
+.journey-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: calc(18vh + 4px);
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(249, 240, 229, 0.08) 40%,
+    rgba(249, 240, 229, 0.55) 70%,
+    #F9F0E5 100%
+  );
+  z-index: 10;
+  pointer-events: none;
 }
 
 /* ── Can your ideas ─────────────────────────────────────── */
@@ -307,6 +314,28 @@ onMounted(async () => {
   align-items: center;
   justify-content: center;
   padding: 5rem 2rem;
+  position: relative;
+  overflow: visible;
+  margin-top: -4px;
+}
+
+/* ── Fade hacia Experimental Mindset (naranja) ──────────── */
+.ideas-section::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: calc(18vh + 4px);
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(242, 119, 0, 0.08) 40%,
+    rgba(242, 119, 0, 0.55) 70%,
+    #F27700 100%
+  );
+  z-index: 4;
+  pointer-events: none;
 }
 .ideas-title {
   font-family: var(--font-display);
@@ -327,6 +356,28 @@ onMounted(async () => {
   align-items: center;
   justify-content: center;
   padding: 5rem 2rem;
+  position: relative;
+  overflow: visible;
+  margin-top: -4px;
+}
+
+/* ── Fade hacia Journey/rooms (morado) ──────────────────── */
+.mindset-section::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: calc(18vh + 4px);
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(112, 64, 172, 0.08) 40%,
+    rgba(112, 64, 172, 0.55) 70%,
+    #7040AC 100%
+  );
+  z-index: 4;
+  pointer-events: none;
 }
 .mindset-title {
   font-family: var(--font-display);

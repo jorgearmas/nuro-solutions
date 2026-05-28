@@ -48,26 +48,44 @@ const industries = [
   {
     label: 'Healthcare',
     to: '/industries/healthcare',
-    description: 'Marketing systems designed for healthcare providers, clinics, and wellness brands — compliant, empathetic, and conversion-focused.',
+    description: 'Marketing systems designed for hospitals, clinics, and medical practices — compliant, empathetic, and patient-centric.',
     icon: `<svg class="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>`,
   },
   {
-    label: 'Power Generation',
-    to: '/industries/power_generation',
-    description: 'Strategic communications and digital presence for energy companies navigating a rapidly evolving market landscape.',
-    icon: `<svg class="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>`,
+    label: 'Wellness',
+    to: '/industries/wellness',
+    description: 'Growth strategies for gyms, spas, nutrition brands, and mental health platforms focused on lifestyle transformation.',
+    icon: `<svg class="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>`,
   },
   {
-    label: 'Mining',
-    to: '/industries/mining',
-    description: 'Brand positioning and stakeholder communication strategies for mining and extraction businesses operating at scale.',
-    icon: `<svg class="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>`,
+    label: 'Real Estate',
+    to: '/industries/real-estate',
+    description: 'Lead generation and brand positioning for agents, developers, and property management companies.',
+    icon: `<svg class="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>`,
+  },
+  {
+    label: 'Hospitality',
+    to: '/industries/hospitality',
+    description: 'Digital marketing for hotels, restaurants, and travel brands that turn guests into loyal advocates.',
+    icon: `<svg class="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>`,
   },
   {
     label: 'Retail',
     to: '/industries/retail',
     description: 'End-to-end digital marketing for retail brands — from acquisition to retention — built to drive sustainable revenue growth.',
     icon: `<svg class="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>`,
+  },
+  {
+    label: 'E-Commerce',
+    to: '/industries/e-commerce',
+    description: 'Performance marketing, CRO, and retention systems built to scale online stores profitably.',
+    icon: `<svg class="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>`,
+  },
+  {
+    label: 'Education',
+    to: '/industries/education',
+    description: 'Enrollment marketing and brand building for institutions, EdTech platforms, and online course creators.',
+    icon: `<svg class="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" /></svg>`,
   },
 ]
 </script>
@@ -86,12 +104,12 @@ const industries = [
 }
 .orb-1 {
   width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(112,64,172,0.12) 0%, transparent 70%);
   top: -100px; right: 0;
 }
 .accent-em {
   font-style: italic;
-  background: linear-gradient(135deg, var(--color-accent) 0%, #60a5fa 100%);
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-2) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -109,7 +127,7 @@ const industries = [
 .industry-card:hover {
   border-color: var(--color-accent);
   transform: translateY(-4px);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+  box-shadow: 0 20px 50px rgba(112,64,172,0.15);
 }
 .industry-card__icon {
   color: var(--color-accent);

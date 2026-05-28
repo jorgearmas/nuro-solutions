@@ -3,8 +3,10 @@
   <div ref="scrollContainerRef" class="journey-scroll-container">
     <div class="journey-sticky">
 
-      <!-- ── Track horizontal con los 4 rooms ─────────────── -->
+      <!-- ── Track horizontal con los 5 rooms ─────────────── -->
       <div ref="trackRef" class="h-track">
+
+        <!-- Rooms 1–4: imagen de fondo -->
         <div v-for="n in 4" :key="n" class="h-panel" :class="{ 'panel-small': n === 1 }">
           <img
             :src="`/room_${n}.png`"
@@ -12,11 +14,29 @@
             draggable="false"
             alt=""
           />
-          <!-- Overlay lateral para dar sensación de profundidad -->
           <div class="panel-overlay" />
-          <!-- Número sutil -->
           <span class="panel-num">0{{ n }}</span>
         </div>
+
+        <!-- Room 5: Impact Numbers + CTA -->
+        <div class="h-panel impact-panel">
+          <div class="impact-inner">
+            <p class="impact-eyebrow">Our Impact</p>
+            <div class="impact-stats">
+              <div v-for="stat in impactStats" :key="stat.label" class="impact-stat">
+                <span class="impact-value">{{ stat.value }}</span>
+                <span class="impact-label">{{ stat.label }}</span>
+              </div>
+            </div>
+            <NuxtLink to="/contact" class="impact-cta">
+              Let's get the conversation started
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </NuxtLink>
+          </div>
+        </div>
+
       </div>
 
       <!-- ── Hint de scroll ────────────────────────────────── -->
@@ -37,7 +57,7 @@
       <!-- ── Dots laterales ────────────────────────────────── -->
       <div class="side-nav">
         <span
-          v-for="n in 4"
+          v-for="n in 5"
           :key="n"
           class="nav-dot"
           :class="{ active: activeRoom === n }"
@@ -56,6 +76,12 @@ const trackRef           = ref(null)
 
 const activeRoom = ref(1)
 const progress   = ref(0)
+
+const impactStats = [
+  { value: '3+',   label: 'Years in Market' },
+  { value: '20+',  label: 'Brands Grown' },
+  { value: '200%', label: 'Avg. ROI Increase' },
+]
 
 let gsapLib = null
 
@@ -79,12 +105,16 @@ function onScroll () {
 
   progress.value = p
 
-  // Mueve el track horizontalmente: 0 → -3 × vw (room 1 a room 4)
-  const vw = window.innerWidth
-  gsapLib.set(trackRef.value, { x: -(p * 3 * vw) })
+  // El track completa su recorrido al 85% del scroll;
+  // el 15% restante room_5 queda centrada con su dwell
+  const DWELL_START = 0.85
+  const trackP = Math.min(p / DWELL_START, 1)
 
-  // Room activa
-  activeRoom.value = Math.min(4, Math.floor(p * 4) + 1)
+  const vw = window.innerWidth
+  gsapLib.set(trackRef.value, { x: -(trackP * 4 * vw) })
+
+  // Room activa basada en trackP (5 rooms)
+  activeRoom.value = Math.min(5, Math.floor(trackP * 5) + 1)
 
 }
 </script>
@@ -92,7 +122,7 @@ function onScroll () {
 <style scoped>
 /* ── Scroll container ───────────────────────────────────── */
 .journey-scroll-container {
-  height: 800vh;
+  height: 600vh;
   position: relative;
 }
 
@@ -110,7 +140,7 @@ function onScroll () {
   display: flex;
   position: absolute;
   inset: 0;
-  width: 400vw;
+  width: 500vw;
   height: 100%;
   will-change: transform;
 }
@@ -253,5 +283,87 @@ function onScroll () {
 .nav-dot.active {
   background: #ffffff;
   transform: scale(1.7);
+}
+
+/* ── Room 5: Impact Panel ───────────────────────────────── */
+.impact-panel {
+  background: #0a0a0f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.impact-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  text-align: center;
+  padding: 2rem;
+}
+
+.impact-eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.impact-stats {
+  display: flex;
+  gap: clamp(2rem, 8vw, 6rem);
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.impact-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.impact-value {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 9vw, 7.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  background: linear-gradient(135deg, #ffffff 0%, rgba(255,255,255,0.7) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.impact-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+
+.impact-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 2rem;
+  background: var(--color-accent);
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 999px;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.impact-cta:hover {
+  background: #5a32a0;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(112, 64, 172, 0.4);
 }
 </style>
