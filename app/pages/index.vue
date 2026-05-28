@@ -294,7 +294,7 @@ onMounted(async () => {
   bottom: -4px;
   left: 0;
   right: 0;
-  height: calc(100vh + 4px); /* cubre los 100vh de zona muerta del sticky */
+  height: calc(100vh + 4px); /* desktop: cubre la zona muerta del sticky */
   background: linear-gradient(
     to bottom,
     transparent 0%,
@@ -304,6 +304,12 @@ onMounted(async () => {
   );
   z-index: 10;
   pointer-events: none;
+}
+/* Mobile: rooms verticales, no hay zona muerta, gradiente pequeño */
+@media (max-width: 1023px) {
+  .journey-wrap::after {
+    height: calc(18vh + 4px);
+  }
 }
 
 /* ── Can your ideas ─────────────────────────────────────── */

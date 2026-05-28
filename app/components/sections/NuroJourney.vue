@@ -83,9 +83,11 @@ const impactStats = [
   { value: '200%', label: 'Avg. ROI Increase' },
 ]
 
-let gsapLib = null
+let gsapLib  = null
+let isMobile = false
 
 onMounted(async () => {
+  isMobile = window.innerWidth < 1024
   const mod = await import('gsap')
   gsapLib = mod.gsap
   window.addEventListener('scroll', onScroll, { passive: true })
@@ -96,7 +98,7 @@ onUnmounted(() => {
 })
 
 function onScroll () {
-  if (!scrollContainerRef.value || !trackRef.value || !gsapLib) return
+  if (!scrollContainerRef.value) return
 
   const rect       = scrollContainerRef.value.getBoundingClientRect()
   const totalRange = scrollContainerRef.value.offsetHeight - window.innerHeight
@@ -105,17 +107,20 @@ function onScroll () {
 
   progress.value = p
 
-  // El track completa su recorrido al 85% del scroll;
-  // el 15% restante room_5 queda centrada con su dwell
+  // Mobile: rooms verticales, solo actualizamos room activa
+  if (isMobile) {
+    activeRoom.value = Math.min(5, Math.floor(p * 5) + 1)
+    return
+  }
+
+  // Desktop: track horizontal con GSAP
+  if (!trackRef.value || !gsapLib) return
+
   const DWELL_START = 0.85
   const trackP = Math.min(p / DWELL_START, 1)
-
   const vw = window.innerWidth
   gsapLib.set(trackRef.value, { x: -(trackP * 4 * vw) })
-
-  // Room activa basada en trackP (5 rooms)
   activeRoom.value = Math.min(5, Math.floor(trackP * 5) + 1)
-
 }
 </script>
 
@@ -284,6 +289,49 @@ function onScroll () {
 .nav-dot.active {
   background: #ffffff;
   transform: scale(1.7);
+}
+
+/* ── Mobile: rooms en vertical ─────────────────────────── */
+@media (max-width: 1023px) {
+  .journey-scroll-container {
+    height: auto;
+    background: transparent;
+  }
+
+  .journey-sticky {
+    position: static;
+    height: auto;
+    overflow: visible;
+    background: transparent;
+  }
+
+  .h-track {
+    position: static;
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+    will-change: auto;
+    transform: none !important; /* anula cualquier transform de GSAP */
+  }
+
+  .h-panel {
+    width: 100%;
+    height: 100svh; /* svh respeta la barra del browser en mobile */
+    flex-shrink: 0;
+  }
+
+  /* Room 1 mantiene su estilo especial */
+  .panel-small .panel-img {
+    width: 80%;
+    height: 70%;
+  }
+
+  /* Ocultar controles de navegación horizontal */
+  .scroll-hint,
+  .progress-bar-wrap,
+  .side-nav {
+    display: none;
+  }
 }
 
 /* ── Room 5: Impact Panel ───────────────────────────────── */
