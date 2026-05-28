@@ -228,7 +228,7 @@ const coreProducts = [
 }
 .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(360px, 100%), 1fr));
   gap: 2rem;
 }
 .portfolio-card {
@@ -237,6 +237,9 @@ const coreProducts = [
   border-radius: 16px;
   padding: 2.75rem;
   transition: border-color 0.3s, transform 0.3s;
+}
+@media (max-width: 640px) {
+  .portfolio-card { padding: 1.5rem; }
 }
 .portfolio-card:hover {
   border-color: var(--color-accent);
@@ -316,7 +319,7 @@ const coreProducts = [
 }
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(360px, 100%), 1fr));
   gap: 2rem;
 }
 .product-card {
