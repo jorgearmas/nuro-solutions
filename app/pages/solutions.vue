@@ -82,16 +82,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref } from 'vue'
 
 const openIndex = ref(null)
-
-onMounted(() => {
-  document.documentElement.style.scrollSnapType = 'y proximity'
-})
-onUnmounted(() => {
-  document.documentElement.style.scrollSnapType = ''
-})
 
 const services = [
   {
@@ -150,12 +143,20 @@ const services = [
 </script>
 
 <style scoped>
+/* ── Scroll container con snap ───────────────── */
+.sol-page {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y proximity;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.sol-page::-webkit-scrollbar { display: none; }
+
 /* ── Snap ────────────────────────────────────── */
 .snap-sec {
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  will-change: transform;
-  transform: translateZ(0);
 }
 
 /* ── Hero ────────────────────────────────────── */
@@ -192,7 +193,6 @@ const services = [
   align-items: center;
   justify-content: center;
   background: var(--color-bg);
-  margin-top: -2px;
   padding: 5rem 0;
 }
 
@@ -204,7 +204,6 @@ const services = [
   align-items: center;
   justify-content: center;
   background: var(--color-bg);
-  margin-top: -2px;
 }
 
 /* ── Service rows ────────────────────────────── */

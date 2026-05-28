@@ -154,14 +154,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, onUnmounted } from 'vue'
-
-onMounted(() => {
-  document.documentElement.style.scrollSnapType = 'y proximity'
-})
-onUnmounted(() => {
-  document.documentElement.style.scrollSnapType = ''
-})
+import { ref, reactive } from 'vue'
 
 const form = reactive({ firstName: '', lastName: '', business: '', email: '', phone: '', message: '' })
 const status = ref(null)
@@ -190,12 +183,20 @@ async function handleSubmit() {
 </script>
 
 <style scoped>
+/* ── Scroll container con snap ───────────────── */
+.contact-page {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y proximity;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.contact-page::-webkit-scrollbar { display: none; }
+
 /* ── Snap ────────────────────────────────────── */
 .snap-sec {
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  will-change: transform;
-  transform: translateZ(0);
 }
 
 /* ── Hero ────────────────────────────────────── */
@@ -233,7 +234,6 @@ async function handleSubmit() {
   align-items: center;
   justify-content: center;
   background: var(--color-bg);
-  margin-top: -2px;
 }
 
 /* ── Contact items ───────────────────────────── */
