@@ -173,12 +173,11 @@ onMounted(async () => {
 <style scoped>
 .hero {
   background: #0a0a0f;
-  overflow: visible;
+  min-height: 100vh;
 }
 
-/* El content empuja el hero hasta que el gradiente quede 0.5cm abajo de los botones */
 .hero-content {
-  padding-bottom: calc(18vh + 0.5cm);
+  padding-bottom: 4rem;
 }
 
 /* ── Video de fondo ─────────────────────────── */
@@ -192,31 +191,12 @@ onMounted(async () => {
   z-index: 0;
 }
 
-/* Overlay: oscuro arriba, se difumina hacia el color de la siguiente sección */
+/* Overlay oscuro sobre el video */
 .hero-overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
   background: rgba(10, 10, 15, 0.82);
-}
-
-/* ── Fade hacia la sección siguiente ────────────────────── */
-.hero::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  right: 0;
-  height: calc(18vh + 4px);
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(255, 255, 255, 0.08) 40%,
-    rgba(255, 255, 255, 0.55) 70%,
-    #ffffff 100%
-  );
-  z-index: 4;
-  pointer-events: none;
 }
 
 .orb {
@@ -281,38 +261,11 @@ onMounted(async () => {
   transform: translateZ(0);
 }
 
-/* ── Entrada dinámica (eliminada para evitar fondo transparente) */
-
-/* ── Fade journey → footer (crema) ──────────────────────── */
 .journey-wrap {
   position: relative;
-  margin-top: -4px;
   /* Sin transform para no romper position:sticky dentro */
   transform: none;
   will-change: scroll-position;
-}
-.journey-wrap::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  right: 0;
-  height: calc(100vh + 4px); /* desktop: cubre la zona muerta del sticky */
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(249, 240, 229, 0.06) 50%,
-    rgba(249, 240, 229, 0.6) 80%,
-    #F9F0E5 100%
-  );
-  z-index: 10;
-  pointer-events: none;
-}
-/* Mobile: rooms verticales, no hay zona muerta, gradiente pequeño */
-@media (max-width: 1023px) {
-  .journey-wrap::after {
-    height: calc(18vh + 4px);
-  }
 }
 
 /* ── Can your ideas ─────────────────────────────────────── */
@@ -324,27 +277,7 @@ onMounted(async () => {
   justify-content: center;
   padding: 5rem 2rem;
   position: relative;
-  overflow: visible;
-  margin-top: -4px;
-}
-
-/* ── Fade hacia Experimental Mindset (naranja) ──────────── */
-.ideas-section::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  right: 0;
-  height: calc(18vh + 4px);
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(242, 119, 0, 0.08) 40%,
-    rgba(242, 119, 0, 0.55) 70%,
-    #F27700 100%
-  );
-  z-index: 4;
-  pointer-events: none;
+  overflow: hidden;
 }
 .ideas-title {
   font-family: var(--font-display);
@@ -366,27 +299,7 @@ onMounted(async () => {
   justify-content: center;
   padding: 5rem 2rem;
   position: relative;
-  overflow: visible;
-  margin-top: -4px;
-}
-
-/* ── Fade hacia Journey/rooms (morado) ──────────────────── */
-.mindset-section::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  right: 0;
-  height: calc(18vh + 4px);
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(112, 64, 172, 0.08) 40%,
-    rgba(112, 64, 172, 0.55) 70%,
-    #7040AC 100%
-  );
-  z-index: 4;
-  pointer-events: none;
+  overflow: hidden;
 }
 .mindset-title {
   font-family: var(--font-display);

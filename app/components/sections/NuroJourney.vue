@@ -274,7 +274,7 @@ function onScroll() {
 .journey-scroll-container {
   height: 600vh;
   position: relative;
-  background: #7040AC;
+  background: #F9F0E5; /* dead-zone (último 100vh) coincide con el footer */
 }
 .journey-sticky {
   position: sticky;
