@@ -227,12 +227,12 @@ onMounted(async () => {
   z-index: 2;
 }
 .orb-1 {
-  width: 600px; height: 600px;
+  width: clamp(300px, 50vw, 600px); height: clamp(300px, 50vw, 600px);
   background: radial-gradient(circle, rgba(112,64,172,0.25) 0%, transparent 70%);
   top: -150px; left: -100px;
 }
 .orb-2 {
-  width: 400px; height: 400px;
+  width: clamp(200px, 35vw, 400px); height: clamp(200px, 35vw, 400px);
   background: radial-gradient(circle, rgba(242,119,0,0.15) 0%, transparent 70%);
   bottom: 100px; right: 0;
 }
@@ -272,7 +272,7 @@ onMounted(async () => {
 
 /* ── Snap ────────────────────────────────────────────────── */
 .page-snap {
-  /* El snap se activa via JS en html, aquí solo el layout */
+  overflow-x: hidden; /* evita desborde horizontal de orbs y tracks en mobile */
 }
 .snap-sec {
   scroll-snap-align: start;
