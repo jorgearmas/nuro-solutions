@@ -48,15 +48,6 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted } from 'vue'
-
-onMounted(() => {
-  document.documentElement.style.scrollSnapType = 'y proximity'
-})
-onUnmounted(() => {
-  document.documentElement.style.scrollSnapType = ''
-})
-
 const industries = [
   {
     label: 'Healthcare',
@@ -104,6 +95,16 @@ const industries = [
 </script>
 
 <style scoped>
+/* ── Contenedor: scroll container con snap propio (no toca html) ── */
+.ind-index {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y proximity;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.ind-index::-webkit-scrollbar { display: none; }
+
 /* ── Snap ───────────────────────────────────────────────── */
 .snap-sec {
   scroll-snap-align: start;

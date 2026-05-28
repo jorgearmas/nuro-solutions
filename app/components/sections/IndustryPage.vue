@@ -87,31 +87,24 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted } from 'vue'
-
 const props = defineProps({ industry: Object })
-
-onMounted(() => {
-  document.documentElement.style.scrollSnapType = 'y proximity'
-})
-
-onUnmounted(() => {
-  document.documentElement.style.scrollSnapType = ''
-})
 </script>
 
 <style scoped>
-/* ── Contenedor ─────────────────────────────── */
+/* ── Contenedor: scroll container con snap propio (no toca html) ── */
 .ind-page {
-  /* scroll-snap se activa via JS en html */
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y proximity;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
+.ind-page::-webkit-scrollbar { display: none; }
 
 /* ── Secciones snap ─────────────────────────── */
 .snap-sec {
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  will-change: transform;
-  transform: translateZ(0);
 }
 
 /* ── Hero ───────────────────────────────────── */
