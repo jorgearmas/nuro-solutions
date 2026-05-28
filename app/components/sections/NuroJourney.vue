@@ -1,74 +1,24 @@
 <template>
+  <div class="journey-root">
 
-  <!-- ── MOBILE: carrusel táctil estándar ──────────────────── -->
-  <div class="mobile-carousel">
-    <div
-      class="mobile-track"
-      :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
-      @touchstart.passive="onTouchStart"
-      @touchend.passive="onTouchEnd"
-    >
-      <!-- Rooms 1–4 -->
-      <div v-for="n in 4" :key="n" class="mobile-slide">
-        <div class="mobile-card">
-          <img :src="`/room_${n}.png`" class="mobile-card-img" :alt="`Room ${n}`" />
-          <span class="mobile-card-num">0{{ n }}</span>
-        </div>
-      </div>
-
-      <!-- Room 5: Impact -->
-      <div class="mobile-slide">
-        <div class="mobile-card mobile-card--impact">
-          <p class="impact-eyebrow">Our Impact</p>
-          <div class="impact-stats">
-            <div v-for="stat in impactStats" :key="stat.label" class="impact-stat">
-              <span class="impact-value">{{ stat.value }}</span>
-              <span class="impact-label">{{ stat.label }}</span>
-            </div>
+    <!-- ══════════════════════════════════════════
+         MOBILE  (< 1024px): carrusel táctil
+         ══════════════════════════════════════════ -->
+    <div class="mobile-carousel">
+      <div
+        class="mobile-track"
+        :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
+        @touchstart.passive="onTouchStart"
+        @touchend.passive="onTouchEnd"
+      >
+        <div v-for="n in 4" :key="n" class="mobile-slide">
+          <div class="mobile-card">
+            <img :src="`/room_${n}.png`" class="mobile-card-img" :alt="`Room ${n}`" />
+            <span class="mobile-card-num">0{{ n }}</span>
           </div>
-          <NuxtLink to="/contact" class="impact-cta">
-            Let's get the conversation started
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </NuxtLink>
         </div>
-      </div>
-    </div>
-
-    <!-- Dots -->
-    <div class="mobile-dots">
-      <span
-        v-for="n in 5"
-        :key="n"
-        class="mobile-dot"
-        :class="{ active: currentSlide === n - 1 }"
-        @click="currentSlide = n - 1"
-      />
-    </div>
-
-    <!-- Prev / Next -->
-    <button class="mobile-arrow mobile-arrow--prev" @click="prev" :disabled="currentSlide === 0" aria-label="Previous">
-      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-    </button>
-    <button class="mobile-arrow mobile-arrow--next" @click="next" :disabled="currentSlide === 4" aria-label="Next">
-      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-    </button>
-  </div>
-
-  <!-- ── DESKTOP: scroll horizontal con GSAP ───────────────── -->
-  <div ref="scrollContainerRef" class="journey-scroll-container">
-    <div class="journey-sticky">
-
-      <div ref="trackRef" class="h-track">
-        <div v-for="n in 4" :key="n" class="h-panel" :class="{ 'panel-small': n === 1 }">
-          <img :src="`/room_${n}.png`" class="panel-img" draggable="false" alt="" />
-          <div class="panel-overlay" />
-          <span class="panel-num">0{{ n }}</span>
-        </div>
-
-        <div class="h-panel impact-panel">
-          <div class="impact-inner">
+        <div class="mobile-slide">
+          <div class="mobile-card mobile-card--impact">
             <p class="impact-eyebrow">Our Impact</p>
             <div class="impact-stats">
               <div v-for="stat in impactStats" :key="stat.label" class="impact-stat">
@@ -79,49 +29,94 @@
             <NuxtLink to="/contact" class="impact-cta">
               Let's get the conversation started
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
               </svg>
             </NuxtLink>
           </div>
         </div>
       </div>
-
-      <div class="scroll-hint" :style="{ opacity: titleOpacity }">
-        <span class="hint-label">Scroll</span>
-        <div class="hint-arrow">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 5v14M5 12l7 7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
+      <div class="mobile-dots">
+        <span
+          v-for="n in 5" :key="n"
+          class="mobile-dot"
+          :class="{ active: currentSlide === n - 1 }"
+          @click="currentSlide = n - 1"
+        />
       </div>
-
-      <div class="progress-bar-wrap">
-        <div class="progress-bar" :style="{ width: `${progress * 100}%` }" />
-      </div>
-
-      <div class="side-nav">
-        <span v-for="n in 5" :key="n" class="nav-dot" :class="{ active: activeRoom === n }" />
-      </div>
-
+      <button class="mobile-arrow mobile-arrow--prev" @click="prev" :disabled="currentSlide === 0">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+      </button>
+      <button class="mobile-arrow mobile-arrow--next" @click="next" :disabled="currentSlide === 4">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      </button>
     </div>
-  </div>
 
+    <!-- ══════════════════════════════════════════
+         DESKTOP (≥ 1024px): scroll inmersivo GSAP
+         ══════════════════════════════════════════ -->
+    <div ref="scrollContainerRef" class="journey-scroll-container">
+      <div class="journey-sticky">
+
+        <div ref="trackRef" class="h-track">
+          <div v-for="n in 4" :key="n" class="h-panel" :class="{ 'panel-small': n === 1 }">
+            <img :src="`/room_${n}.png`" class="panel-img" draggable="false" alt="" />
+            <div class="panel-overlay" />
+            <span class="panel-num">0{{ n }}</span>
+          </div>
+          <div class="h-panel impact-panel">
+            <div class="impact-inner">
+              <p class="impact-eyebrow">Our Impact</p>
+              <div class="impact-stats">
+                <div v-for="stat in impactStats" :key="stat.label" class="impact-stat">
+                  <span class="impact-value">{{ stat.value }}</span>
+                  <span class="impact-label">{{ stat.label }}</span>
+                </div>
+              </div>
+              <NuxtLink to="/contact" class="impact-cta">
+                Let's get the conversation started
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+              </NuxtLink>
+            </div>
+          </div>
+        </div>
+
+        <div class="scroll-hint" :style="{ opacity: hintOpacity }">
+          <span class="hint-label">Scroll</span>
+          <div class="hint-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 5v14M5 12l7 7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="progress-bar-wrap">
+          <div class="progress-bar" :style="{ width: `${progress * 100}%` }" />
+        </div>
+
+        <div class="side-nav">
+          <span v-for="n in 5" :key="n" class="nav-dot" :class="{ active: activeRoom === n }" />
+        </div>
+
+      </div>
+    </div>
+
+  </div>
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
-/* ── Shared ────────────────────────────── */
 const impactStats = [
   { value: '3+',   label: 'Years in Market' },
   { value: '20+',  label: 'Brands Grown' },
   { value: '200%', label: 'Avg. ROI Increase' },
 ]
 
-/* ── Mobile carousel ───────────────────── */
+/* ── Mobile carousel ──────────────────────── */
 const currentSlide = ref(0)
 let touchStartX = 0
-
 function onTouchStart(e) { touchStartX = e.touches[0].clientX }
 function onTouchEnd(e) {
   const dx = e.changedTouches[0].clientX - touchStartX
@@ -131,12 +126,12 @@ function onTouchEnd(e) {
 function next() { if (currentSlide.value < 4) currentSlide.value++ }
 function prev() { if (currentSlide.value > 0) currentSlide.value-- }
 
-/* ── Desktop scroll journey ────────────── */
+/* ── Desktop scroll journey ───────────────── */
 const scrollContainerRef = ref(null)
 const trackRef           = ref(null)
 const activeRoom         = ref(1)
 const progress           = ref(0)
-const titleOpacity       = ref(1)
+const hintOpacity        = ref(1)
 
 let gsapLib = null
 
@@ -145,58 +140,60 @@ onMounted(async () => {
   gsapLib = mod.gsap
   window.addEventListener('scroll', onScroll, { passive: true })
 })
-
 onUnmounted(() => {
   window.removeEventListener('scroll', onScroll)
 })
 
 function onScroll() {
   if (!scrollContainerRef.value || !trackRef.value || !gsapLib) return
+  // Solo ejecutar en desktop
+  if (window.innerWidth < 1024) return
 
   const rect       = scrollContainerRef.value.getBoundingClientRect()
   const totalRange = scrollContainerRef.value.offsetHeight - window.innerHeight
   const scrolled   = Math.max(0, -rect.top)
   const p          = Math.min(1, scrolled / totalRange)
 
-  progress.value     = p
-  titleOpacity.value = Math.max(0, 1 - p * 8)
+  progress.value    = p
+  hintOpacity.value = Math.max(0, 1 - p * 8)
 
   const DWELL_START = 0.85
   const trackP = Math.min(p / DWELL_START, 1)
-  const vw = window.innerWidth
-  gsapLib.set(trackRef.value, { x: -(trackP * 4 * vw) })
+  gsapLib.set(trackRef.value, { x: -(trackP * 4 * window.innerWidth) })
   activeRoom.value = Math.min(5, Math.floor(trackP * 5) + 1)
 }
 </script>
 
 <style scoped>
-/* ════════════════════════════════════════
-   MOBILE CAROUSEL  (< 1024px)
-   ════════════════════════════════════════ */
-.mobile-carousel {
-  display: none; /* oculto en desktop */
+/* ════════════════════════════════════════════
+   WRAPPER ROOT
+   ════════════════════════════════════════════ */
+.journey-root {
+  /* sin overflow ni transform para no romper el sticky del desktop */
 }
 
-@media (max-width: 1023px) {
-  /* Mostrar carrusel, ocultar scroll-journey */
-  .mobile-carousel       { display: block; }
-  .journey-scroll-container { display: none; }
+/* ════════════════════════════════════════════
+   MOBILE CAROUSEL  (oculto en desktop)
+   ════════════════════════════════════════════ */
+.mobile-carousel { display: none; }
 
+@media (max-width: 1023px) {
   .mobile-carousel {
+    display: block;
     position: relative;
     background: #7040AC;
     padding: 2rem 0 3.5rem;
     overflow: hidden;
   }
 
-  /* Track deslizante */
+  /* Ocultar el desktop journey en mobile */
+  .journey-scroll-container { display: none; }
+
   .mobile-track {
     display: flex;
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
   }
-
-  /* Cada slide ocupa el 100% del viewport */
   .mobile-slide {
     min-width: 100%;
     display: flex;
@@ -204,8 +201,6 @@ function onScroll() {
     justify-content: center;
     padding: 0 1.5rem;
   }
-
-  /* Card de imagen */
   .mobile-card {
     position: relative;
     width: 100%;
@@ -214,29 +209,21 @@ function onScroll() {
     overflow: hidden;
     box-shadow: 0 16px 48px rgba(0,0,0,0.4);
   }
-
   .mobile-card-img {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     object-fit: cover;
-    object-position: center;
     display: block;
   }
-
   .mobile-card-num {
     position: absolute;
-    bottom: 0.75rem;
-    right: 1rem;
+    bottom: 0.75rem; right: 1rem;
     font-family: var(--font-display);
     font-size: 3.5rem;
     font-weight: 800;
     color: rgba(255,255,255,0.1);
     line-height: 1;
-    letter-spacing: -0.04em;
     user-select: none;
   }
-
-  /* Card de impacto */
   .mobile-card--impact {
     background: #0a0a0f;
     display: flex;
@@ -248,15 +235,12 @@ function onScroll() {
     aspect-ratio: auto;
     min-height: 240px;
   }
-
-  /* Dots */
   .mobile-dots {
     display: flex;
     justify-content: center;
     gap: 8px;
     margin-top: 1.25rem;
   }
-
   .mobile-dot {
     width: 6px; height: 6px;
     border-radius: 50%;
@@ -264,26 +248,18 @@ function onScroll() {
     cursor: pointer;
     transition: background 0.3s, transform 0.3s;
   }
-
-  .mobile-dot.active {
-    background: #fff;
-    transform: scale(1.6);
-  }
-
-  /* Flechas prev/next */
+  .mobile-dot.active { background: #fff; transform: scale(1.6); }
   .mobile-arrow {
     position: absolute;
-    top: 50%;
-    transform: translateY(-60%);
+    top: 50%; transform: translateY(-60%);
     width: 36px; height: 36px;
     border-radius: 50%;
     background: rgba(255,255,255,0.15);
     border: 1px solid rgba(255,255,255,0.2);
     color: #fff;
     display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
+    cursor: pointer; padding: 0;
     transition: background 0.2s;
-    padding: 0;
   }
   .mobile-arrow svg { width: 18px; height: 18px; }
   .mobile-arrow:disabled { opacity: 0.25; cursor: default; }
@@ -292,18 +268,14 @@ function onScroll() {
   .mobile-arrow:not(:disabled):hover { background: rgba(255,255,255,0.28); }
 }
 
-/* ════════════════════════════════════════
-   DESKTOP SCROLL JOURNEY  (≥ 1024px)
-   ════════════════════════════════════════ */
-
-/* ── Scroll container ───────────────────────────────────── */
+/* ════════════════════════════════════════════
+   DESKTOP SCROLL JOURNEY
+   ════════════════════════════════════════════ */
 .journey-scroll-container {
   height: 600vh;
   position: relative;
   background: #7040AC;
 }
-
-/* ── Sticky frame ───────────────────────────────────────── */
 .journey-sticky {
   position: sticky;
   top: 0;
@@ -311,8 +283,6 @@ function onScroll() {
   overflow: hidden;
   background: #7040AC;
 }
-
-/* ── Track horizontal ───────────────────────────────────── */
 .h-track {
   display: flex;
   position: absolute;
@@ -321,8 +291,6 @@ function onScroll() {
   height: 100%;
   will-change: transform;
 }
-
-/* ── Panel (cada room) ──────────────────────────────────── */
 .h-panel {
   position: relative;
   width: 100vw;
@@ -330,16 +298,13 @@ function onScroll() {
   flex-shrink: 0;
   overflow: hidden;
 }
-
 .panel-img {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   object-fit: cover;
   object-position: center;
 }
-
 .panel-small {
   display: flex;
   align-items: center;
@@ -348,23 +313,19 @@ function onScroll() {
 .panel-small .panel-img {
   position: relative;
   inset: auto;
-  width: 60%;
-  height: 68%;
+  width: 60%; height: 68%;
   object-fit: cover;
 }
 .panel-small .panel-overlay { display: none; }
-
 .panel-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(to bottom, rgba(0,0,0,0.20) 0%, transparent 30%, transparent 65%, rgba(0,0,0,0.55) 100%);
   pointer-events: none;
 }
-
 .panel-num {
   position: absolute;
-  bottom: 2.5rem;
-  right: 2.5rem;
+  bottom: 2.5rem; right: 2.5rem;
   font-family: var(--font-display);
   font-size: clamp(5rem, 12vw, 10rem);
   font-weight: 800;
@@ -374,12 +335,9 @@ function onScroll() {
   user-select: none;
   pointer-events: none;
 }
-
-/* ── Scroll hint ────────────────────────────────────────── */
 .scroll-hint {
   position: absolute;
-  bottom: 3rem;
-  left: 50%;
+  bottom: 3rem; left: 50%;
   transform: translateX(-50%);
   z-index: 20;
   display: flex;
@@ -405,8 +363,6 @@ function onScroll() {
   0%,100% { transform: translateY(0);   opacity: 0.6; }
   50%     { transform: translateY(6px); opacity: 1;   }
 }
-
-/* ── Progress bar ───────────────────────────────────────── */
 .progress-bar-wrap {
   position: absolute;
   bottom: 0; left: 0; right: 0;
@@ -420,12 +376,9 @@ function onScroll() {
   transition: width 0.05s linear;
   max-width: 100%;
 }
-
-/* ── Dots laterales ─────────────────────────────────────── */
 .side-nav {
   position: absolute;
-  right: 1.5rem;
-  top: 50%;
+  right: 1.5rem; top: 50%;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
@@ -438,12 +391,9 @@ function onScroll() {
   background: rgba(255,255,255,0.30);
   transition: background 0.3s, transform 0.3s;
 }
-.nav-dot.active {
-  background: #ffffff;
-  transform: scale(1.7);
-}
+.nav-dot.active { background: #ffffff; transform: scale(1.7); }
 
-/* ── Room 5: Impact Panel ───────────────────────────────── */
+/* ── Impact Panel (room 5) ──────────────────── */
 .impact-panel {
   background: #0a0a0f;
   display: flex;
