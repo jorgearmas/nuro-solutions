@@ -272,7 +272,7 @@ onMounted(async () => {
 
 /* ── Snap ────────────────────────────────────────────────── */
 .page-snap {
-  overflow-x: hidden; /* evita desborde horizontal de orbs y tracks en mobile */
+  overflow-x: clip; /* clip recorta sin crear scroll-container, preserva position:sticky */
 }
 .snap-sec {
   scroll-snap-align: start;
@@ -287,6 +287,9 @@ onMounted(async () => {
 .journey-wrap {
   position: relative;
   margin-top: -4px;
+  /* Sin transform para no romper position:sticky dentro */
+  transform: none;
+  will-change: scroll-position;
 }
 .journey-wrap::after {
   content: '';
