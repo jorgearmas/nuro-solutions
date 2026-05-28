@@ -1,10 +1,11 @@
 <template>
-  <div class="min-h-screen">
+  <div class="ind-index">
     <AppNavbar />
 
-    <section class="page-hero">
+    <!-- ── 1. Hero ──────────────────────────────────────────── -->
+    <section class="snap-sec hero-section">
       <div class="orb orb-1" aria-hidden="true"></div>
-      <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-40 pb-24">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-40 pb-16 w-full">
         <div class="section-tag"><span class="glow-dot"></span>Industries</div>
         <h1 class="text-5xl lg:text-7xl font-display mb-6 max-w-3xl">
           Built for the sectors<br />that <em class="accent-em">move the world.</em>
@@ -16,34 +17,46 @@
       </div>
     </section>
 
-    <section class="max-w-7xl mx-auto px-6 lg:px-10 pb-32">
-      <div class="grid lg:grid-cols-2 gap-8">
-        <NuxtLink
-          v-for="ind in industries"
-          :key="ind.to"
-          :to="ind.to"
-          class="industry-card group"
-        >
-          <div class="industry-card__icon" v-html="ind.icon"></div>
-          <div>
-            <h2 class="font-display text-2xl mb-3 group-hover:text-accent transition-colors">{{ ind.label }}</h2>
-            <p class="text-muted text-sm leading-relaxed mb-6">{{ ind.description }}</p>
-            <span class="text-accent text-sm font-display font-600 flex items-center gap-2">
-              Learn more
-              <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </span>
-          </div>
-        </NuxtLink>
+    <!-- ── 2. Cards + Footer ────────────────────────────────── -->
+    <section class="snap-sec cards-section">
+      <div class="cards-inner max-w-7xl mx-auto px-6 lg:px-10 py-16">
+        <div class="grid lg:grid-cols-2 gap-8">
+          <NuxtLink
+            v-for="ind in industries"
+            :key="ind.to"
+            :to="ind.to"
+            class="industry-card group"
+          >
+            <div class="industry-card__icon" v-html="ind.icon"></div>
+            <div>
+              <h2 class="font-display text-2xl mb-3 group-hover:text-accent transition-colors">{{ ind.label }}</h2>
+              <p class="text-muted text-sm leading-relaxed mb-6">{{ ind.description }}</p>
+              <span class="text-accent text-sm font-display font-600 flex items-center gap-2">
+                Learn more
+                <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </span>
+            </div>
+          </NuxtLink>
+        </div>
       </div>
+      <AppFooter />
     </section>
 
-    <AppFooter />
   </div>
 </template>
 
 <script setup>
+import { onMounted, onUnmounted } from 'vue'
+
+onMounted(() => {
+  document.documentElement.style.scrollSnapType = 'y proximity'
+})
+onUnmounted(() => {
+  document.documentElement.style.scrollSnapType = ''
+})
+
 const industries = [
   {
     label: 'Healthcare',
@@ -91,9 +104,20 @@ const industries = [
 </script>
 
 <style scoped>
-.page-hero {
+/* ── Snap ───────────────────────────────────────────────── */
+.snap-sec {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* ── Hero ───────────────────────────────────────────────── */
+.hero-section {
   position: relative;
   overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  background: var(--color-bg);
   border-bottom: 1px solid var(--color-border);
 }
 .orb {
@@ -114,6 +138,22 @@ const industries = [
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+/* ── Cards section ──────────────────────────────────────── */
+.cards-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+}
+.cards-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ── Industry card ──────────────────────────────────────── */
 .industry-card {
   display: flex;
   gap: 1.75rem;
