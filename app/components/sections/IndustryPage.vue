@@ -14,10 +14,7 @@
       </video>
       <div class="hero-overlay" aria-hidden="true"></div>
 
-      <!-- Fade hacia sección siguiente -->
-      <div class="hero-fade" aria-hidden="true"></div>
-
-      <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-32 pb-[calc(14vh+0.5cm)] w-full">
+      <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-32 pb-16 w-full">
         <div class="section-tag section-tag--light">
           <span class="glow-dot"></span>
           <NuxtLink to="/industries" class="hover:opacity-80 transition-opacity">Industries</NuxtLink>
@@ -144,23 +141,6 @@ onUnmounted(() => {
   background: rgba(10, 10, 15, 0.82);
 }
 
-.hero-fade {
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  right: 0;
-  height: calc(14vh + 4px);
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(249, 240, 229, 0.08) 40%,
-    rgba(249, 240, 229, 0.55) 70%,
-    #F9F0E5 100%
-  );
-  z-index: 2;
-  pointer-events: none;
-}
-
 /* ── Section tag sobre oscuro ───────────────── */
 .section-tag--light {
   color: rgba(255, 255, 255, 0.6);
@@ -187,7 +167,6 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   background: var(--color-bg);
-  margin-top: -4px;
   padding: 6rem 0;
 }
 
@@ -199,7 +178,6 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   background: var(--color-bg);
-  margin-top: -4px;
 }
 .cta-section > .max-w-7xl {
   padding-top: 4rem;
