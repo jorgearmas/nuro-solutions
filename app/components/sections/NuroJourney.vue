@@ -320,10 +320,36 @@ function onScroll () {
     flex-shrink: 0;
   }
 
-  /* Room 1 mantiene su estilo especial */
+  /* Todas las imágenes contenidas y centradas en mobile */
+  .h-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #7040AC;
+    overflow: hidden;
+  }
+
+  .h-panel .panel-img {
+    position: relative;
+    inset: auto;
+    width: 85%;
+    height: 72%;
+    object-fit: cover;
+    border-radius: 14px;
+    flex-shrink: 0;
+  }
+
   .panel-small .panel-img {
     width: 80%;
-    height: 70%;
+    height: 65%;
+  }
+
+  .panel-overlay { display: none; }
+
+  .panel-num {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    font-size: clamp(4rem, 18vw, 7rem);
   }
 
   /* Ocultar controles de navegación horizontal */
