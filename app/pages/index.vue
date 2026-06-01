@@ -1,56 +1,37 @@
 <template>
-  <div class="page-snap">
+  <div class="page-root">
     <AppNavbar />
 
-    <!-- ── Hero ─────────────────────────────────────────── -->
-    <section class="hero snap-sec relative flex items-start overflow-hidden">
-
-      <!-- Background Video -->
-      <video
-        class="hero-video"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="auto"
-        aria-hidden="true"
-      >
+    <!-- ── Hero ── -->
+    <section
+      ref="heroRef"
+      data-bg="hero"
+      class="cover-sec hero-sec flex items-center overflow-hidden"
+    >
+      <video class="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
         <source
           src="https://res.cloudinary.com/dpi6oudmk/video/upload/v1779937898/nuro_hero_ydesyu.mp4"
           type="video/mp4"
         />
       </video>
-
-      <!-- Video Overlay -->
       <div class="hero-overlay" aria-hidden="true"></div>
-
-      <!-- Orbs -->
       <div class="orb orb-1" aria-hidden="true"></div>
       <div class="orb orb-2" aria-hidden="true"></div>
 
-      <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-32 w-full hero-content">
+      <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 w-full hero-content">
         <div class="max-w-4xl">
-
-          <!-- Tag -->
           <div class="section-tag">
-            <span class="glow-dot"></span>
-            Growthcraft Partner
+            <span class="glow-dot"></span>Growthcraft Partner
           </div>
-
-          <!-- Headline -->
           <h1 class="hero-headline">
             <span class="block text-white">Your</span>
             <span class="block accent-word">Growthcraft</span>
             <span class="block text-white">Partner</span>
           </h1>
-
-          <!-- Subheadline -->
           <p class="hero-sub">
             Nuro delivers data-driven marketing systems engineered to increase conversions,
             lower acquisition costs, and scale ROI — intentionally.
           </p>
-
-          <!-- CTAs -->
           <div class="flex flex-wrap gap-4 mt-10">
             <NuxtLink to="/contact" class="btn-primary">
               Get Started
@@ -60,51 +41,47 @@
             </NuxtLink>
             <NuxtLink to="/portfolio" class="btn-ghost btn-white">See Our Work</NuxtLink>
           </div>
-
         </div>
       </div>
     </section>
 
-    <!-- ── Can your ideas change the world? ────────────────── -->
-    <section ref="ideasRef" class="ideas-section snap-sec">
+    <!-- ── Ideas ── -->
+    <section
+      ref="ideasRef"
+      data-bg="ideas"
+      class="cover-sec ideas-section"
+    >
       <h2 class="ideas-title">
         <span class="line-wrap">
-          <span class="line-inner" :class="{ 'line-up': ideasVisible }">
-            Can your ideas
-          </span>
+          <span class="line-inner" :class="{ 'line-up': ideasVisible }">Can your ideas</span>
         </span>
         <span class="line-wrap">
-          <span class="line-inner line-delay" :class="{ 'line-up': ideasVisible }">
-            change the World?
-          </span>
+          <span class="line-inner line-delay" :class="{ 'line-up': ideasVisible }">change the World?</span>
         </span>
       </h2>
     </section>
 
-    <!-- ── Experimental Mindset ─────────────────────────────── -->
+    <!-- ── Mindset ── -->
     <section
       ref="mindsetRef"
-      class="mindset-section snap-sec"
+      data-bg="mindset"
+      class="cover-sec mindset-section"
     >
       <h2 class="mindset-title">
         <span class="line-wrap">
-          <span class="line-inner" :class="{ 'line-up': mindsetVisible }">
-            Experimental Mindset,
-          </span>
+          <span class="line-inner" :class="{ 'line-up': mindsetVisible }">Experimental Mindset,</span>
         </span>
         <span class="line-wrap">
-          <span class="line-inner line-delay" :class="{ 'line-up': mindsetVisible }">
-            Beyond Goal-Obsession
-          </span>
+          <span class="line-inner line-delay" :class="{ 'line-up': mindsetVisible }">Beyond Goal-Obsession</span>
         </span>
       </h2>
     </section>
 
-    <!-- ── Journey Section ──────────────────────────────────── -->
-    <div
-      ref="journeyRef"
-      class="journey-wrap snap-sec"
-    >
+    <!-- ── Journey ── -->
+    <div class="journey-wrap">
+      <!-- Centinela: 1px invisible al top del Journey.
+           El observer lo detecta en cuanto cruza el viewport. -->
+      <div ref="journeySentinelRef" class="journey-sentinel" aria-hidden="true" />
       <NuroJourney />
     </div>
 
@@ -115,90 +92,132 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
-const ideasRef       = ref(null)
-const mindsetRef     = ref(null)
-const journeyRef     = ref(null)
-const ideasVisible   = ref(false)
-const mindsetVisible = ref(false)
-const journeyVisible = ref(false)
-const hideNav        = useState('hideNav', () => false)
+const heroRef             = ref(null)
+const ideasRef            = ref(null)
+const mindsetRef          = ref(null)
+const journeySentinelRef  = ref(null)
+const ideasVisible        = ref(false)
+const mindsetVisible      = ref(false)
+const hideNav             = useState('hideNav', () => false)
+
+const BG_CLASSES = {
+  hero:    'bg-hero',
+  ideas:   'bg-ideas',
+  mindset: 'bg-mindset',
+}
 
 let io = null
 
-onUnmounted(() => {
-  document.documentElement.style.scrollSnapType = ''
-  document.documentElement.style.overflowY = ''
-  hideNav.value = false
-})
-
-
-onUnmounted(() => {
-  io?.disconnect()
-})
+function setBodyBg(name) {
+  Object.values(BG_CLASSES).forEach(cls => document.body.classList.remove(cls))
+  if (name && name !== 'base' && BG_CLASSES[name]) {
+    document.body.classList.add(BG_CLASSES[name])
+  }
+}
 
 onMounted(async () => {
-  // Scroll-snap: cada sección ocupa la pantalla
-  document.documentElement.style.scrollSnapType = 'y proximity'
+  setBodyBg('hero')
 
+  // Observer para las secciones de color (hero, ideas, mindset)
+  // rootMargin '-40% 0px -59% 0px' → dispara cuando el centro cruza el centro del viewport
   io = new IntersectionObserver(
     (entries) => {
       entries.forEach(e => {
-        if (e.target === ideasRef.value   && e.isIntersecting) ideasVisible.value   = true
-        if (e.target === mindsetRef.value && e.isIntersecting) mindsetVisible.value = true
-        if (e.target === journeyRef.value && e.isIntersecting) journeyVisible.value = true
-        if (e.target === journeyRef.value) hideNav.value = e.isIntersecting
+        if (!e.isIntersecting) return
+        const target = e.target
+
+        if (target === heroRef.value)    setBodyBg('hero')
+        if (target === ideasRef.value)  { setBodyBg('ideas');   ideasVisible.value   = true }
+        if (target === mindsetRef.value){ setBodyBg('mindset'); mindsetVisible.value = true }
+
+        // El centinela es 1px al tope del Journey —
+        // en cuanto asoma en pantalla cambia el color
+        if (target === journeySentinelRef.value) {
+          setBodyBg('base')
+          hideNav.value = true
+        }
       })
     },
-    { threshold: 0.1 }
+    {
+      threshold: 0,
+      rootMargin: '-40% 0px -59% 0px'
+    }
   )
+
+  // El centinela usa su propio observer sin rootMargin
+  // para que dispare exactamente cuando su borde superior entra al viewport
+  const sentinelIo = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          setBodyBg('base')
+          hideNav.value = true
+        } else if (e.boundingClientRect.top > 0) {
+          // El centinela salió por abajo (usuario scrolleó de vuelta arriba)
+          // — mindset recupera el color
+          setBodyBg('mindset')
+          hideNav.value = false
+        }
+      })
+    },
+    { threshold: 0, rootMargin: '0px 0px 0px 0px' }
+  )
+
+  if (heroRef.value)    io.observe(heroRef.value)
   if (ideasRef.value)   io.observe(ideasRef.value)
   if (mindsetRef.value) io.observe(mindsetRef.value)
-  if (journeyRef.value) io.observe(journeyRef.value)
+  if (journeySentinelRef.value) sentinelIo.observe(journeySentinelRef.value)
 
   const { gsap } = await import('gsap')
+  gsap.from('.hero-headline span',      { y: 60, opacity: 0, duration: 1,   stagger: 0.15, ease: 'power3.out', delay: 0.2 })
+  gsap.from('.hero-sub',                { y: 30, opacity: 0, duration: 0.8, ease: 'power3.out', delay: 0.7 })
+  gsap.from('.btn-primary, .btn-ghost', { y: 20, opacity: 0, duration: 0.6, stagger: 0.1,  ease: 'power3.out', delay: 0.9 })
+})
 
-  gsap.from('.hero-headline span', {
-    y: 60,
-    opacity: 0,
-    duration: 1,
-    stagger: 0.15,
-    ease: 'power3.out',
-    delay: 0.2,
-  })
-  gsap.from('.hero-sub', { y: 30, opacity: 0, duration: 0.8, ease: 'power3.out', delay: 0.7 })
-  gsap.from('.btn-primary, .btn-ghost', { y: 20, opacity: 0, duration: 0.6, stagger: 0.1, ease: 'power3.out', delay: 0.9 })
+onUnmounted(() => {
+  io?.disconnect()
+  Object.values(BG_CLASSES).forEach(cls => document.body.classList.remove(cls))
+  hideNav.value = false
 })
 </script>
 
 <style scoped>
-.hero {
-  background: #0a0a0f;
+/* ── Page root ── */
+.page-root {
+  overflow-x: clip;
+}
+
+/* ── Secciones: flujo normal, 100vh cada una ── */
+.cover-sec {
+  height: 100vh;
   min-height: 100vh;
+  width: 100%;
 }
 
-.hero-content {
-  padding-bottom: 4rem;
+/* ── Centinela: invisible, solo marca el inicio del Journey ── */
+.journey-sentinel {
+  height: 1px;
+  width: 100%;
+  pointer-events: none;
 }
 
-/* ── Video de fondo ─────────────────────────── */
+/* ── Hero ── */
+.hero-sec {
+  background: #0a0a0f;
+  position: relative;
+}
 .hero-video {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
   z-index: 0;
 }
-
-/* Overlay oscuro sobre el video */
 .hero-overlay {
-  position: absolute;
-  inset: 0;
+  position: absolute; inset: 0;
   z-index: 1;
   background: rgba(10, 10, 15, 0.82);
 }
-
 .orb {
   position: absolute;
   border-radius: 50%;
@@ -216,131 +235,71 @@ onMounted(async () => {
   background: radial-gradient(circle, rgba(242,119,0,0.15) 0%, transparent 70%);
   bottom: 100px; right: 0;
 }
-
+.hero-content {
+  padding-top: 5rem;
+  padding-bottom: 4rem;
+}
 .hero-headline {
   font-size: clamp(3rem, 8vw, 7rem);
-  line-height: 1;
-  letter-spacing: -0.04em;
-  margin-bottom: 1.5rem;
-  color: #ffffff;
+  line-height: 1; letter-spacing: -0.04em;
+  margin-bottom: 1.5rem; color: #ffffff;
 }
 .accent-word {
   background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-2) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 .hero-sub {
   font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.72);
-  line-height: 1.7;
-  max-width: 520px;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.7; max-width: 520px;
 }
-
-
-/* Botón blanco (override de btn-ghost para el Hero) */
 .btn-white {
-  background: #ffffff !important;
-  border-color: #ffffff !important;
-  color: #0a0a0f !important;
+  background: #ffffff !important; border-color: #ffffff !important; color: #0a0a0f !important;
 }
 .btn-white:hover {
-  background: rgba(255, 255, 255, 0.88) !important;
-  border-color: rgba(255, 255, 255, 0.88) !important;
+  background: rgba(255,255,255,0.88) !important; border-color: rgba(255,255,255,0.88) !important;
   transform: translateY(-1px);
 }
 
-/* ── Snap ────────────────────────────────────────────────── */
-.page-snap {
-  overflow-x: clip; /* clip recorta sin crear scroll-container, preserva position:sticky */
-}
-.snap-sec {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  will-change: transform;
-  transform: translateZ(0);
-}
-
-.journey-wrap {
-  position: relative;
-  /* Sin transform para no romper position:sticky dentro */
-  transform: none;
-  will-change: scroll-position;
-}
-
-/* ── Can your ideas ─────────────────────────────────────── */
+/* ── Ideas ── */
 .ideas-section {
-  height: 100vh;
-  background: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   padding: 5rem 2rem;
-  position: relative;
-  overflow: hidden;
 }
 .ideas-title {
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 3.5vw, 3rem);
-  font-weight: 400;
-  letter-spacing: -0.04em;
-  color: #0a0a0f;
-  text-align: center;
-  line-height: 1.2;
-  max-width: 900px;
+  font-weight: 400; letter-spacing: -0.04em;
+  color: #0a0a0f; text-align: center; line-height: 1.2; max-width: 900px;
 }
 
-/* ── Experimental Mindset ───────────────────────────────── */
+/* ── Mindset ── */
 .mindset-section {
-  height: 100vh;
-  background: #F27700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   padding: 5rem 2rem;
-  position: relative;
-  overflow: hidden;
 }
 .mindset-title {
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 3.5vw, 3rem);
-  font-weight: 400;
-  letter-spacing: -0.04em;
-  color: #ffffff;
-  text-align: center;
-  line-height: 1.2;
-  max-width: 900px;
+  font-weight: 400; letter-spacing: -0.04em;
+  color: #ffffff; text-align: center; line-height: 1.2; max-width: 900px;
 }
 
-/* ── Split line ─────────────────────────────────────────── */
+/* ── Journey ── */
+.journey-wrap {
+  position: relative;
+}
+
+/* ── Split-text animation ── */
 .line-wrap {
-  display: block;
-  overflow: hidden;
-  padding-bottom: 0.08em; /* evita que se corte el descender */
+  display: block; overflow: hidden; padding-bottom: 0.08em;
 }
 .line-inner {
   display: block;
   transform: translateY(115%);
   transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.7s;
 }
-.line-inner.line-up {
-  transform: translateY(0);
-}
-.line-delay {
-  transition-delay: calc(0.7s + 0.18s);
-}
-
-/* CTA Band */
-.cta-band {
-  padding: 8rem 0;
-  position: relative;
-  overflow: hidden;
-}
-.cta-band::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(112,64,172,0.07) 0%, transparent 70%);
-}
-.cta-band > * { position: relative; }
+.line-inner.line-up { transform: translateY(0); }
+.line-delay { transition-delay: calc(0.7s + 0.18s); }
 </style>

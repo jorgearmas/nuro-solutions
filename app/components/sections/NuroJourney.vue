@@ -146,7 +146,6 @@ onUnmounted(() => {
 
 function onScroll() {
   if (!scrollContainerRef.value || !trackRef.value || !gsapLib) return
-  // Solo ejecutar en desktop
   if (window.innerWidth < 1024) return
 
   const rect       = scrollContainerRef.value.getBoundingClientRect()
@@ -168,9 +167,7 @@ function onScroll() {
 /* ════════════════════════════════════════════
    WRAPPER ROOT
    ════════════════════════════════════════════ */
-.journey-root {
-  /* sin overflow ni transform para no romper el sticky del desktop */
-}
+.journey-root {}
 
 /* ════════════════════════════════════════════
    MOBILE CAROUSEL  (oculto en desktop)
@@ -186,7 +183,6 @@ function onScroll() {
     overflow: hidden;
   }
 
-  /* Ocultar el desktop journey en mobile */
   .journey-scroll-container { display: none; }
 
   .mobile-track {
@@ -274,7 +270,7 @@ function onScroll() {
 .journey-scroll-container {
   height: 600vh;
   position: relative;
-  background: #F9F0E5; /* dead-zone (último 100vh) coincide con el footer */
+  background: #F9F0E5;
 }
 .journey-sticky {
   position: sticky;
