@@ -50,9 +50,10 @@ body {
 body.bg-hero    { background-color: #0a0a0f; }
 body.bg-ideas   { background-color: #ffffff; }
 body.bg-mindset { background-color: #F27700; }
+body.bg-journey { background-color: #7040AC; }
 
-/* Fuera de las 3 secciones: vuelve al color base */
-body:not(.bg-hero):not(.bg-ideas):not(.bg-mindset) {
+/* Fuera de las secciones: vuelve al color base */
+body:not(.bg-hero):not(.bg-ideas):not(.bg-mindset):not(.bg-journey) {
   background-color: var(--color-bg);
 }
 
