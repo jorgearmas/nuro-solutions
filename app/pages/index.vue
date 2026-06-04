@@ -284,14 +284,17 @@ onMounted(async () => {
   // del journey ENTRA al viewport (su top cruza el 45% de la pantalla),
   // así el morado aparece durante la transición, antes del scroll horizontal.
   // rootMargin '0px 0px -55% 0px' → isIntersecting cuando container.top < 45%vh
+  let journeyEntered = false
   const journeyIo = new IntersectionObserver(
     (entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
+          journeyEntered = true
           setBodyBg('journey')   // body: #F27700 → #7040AC (crossfade 0.8s)
           hideNav.value = true
-        } else if (e.boundingClientRect.top > 0) {
-          // El container salió por abajo (scroll hacia arriba) → restaura Mindset
+        } else if (e.boundingClientRect.top > 0 && journeyEntered) {
+          // El container salió por abajo (scroll hacia arriba) → restaura Mindset.
+          // Solo si ya habíamos entrado: evita el falso naranja en la carga inicial.
           setBodyBg('mindset')
           hideNav.value = false
         }
