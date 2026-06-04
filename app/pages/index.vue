@@ -244,7 +244,6 @@ function setBodyBg(name) {
 /* ── Desktop journey scroll ── */
 function onJourneyScroll() {
   if (!journeyRef.value || !trackRef.value || !gsapLib) return
-  if (window.innerWidth < 1024) return
 
   const rect       = journeyRef.value.getBoundingClientRect()
   const totalRange = journeyRef.value.offsetHeight - window.innerHeight
@@ -439,14 +438,14 @@ onUnmounted(() => {
 .mobile-carousel { display: none; }
 
 @media (max-width: 1023px) {
+  /* Carrusel táctil desactivado: mobile usa el mismo scroll inmersivo que desktop */
   .mobile-carousel {
-    display: block;
+    display: none;
     position: relative;
     background: #7040AC;
     padding: 2rem 0 3.5rem;
     overflow: hidden;
   }
-  .journey-scroll-container { display: none; }
   .mobile-track {
     display: flex;
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
