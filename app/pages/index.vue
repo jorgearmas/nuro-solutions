@@ -438,6 +438,14 @@ onUnmounted(() => {
 .mobile-carousel { display: none; }
 
 @media (max-width: 1023px) {
+  /* Acorta el scroll Ideas → Mindset en mobile (no full-height) */
+  .ideas-section,
+  .mindset-section {
+    height: auto;
+    min-height: 60vh;
+    padding: 4rem 2rem;
+  }
+
   /* Carrusel táctil desactivado: mobile usa el mismo scroll inmersivo que desktop */
   .mobile-carousel {
     display: none;
