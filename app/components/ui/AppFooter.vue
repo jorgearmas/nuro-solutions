@@ -80,6 +80,9 @@ const footerLinks = [
 </script>
 
 <style scoped>
+footer {
+  background-color: var(--color-bg);
+}
 .social-icon {
   display: flex;
   align-items: center;

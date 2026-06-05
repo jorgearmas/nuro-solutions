@@ -3,7 +3,7 @@
     <AppNavbar />
 
     <!-- ── 1. Hero (video) ───────────────────────────────── -->
-    <section class="snap-sec page-hero">
+    <section ref="heroRef" class="snap-sec page-hero">
 
       <video
         v-if="industry.video"
@@ -34,7 +34,9 @@
 
     <!-- ── 2. Cards ──────────────────────────────────────── -->
     <section
+      ref="cardsRef"
       class="snap-sec cards-section"
+      :class="{ 'cards-section--crema': cardsCrema }"
       :style="industry.theme ? `--ind-color: ${industry.theme.color}; --ind-rgb: ${industry.theme.colorRgb}` : ''"
     >
       <div class="max-w-7xl mx-auto px-6 lg:px-10 w-full">
@@ -55,10 +57,13 @@
               <p v-if="card.title" class="card-title">{{ card.title }}</p>
               <div v-else class="ph-line ph-line--title"></div>
               <p v-if="card.subtitle" class="card-subtitle">{{ card.subtitle }}</p>
-              <div class="ph-line"></div>
-              <div class="ph-line ph-line--short"></div>
+              <p v-if="card.body" class="card-body">{{ card.body }}</p>
+              <template v-else>
+                <div class="ph-line"></div>
+                <div class="ph-line ph-line--short"></div>
+              </template>
             </div>
-            <div class="coming-soon-tag">Content coming soon</div>
+            <div v-if="!card.body" class="coming-soon-tag">Content coming soon</div>
           </div>
         </div>
       </div>
@@ -87,7 +92,39 @@
 </template>
 
 <script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+
 const props = defineProps({ industry: Object })
+
+const cardsRef   = ref(null)
+const cardsCrema = ref(false) // false → negro (igual al hero); true → crema
+
+let io = null
+
+onMounted(() => {
+  // La cards-section arranca negra; al entrar al viewport hace el crossfade
+  // negro → crema (0.8s). El crossfade es visible sobre la propia sección,
+  // no detrás del video opaco del hero.
+  io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          cardsCrema.value = true
+        } else if (e.boundingClientRect.top > 0) {
+          // Salió por abajo (scroll de vuelta al hero) → resetea a negro
+          cardsCrema.value = false
+        }
+      })
+    },
+    { threshold: 0.35 }
+  )
+
+  if (cardsRef.value) io.observe(cardsRef.value)
+})
+
+onUnmounted(() => {
+  io?.disconnect()
+})
 </script>
 
 <style scoped>
@@ -159,8 +196,12 @@ const props = defineProps({ industry: Object })
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-bg);
+  background-color: #0a0a0f; /* arranca negro (igual al hero) */
+  transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 6rem 0;
+}
+.cards-section--crema {
+  background-color: var(--color-bg); /* crossfade negro → crema al entrar */
 }
 
 /* ── CTA section ────────────────────────────── */
@@ -226,6 +267,13 @@ const props = defineProps({ industry: Object })
   color: var(--color-muted);
   line-height: 1.5;
   margin: 0;
+}
+.card-body {
+  font-size: 0.82rem;
+  color: var(--color-muted);
+  line-height: 1.6;
+  margin: 0;
+  padding-top: 0.25rem;
 }
 .placeholder-icon { margin-bottom: 1.5rem; }
 .placeholder-lines { display: flex; flex-direction: column; gap: 0.65rem; }

@@ -15,16 +15,19 @@ const industry = {
       {
         title: 'Performance Marketing',
         subtitle: 'Paid media systems engineered to maximize ROAS across every channel.',
+        body: 'We engineer full-funnel paid media strategies across Meta, Google, TikTok, and beyond — built to scale profitably with continuous creative testing and optimization that keeps your ROAS climbing.',
         icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>`,
       },
       {
         title: 'Conversion Rate Optimization',
         subtitle: 'Data-driven testing that turns more browsers into buyers.',
+        body: 'Through A/B testing, UX audits, and behavioral analytics, we systematically remove friction from your funnel — converting more of your existing traffic without increasing ad spend.',
         icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" /></svg>`,
       },
       {
         title: 'Email & Retention',
         subtitle: 'Automated flows that recover carts, upsell, and build repeat buyers.',
+        body: 'We build automated email flows — welcome series, cart recovery, post-purchase, and win-back — engineered to drive 30–40% of total revenue on autopilot while deepening customer relationships.',
         icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>`,
       },
     ],
