@@ -1,9 +1,12 @@
 <template>
-  <div class="ind-page">
+  <div
+    class="ind-page"
+    :style="industry.theme ? `--ind-color: ${industry.theme.color}; --ind-rgb: ${industry.theme.colorRgb}` : ''"
+  >
     <AppNavbar />
 
     <!-- ── 1. Hero (video) ───────────────────────────────── -->
-    <section ref="heroRef" class="snap-sec page-hero">
+    <section class="page-hero">
 
       <video
         v-if="industry.video"
@@ -33,12 +36,10 @@
     </section>
 
     <!-- ── 2. Cards ──────────────────────────────────────── -->
-    <section
-      ref="cardsRef"
-      class="snap-sec cards-section"
-      :class="{ 'cards-section--crema': cardsCrema }"
-      :style="industry.theme ? `--ind-color: ${industry.theme.color}; --ind-rgb: ${industry.theme.colorRgb}` : ''"
-    >
+    <section class="cards-section">
+      <!-- Pages can override the cards layout via the #cards slot.
+           Falls back to the generic placeholder grid below. -->
+      <slot name="cards">
       <div class="max-w-7xl mx-auto px-6 lg:px-10 w-full">
         <div class="placeholder-grid">
           <div
@@ -67,10 +68,11 @@
           </div>
         </div>
       </div>
+      </slot>
     </section>
 
     <!-- ── 3. CTA + Footer ───────────────────────────────── -->
-    <section class="snap-sec cta-section">
+    <section class="cta-section">
       <div class="max-w-7xl mx-auto px-6 lg:px-10 w-full">
         <div class="cta-card">
           <div>
@@ -92,63 +94,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-
-const props = defineProps({ industry: Object })
-
-const cardsRef   = ref(null)
-const cardsCrema = ref(false) // false → negro (igual al hero); true → crema
-
-let io = null
-
-onMounted(() => {
-  // La cards-section arranca negra; al entrar al viewport hace el crossfade
-  // negro → crema (0.8s). El crossfade es visible sobre la propia sección,
-  // no detrás del video opaco del hero.
-  io = new IntersectionObserver(
-    (entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          cardsCrema.value = true
-        } else if (e.boundingClientRect.top > 0) {
-          // Salió por abajo (scroll de vuelta al hero) → resetea a negro
-          cardsCrema.value = false
-        }
-      })
-    },
-    { threshold: 0.35 }
-  )
-
-  if (cardsRef.value) io.observe(cardsRef.value)
-})
-
-onUnmounted(() => {
-  io?.disconnect()
-})
+defineProps({ industry: Object })
 </script>
 
 <style scoped>
-/* ── Contenedor: scroll container con snap propio (no toca html) ── */
-.ind-page {
-  height: 100vh;
-  overflow-y: scroll;
-  scroll-snap-type: y proximity;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-.ind-page::-webkit-scrollbar { display: none; }
-
-/* ── Secciones snap ─────────────────────────── */
-.snap-sec {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-}
-
 /* ── Hero ───────────────────────────────────── */
 .page-hero {
   position: relative;
   overflow: hidden;
-  background: #0a0a0f;
+  background: var(--color-dark);
   min-height: 100vh;
   display: flex;
   align-items: flex-start;
@@ -196,12 +150,9 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #0a0a0f; /* arranca negro (igual al hero) */
-  transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  /* White, matching the Ideas section on the index page. */
+  background-color: #ffffff;
   padding: 6rem 0;
-}
-.cards-section--crema {
-  background-color: var(--color-bg); /* crossfade negro → crema al entrar */
 }
 
 /* ── CTA section ────────────────────────────── */
@@ -212,6 +163,12 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   background: var(--color-bg);
+  /* Re-map the accent palette to this industry's color. Global classes
+     (.btn-primary, .glow-dot, .section-tag) read these vars, so they pick
+     up the industry color automatically. Falls back to Nuro purple. */
+  --color-accent: var(--ind-color, #7040ac);
+  --color-accent-hover: color-mix(in srgb, var(--ind-color, #7040ac) 82%, #000);
+  --color-accent-glow: rgba(var(--ind-rgb, 112, 64, 172), 0.28);
 }
 .cta-section > .max-w-7xl {
   padding-top: 4rem;
@@ -310,9 +267,10 @@ onUnmounted(() => {
   gap: 2rem;
   align-items: flex-start;
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid rgba(var(--ind-rgb, 112, 64, 172), 0.22);
   border-radius: 16px;
   padding: 3rem;
+  box-shadow: 0 10px 40px rgba(var(--ind-rgb, 112, 64, 172), 0.08);
 }
 @media (min-width: 768px) {
   .cta-card {

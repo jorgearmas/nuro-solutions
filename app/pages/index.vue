@@ -3,11 +3,7 @@
     <AppNavbar />
 
     <!-- ── Hero ── -->
-    <section
-      ref="heroRef"
-      data-bg="hero"
-      class="cover-sec hero-sec flex items-center overflow-hidden"
-    >
+    <section class="hero-sec flex items-center overflow-hidden">
       <video class="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
         <source
           src="https://res.cloudinary.com/dpi6oudmk/video/upload/v1779937898/nuro_hero_ydesyu.mp4"
@@ -28,10 +24,6 @@
             <span class="block accent-word">Growthcraft</span>
             <span class="block text-white">Partner</span>
           </h1>
-          <p class="hero-sub">
-            Nuro delivers data-driven marketing systems engineered to increase conversions,
-            lower acquisition costs, and scale ROI — intentionally.
-          </p>
           <div class="flex flex-wrap gap-4 mt-10">
             <NuxtLink to="/contact" class="btn-primary">
               Get Started
@@ -45,283 +37,352 @@
       </div>
     </section>
 
-    <!-- ── Ideas ── -->
-    <section
-      ref="ideasRef"
-      data-bg="ideas"
-      class="cover-sec ideas-section"
-    >
-      <h2 class="ideas-title">
-        <span class="line-wrap">
-          <span class="line-inner" :class="{ 'line-up': ideasVisible }">Can your ideas</span>
-        </span>
-        <span class="line-wrap">
-          <span class="line-inner line-delay" :class="{ 'line-up': ideasVisible }">change the World?</span>
-        </span>
-      </h2>
-    </section>
-
-    <!-- ── Mindset ── -->
-    <section
-      ref="mindsetRef"
-      data-bg="mindset"
-      class="cover-sec mindset-section"
-    >
-      <h2 class="mindset-title">
-        <span class="line-wrap">
-          <span class="line-inner" :class="{ 'line-up': mindsetVisible }">Experimental Mindset,</span>
-        </span>
-        <span class="line-wrap">
-          <span class="line-inner line-delay" :class="{ 'line-up': mindsetVisible }">Beyond Goal-Obsession</span>
-        </span>
-      </h2>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         MOBILE  (< 1024px): carrusel táctil
-         ══════════════════════════════════════════ -->
-    <div class="mobile-carousel">
-      <div
-        class="mobile-track"
-        :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
-        @touchstart.passive="onTouchStart"
-        @touchend.passive="onTouchEnd"
-      >
-        <div v-for="n in 4" :key="n" class="mobile-slide">
-          <div class="mobile-card">
-            <img :src="`/room_${n}.png`" class="mobile-card-img" :alt="`Room ${n}`" />
-            <span class="mobile-card-num">0{{ n }}</span>
-          </div>
+    <!-- ── Ideas + Stats ── -->
+    <section class="ideas-sec" :class="{ 'ideas-sec--dark': journeyActive }">
+      <div class="ideas-inner">
+        <div class="ideas-left">
+          <h2 class="ideas-title">Can Your <span class="accent-word">Ideas</span> Change The World?</h2>
+          <p class="ideas-text">
+            Nuro delivers data-driven marketing systems engineered to increase conversions,
+            lower acquisition costs, and scale ROI — intentionally.
+          </p>
         </div>
-        <div class="mobile-slide">
-          <div class="mobile-card mobile-card--impact">
-            <p class="impact-eyebrow">Our Impact</p>
-            <div class="impact-stats">
-              <div v-for="stat in impactStats" :key="stat.label" class="impact-stat">
-                <span class="impact-value">{{ stat.value }}</span>
-                <span class="impact-label">{{ stat.label }}</span>
+        <div class="ideas-right">
+          <!-- Vertical ticker: the list is duplicated so the loop is
+               seamless; it scrolls bottom→top and pauses on hover. -->
+          <div class="ideas-marquee">
+            <div class="ideas-track">
+              <div v-for="stat in impactStats" :key="`a-${stat.label}`" class="ideas-stat">
+                <span class="ideas-stat-value">{{ stat.value }}</span>
+                <span class="ideas-stat-label">{{ stat.label }}</span>
+              </div>
+              <div v-for="stat in impactStats" :key="`b-${stat.label}`" class="ideas-stat" aria-hidden="true">
+                <span class="ideas-stat-value">{{ stat.value }}</span>
+                <span class="ideas-stat-label">{{ stat.label }}</span>
               </div>
             </div>
-            <NuxtLink to="/contact" class="impact-cta">
-              Let's get the conversation started
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Journey: Experimental Mindset (horizontal scroll) ──
+         Desktop: the section is pinned and the track translates left as you
+         scroll, walking through the 4 phases. Mobile: panels stack vertically
+         (the horizontal/pin setup is gated to ≥1024px via gsap.matchMedia). -->
+    <section class="journey-sec" :class="{ 'journey-sec--dark': journeyActive && !logosActive }" ref="journeyRef">
+      <div class="journey-orb journey-orb-1" aria-hidden="true"></div>
+      <div class="journey-orb journey-orb-2" aria-hidden="true"></div>
+      <div class="journey-stage">
+        <h2 class="journey-heading">
+          Experimental <span class="accent-word">Mindset</span>, Beyond Goal-Obsession
+        </h2>
+
+        <div class="journey-track" ref="trackRef">
+          <!-- 01 · Explore -->
+          <article class="journey-panel">
+            <div class="jp-visual jp-reveal">
+              <svg viewBox="0 0 200 200" class="rv" aria-hidden="true">
+                <defs>
+                  <linearGradient id="jg1" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#7040AC" />
+                    <stop offset="100%" stop-color="#F27700" />
+                  </linearGradient>
+                </defs>
+                <!-- orbit paths -->
+                <circle cx="100" cy="100" r="40" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+                <circle cx="100" cy="100" r="62" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+                <circle cx="100" cy="100" r="82" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+                <!-- sun -->
+                <circle class="ex-sun" cx="100" cy="100" r="8" fill="url(#jg1)" />
+                <!-- planets: each <g> rotates around the centre at its own speed -->
+                <g class="ex-orbit ex-o1"><circle cx="100" cy="60" r="5" fill="url(#jg1)" /></g>
+                <g class="ex-orbit ex-o2"><circle cx="100" cy="38" r="6.5" fill="url(#jg1)" /></g>
+                <g class="ex-orbit ex-o3"><circle cx="100" cy="18" r="4" fill="url(#jg1)" /></g>
+                <g class="ex-orbit ex-o4"><circle cx="100" cy="38" r="4" fill="url(#jg1)" /></g>
               </svg>
-            </NuxtLink>
-          </div>
+            </div>
+            <span class="jp-num jp-reveal">01</span>
+            <h3 class="jp-title jp-reveal">Explore</h3>
+            <p class="jp-line jp-reveal">We map the terrain — data, context and opportunities — before deciding.</p>
+          </article>
+
+          <!-- 02 · Experiment -->
+          <article class="journey-panel">
+            <div class="jp-visual jp-reveal">
+              <svg viewBox="0 0 200 200" class="rv" aria-hidden="true">
+                <defs>
+                  <linearGradient id="jg2" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#7040AC" />
+                    <stop offset="100%" stop-color="#F27700" />
+                  </linearGradient>
+                </defs>
+                <path class="xp-path" d="M40,100 C85,100 95,55 158,55" fill="none" stroke="url(#jg2)" stroke-width="2" stroke-linecap="round" />
+                <path class="xp-path xp-d" d="M40,100 C85,100 95,145 158,145" fill="none" stroke="url(#jg2)" stroke-width="2" stroke-linecap="round" />
+                <g fill="url(#jg2)">
+                  <circle cx="40" cy="100" r="7" />
+                  <circle class="xp-node" cx="158" cy="55" r="6" />
+                  <circle class="xp-node xp-nd" cx="158" cy="145" r="6" />
+                </g>
+              </svg>
+            </div>
+            <span class="jp-num jp-reveal">02</span>
+            <h3 class="jp-title jp-reveal">Experiment</h3>
+            <p class="jp-line jp-reveal">We launch small, fast tests to validate hypotheses in the real world.</p>
+          </article>
+
+          <!-- 03 · Learn -->
+          <article class="journey-panel">
+            <div class="jp-visual jp-reveal">
+              <svg viewBox="0 0 200 200" class="rv" aria-hidden="true">
+                <defs>
+                  <linearGradient id="jg3" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#7040AC" />
+                    <stop offset="100%" stop-color="#F27700" />
+                  </linearGradient>
+                </defs>
+                <g fill="url(#jg3)" opacity="0.22">
+                  <rect class="ln-bar" x="34" y="120" width="16" height="46" rx="3" />
+                  <rect class="ln-bar ln-d1" x="62" y="95" width="16" height="71" rx="3" />
+                  <rect class="ln-bar ln-d2" x="90" y="110" width="16" height="56" rx="3" />
+                  <rect class="ln-bar ln-d3" x="118" y="78" width="16" height="88" rx="3" />
+                  <rect class="ln-bar ln-d4" x="146" y="60" width="16" height="106" rx="3" />
+                </g>
+                <polyline class="ln-line" points="42,118 70,92 98,104 126,72 154,52" fill="none" stroke="url(#jg3)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                <circle cx="154" cy="52" r="4" fill="#F27700" />
+              </svg>
+            </div>
+            <span class="jp-num jp-reveal">03</span>
+            <h3 class="jp-title jp-reveal">Learn</h3>
+            <p class="jp-line jp-reveal">We measure, read the signals, and discard what doesn't add value.</p>
+          </article>
+
+          <!-- 04 · Scale -->
+          <article class="journey-panel">
+            <div class="jp-visual jp-reveal">
+              <svg viewBox="0 0 200 200" class="rv" aria-hidden="true">
+                <defs>
+                  <linearGradient id="jg4" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#7040AC" />
+                    <stop offset="100%" stop-color="#F27700" />
+                  </linearGradient>
+                </defs>
+                <g fill="none" stroke="url(#jg4)" stroke-width="2">
+                  <circle class="sc-ring" cx="100" cy="100" r="20" />
+                  <circle class="sc-ring sc-d1" cx="100" cy="100" r="20" />
+                  <circle class="sc-ring sc-d2" cx="100" cy="100" r="20" />
+                </g>
+                <circle cx="100" cy="100" r="14" fill="url(#jg4)" />
+                <path class="sc-arrow" d="M100,116 L100,84 M100,84 L89,97 M100,84 L111,97" stroke="#7040AC" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <span class="jp-num jp-reveal">04</span>
+            <h3 class="jp-title jp-reveal">Scale</h3>
+            <p class="jp-line jp-reveal">We amplify what works until it compounds into real growth.</p>
+          </article>
         </div>
-      </div>
-      <div class="mobile-dots">
-        <span
-          v-for="n in 5" :key="n"
-          class="mobile-dot"
-          :class="{ active: currentSlide === n - 1 }"
-          @click="currentSlide = n - 1"
-        />
-      </div>
-      <button class="mobile-arrow mobile-arrow--prev" @click="prev" :disabled="currentSlide === 0">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-      </button>
-      <button class="mobile-arrow mobile-arrow--next" @click="next" :disabled="currentSlide === 4">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-      </button>
-    </div>
 
-    <!-- ══════════════════════════════════════════
-         DESKTOP (≥ 1024px): scroll inmersivo
-         ══════════════════════════════════════════ -->
-    <div ref="journeyRef" class="journey-scroll-container">
-      <div class="journey-sticky">
-
-        <!-- Overlay morado: empieza transparente, fade-in con scroll -->
-        <div class="sticky-bg-overlay" :style="{ opacity: stickyBgOpacity }" aria-hidden="true" />
-
-        <div ref="trackRef" class="h-track">
-          <div v-for="n in 4" :key="n" class="h-panel" :class="{ 'panel-small': n === 1 }">
-            <img :src="`/room_${n}.png`" class="panel-img" draggable="false" alt="" />
-            <div class="panel-overlay" />
-            <span class="panel-num">0{{ n }}</span>
-          </div>
-          <div class="h-panel impact-panel">
-            <div class="impact-inner">
-              <p class="impact-eyebrow">Our Impact</p>
-              <div class="impact-stats">
-                <div v-for="stat in impactStats" :key="stat.label" class="impact-stat">
-                  <span class="impact-value">{{ stat.value }}</span>
-                  <span class="impact-label">{{ stat.label }}</span>
-                </div>
-              </div>
-              <NuxtLink to="/contact" class="impact-cta">
-                Let's get the conversation started
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                </svg>
-              </NuxtLink>
+        <!-- Progress lane: the Nuro face travels left→right along the thread as
+             you scroll, doubling as the guide and the progress indicator. The
+             4 stations are the rooms; they fill in as the face passes. -->
+        <div class="journey-path" aria-hidden="true">
+          <div class="journey-thread"></div>
+          <div class="journey-thread-fill" :style="{ width: journeyProgress * 100 + '%' }"></div>
+          <span
+            v-for="i in 4"
+            :key="`st-${i}`"
+            class="journey-station"
+            :class="{ 'journey-station--on': activeRoom >= i - 1 }"
+            :style="{ left: ((i - 1) / 3) * 100 + '%' }"
+          ></span>
+          <div class="journey-traveler" :style="{ left: journeyProgress * 100 + '%' }">
+            <div class="tv-disc">
+              <img src="/medium_face.png" alt="" class="tv-face" />
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="scroll-hint" :style="{ opacity: hintOpacity }">
-          <span class="hint-label">Scroll</span>
-          <div class="hint-arrow">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 5v14M5 12l7 7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+    <!-- ── Portfolio logos marquee ── -->
+    <section class="logos-sec" :class="{ 'logos-sec--light': logosActive }" ref="logosSecRef">
+      <div class="logos-inner">
+        <h2 class="logos-title">
+          Real <span class="accent-word">Action</span>, Real Cases
+        </h2>
+        <!-- Horizontal ticker: the list is duplicated so the loop is
+             seamless; it scrolls left→right and pauses on hover. -->
+        <div class="logos-marquee">
+          <div class="logos-track">
+            <div v-for="logo in portfolioLogos" :key="`a-${logo.name}`" class="logo-item">
+              <img :src="logo.src" :alt="logo.name" class="logo-img" />
+            </div>
+            <div v-for="logo in portfolioLogos" :key="`b-${logo.name}`" class="logo-item" aria-hidden="true">
+              <img :src="logo.src" :alt="logo.name" class="logo-img" />
+            </div>
           </div>
         </div>
-
-        <div class="progress-bar-wrap">
-          <div class="progress-bar" :style="{ width: `${progress * 100}%` }" />
-        </div>
-
-        <div class="side-nav">
-          <span v-for="n in 5" :key="n" class="nav-dot" :class="{ active: activeRoom === n }" />
-        </div>
-
+        <NuxtLink to="/contact" class="impact-cta">
+          Let's get the conversation started
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </NuxtLink>
       </div>
-    </div>
+    </section>
 
     <AppFooter />
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 
 /* ── Impact stats ── */
 const impactStats = [
-  { value: '3+',   label: 'Years in Market' },
-  { value: '20+',  label: 'Brands Grown' },
-  { value: '200%', label: 'Avg. ROI Increase' },
+  { value: '3+',    label: 'Years in Market' },
+  { value: '20+',   label: 'Brands Grown' },
+  { value: '60%',   label: 'Increase in Customer Retention' },
+  { value: '45%',   label: 'Avg. Acquisition Cost Reduction' },
+  { value: '3.5x',  label: 'Average Conversion Rate Growth' },
+  { value: '200%',  label: 'Avg. ROI Increase' },
+  { value: '100K+', label: 'Data Insights Activated' },
+  { value: '15+',   label: 'Data Pipelines Automated' },
+  { value: '6K',    label: 'Geolocation Points Mapped' },
+  { value: '25+',   label: 'Dynamic Data Capture Interfaces' },
 ]
 
-/* ── Mobile carousel ── */
-const currentSlide = ref(0)
-let touchStartX = 0
-function onTouchStart(e) { touchStartX = e.touches[0].clientX }
-function onTouchEnd(e) {
-  const dx = e.changedTouches[0].clientX - touchStartX
-  if (dx < -40) next()
-  else if (dx > 40) prev()
-}
-function next() { if (currentSlide.value < 4) currentSlide.value++ }
-function prev() { if (currentSlide.value > 0) currentSlide.value-- }
+/* ── Portfolio logos (horizontal marquee) ── */
+const portfolioLogos = [
+  { name: 'MI Consulting',          src: '/mi-consulting_portafolio.png' },
+  { name: 'Reborn Detailing Studio', src: '/Reborn_portafolio.png' },
+  { name: 'MEM',                     src: '/MEM_portafolio.png' },
+  { name: 'UVG',                     src: '/UVG_portafolio.png' },
+  { name: 'Medident',               src: '/Medident_portafolio.png' },
+]
 
-/* ── Section refs ── */
-const heroRef    = ref(null)
-const ideasRef   = ref(null)
-const mindsetRef = ref(null)
+/* ── Journey (horizontal scroll) ──
+   journeyActive darkens the Ideas section just before the (dark) journey
+   scrolls in, so there is no hard white→black seam at the boundary. */
 const journeyRef = ref(null)
-const trackRef   = ref(null)
+const trackRef = ref(null)
+const journeyActive = ref(false)
+const activeRoom = ref(0)
+const journeyProgress = ref(0) // 0→1 across the horizontal scroll (drives the traveller)
 
-/* ── State ── */
-const ideasVisible    = ref(false)
-const mindsetVisible  = ref(false)
-const hideNav         = useState('hideNav', () => false)
-const activeRoom      = ref(1)
-const progress        = ref(0)
-const hintOpacity     = ref(1)
-const stickyBgOpacity = ref(0) // empieza transparente
+/* ── Logos section: crossfade black → white on entry. Starts dark (matching
+   the journey above it) and lightens once scrolled in, so the seam never
+   shows. ── */
+const logosSecRef = ref(null)
+const logosActive = ref(false)
+let logosIo = null
 
-/* ── Background classes ── */
-const BG_CLASSES = {
-  hero:    'bg-hero',
-  ideas:   'bg-ideas',
-  mindset: 'bg-mindset',
-  journey: 'bg-journey',
-}
-
-let io      = null
-let gsapLib = null
-
-function setBodyBg(name) {
-  Object.values(BG_CLASSES).forEach(cls => document.body.classList.remove(cls))
-  if (name && BG_CLASSES[name]) {
-    document.body.classList.add(BG_CLASSES[name])
-  }
-}
-
-/* ── Desktop journey scroll ── */
-function onJourneyScroll() {
-  if (!journeyRef.value || !trackRef.value || !gsapLib) return
-
-  const rect       = journeyRef.value.getBoundingClientRect()
-  const totalRange = journeyRef.value.offsetHeight - window.innerHeight
-  const scrolled   = Math.max(0, -rect.top)
-  const p          = Math.min(1, scrolled / totalRange)
-
-  // El crossfade naranja → morado lo dispara journeyIo durante la ENTRADA
-  // del container (antes de que p > 0). Aquí solo aseguramos el estado.
-  if (p > 0) hideNav.value = true
-
-  progress.value    = p
-  hintOpacity.value = Math.max(0, 1 - p * 8)
-
-  stickyBgOpacity.value = Math.min(1, p / 0.15)
-
-  const DWELL_START = 0.85
-  const trackP = Math.min(p / DWELL_START, 1)
-  gsapLib.set(trackRef.value, { x: -(trackP * 4 * window.innerWidth) })
-  activeRoom.value = Math.min(5, Math.floor(trackP * 5) + 1)
-}
+let mm = null          // gsap.matchMedia instance (journey scroll setup)
 
 onMounted(async () => {
-  setBodyBg('hero')
-
-  io = new IntersectionObserver(
-    (entries) => {
-      entries.forEach(e => {
-        if (!e.isIntersecting) return
-        if (e.target === heroRef.value)     setBodyBg('hero')
-        if (e.target === ideasRef.value)   { setBodyBg('ideas');   ideasVisible.value   = true }
-        if (e.target === mindsetRef.value) { setBodyBg('mindset'); mindsetVisible.value = true }
-      })
-    },
-    { threshold: 0, rootMargin: '-40% 0px -59% 0px' }
-  )
-
-  // journeyIo: dispara el crossfade naranja → morado mientras el container
-  // del journey ENTRA al viewport (su top cruza el 45% de la pantalla),
-  // así el morado aparece durante la transición, antes del scroll horizontal.
-  // rootMargin '0px 0px -55% 0px' → isIntersecting cuando container.top < 45%vh
-  let journeyEntered = false
-  const journeyIo = new IntersectionObserver(
-    (entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          journeyEntered = true
-          setBodyBg('journey')   // body: #F27700 → #7040AC (crossfade 0.8s)
-          hideNav.value = true
-        } else if (e.boundingClientRect.top > 0 && journeyEntered) {
-          // El container salió por abajo (scroll hacia arriba) → restaura Mindset.
-          // Solo si ya habíamos entrado: evita el falso naranja en la carga inicial.
-          setBodyBg('mindset')
-          hideNav.value = false
-        }
-      })
-    },
-    { threshold: 0, rootMargin: '0px 0px -55% 0px' }
-  )
-
-  if (heroRef.value)    io.observe(heroRef.value)
-  if (ideasRef.value)   io.observe(ideasRef.value)
-  if (mindsetRef.value) io.observe(mindsetRef.value)
-  if (journeyRef.value) journeyIo.observe(journeyRef.value)
-
-  window.addEventListener('scroll', onJourneyScroll, { passive: true })
-
   const { gsap } = await import('gsap')
-  gsapLib = gsap
+  const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+  gsap.registerPlugin(ScrollTrigger)
+
   gsap.from('.hero-headline span',      { y: 60, opacity: 0, duration: 1,   stagger: 0.15, ease: 'power3.out', delay: 0.2 })
-  gsap.from('.hero-sub',                { y: 30, opacity: 0, duration: 0.8, ease: 'power3.out', delay: 0.7 })
-  gsap.from('.btn-primary, .btn-ghost', { y: 20, opacity: 0, duration: 0.6, stagger: 0.1,  ease: 'power3.out', delay: 0.9 })
+  gsap.from('.btn-primary, .btn-ghost', { y: 20, opacity: 0, duration: 0.6, stagger: 0.1,  ease: 'power3.out', delay: 0.7 })
+
+  mm = gsap.matchMedia()
+
+  // Desktop: pin the journey and translate the track left as you scroll.
+  mm.add('(min-width: 1024px)', () => {
+    const track = trackRef.value
+    const panels = gsap.utils.toArray('.journey-panel')
+    const distance = () => track.scrollWidth - window.innerWidth
+
+    // Dwell on room 1: hold the track still for the first HOLD fraction of the
+    // scroll, then move linearly. `eased` maps raw scroll progress → track
+    // progress so the face/stations track the actual movement (stay put during
+    // the dwell). Total scroll is stretched by 1/(1-HOLD) to keep the same
+    // travel speed once it starts moving.
+    const HOLD = 0.07
+    const eased = (p) => (p < HOLD ? 0 : (p - HOLD) / (1 - HOLD))
+    const totalScroll = () => distance() / (1 - HOLD)
+
+    // Crossfade Ideas + Journey to dark together and KEEP them dark for the
+    // whole horizontal scroll (approach + pin). The end is generous (covers
+    // the pin distance plus the journey scrolling away) so the background
+    // never flips back to white from the 2nd card onward.
+    ScrollTrigger.create({
+      trigger: journeyRef.value,
+      start: 'top 70%',
+      end: () => '+=' + (window.innerHeight * 2 + totalScroll()),
+      onToggle: (self) => { journeyActive.value = self.isActive },
+    })
+
+    const horizontal = gsap.to(track, {
+      x: () => -distance(),
+      ease: eased,
+      scrollTrigger: {
+        trigger: journeyRef.value,
+        start: 'top top',
+        end: () => '+=' + totalScroll(),
+        pin: true,
+        scrub: 1,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          const p = eased(self.progress)
+          journeyProgress.value = p
+          activeRoom.value = Math.round(p * (panels.length - 1))
+        },
+      },
+    })
+
+    // Per-panel motion, all scrub-tied to the horizontal scroll so nothing
+    // ever gets stuck hidden: when a panel is centered its content is fully
+    // visible. This also fills the gaps between rooms so the transition isn't
+    // empty.
+    // Filler: subtle parallax drift on each SVG across its traversal. This is
+    // transform-only (never touches opacity), so the text can't get hidden.
+    panels.forEach((panel) => {
+      gsap.fromTo(
+        panel.querySelector('.rv'),
+        { xPercent: 12 },
+        {
+          xPercent: -12,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: panel,
+            containerAnimation: horizontal,
+            start: 'left right',
+            end: 'right left',
+            scrub: true,
+          },
+        },
+      )
+    })
+
+    // matchMedia auto-reverts everything created in this scope on cleanup.
+  })
+
+  // Mobile: no pin/horizontal scroll — the panels stack vertically, so the
+  // crossfade just spans the (tall) stacked section.
+  mm.add('(max-width: 1023px)', () => {
+    ScrollTrigger.create({
+      trigger: journeyRef.value,
+      start: 'top 70%',
+      end: 'bottom 30%',
+      onToggle: (self) => { journeyActive.value = self.isActive },
+    })
+  })
+
+  if (logosSecRef.value) {
+    logosIo = new IntersectionObserver(
+      ([entry]) => { logosActive.value = entry.isIntersecting },
+      { threshold: 0.35 },
+    )
+    logosIo.observe(logosSecRef.value)
+  }
 })
 
 onUnmounted(() => {
-  io?.disconnect()
-  window.removeEventListener('scroll', onJourneyScroll)
-  Object.values(BG_CLASSES).forEach(cls => document.body.classList.remove(cls))
-  hideNav.value = false
+  if (mm) mm.revert()
+  if (logosIo) logosIo.disconnect()
 })
 </script>
 
@@ -331,17 +392,12 @@ onUnmounted(() => {
   overflow-x: clip;
 }
 
-/* ── Secciones cover ── */
-.cover-sec {
-  height: 100vh;
-  min-height: 100vh;
-  width: 100%;
-}
-
 /* ── Hero ── */
 .hero-sec {
-  background: #0a0a0f;
+  background: var(--color-dark);
   position: relative;
+  min-height: 100vh;
+  width: 100%;
 }
 .hero-video {
   position: absolute;
@@ -373,8 +429,8 @@ onUnmounted(() => {
   bottom: 100px; right: 0;
 }
 .hero-content {
-  padding-top: 5rem;
-  padding-bottom: 4rem;
+  padding-top: 8rem;
+  padding-bottom: 5rem;
 }
 .hero-headline {
   font-size: clamp(3rem, 8vw, 7rem);
@@ -386,345 +442,491 @@ onUnmounted(() => {
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-.hero-sub {
-  font-size: 1.1rem;
-  color: rgba(255,255,255,0.72);
-  line-height: 1.7; max-width: 520px;
-}
 .btn-white {
-  background: #ffffff !important; border-color: #ffffff !important; color: #0a0a0f !important;
+  background: #ffffff !important; border-color: #ffffff !important; color: var(--color-dark) !important;
 }
 .btn-white:hover {
   background: rgba(255,255,255,0.88) !important; border-color: rgba(255,255,255,0.88) !important;
   transform: translateY(-1px);
 }
 
-/* ── Ideas ── */
-.ideas-section {
-  display: flex; align-items: center; justify-content: center;
-  padding: 5rem 2rem;
+/* ── Ideas + Stats ── */
+.ideas-sec {
+  background: var(--color-bg);
+  transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* Darkens in sync with Mindset so there is no white/black seam between
+   the two sections during the crossfade. */
+.ideas-sec--dark {
+  background: var(--color-dark);
+}
+.ideas-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6rem 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+@media (min-width: 1024px) {
+  .ideas-inner {
+    max-width: 1600px;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 5rem;
+    padding: 7rem 2.5rem;
+    width: 100%;
+    align-items: center;
+  }
+}
+.ideas-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 .ideas-title {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3.5vw, 3rem);
-  font-weight: 400; letter-spacing: -0.04em;
-  color: #0a0a0f; text-align: center; line-height: 1.2; max-width: 900px;
+  font-size: clamp(1.75rem, 4.5vw, 3.5rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  line-height: 1.25;
 }
-
-/* ── Mindset ── */
-.mindset-section {
-  display: flex; align-items: center; justify-content: center;
-  padding: 5rem 2rem;
+.ideas-text {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--color-muted);
+  max-width: 480px;
 }
-.mindset-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3.5vw, 3rem);
-  font-weight: 400; letter-spacing: -0.04em;
-  color: #ffffff; text-align: center; line-height: 1.2; max-width: 900px;
+.ideas-right {
+  width: 100%;
 }
-
-/* ── Split-text animation ── */
-.line-wrap {
-  display: block; overflow: hidden; padding-bottom: 0.08em;
-}
-.line-inner {
-  display: block;
-  transform: translateY(115%);
-  transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.7s;
-}
-.line-inner.line-up { transform: translateY(0); }
-.line-delay { transition-delay: calc(0.7s + 0.18s); }
-
-/* ════════════════════════════════════════════
-   MOBILE CAROUSEL
-   ════════════════════════════════════════════ */
-.mobile-carousel { display: none; }
-
-@media (max-width: 1023px) {
-  /* Acorta el scroll Ideas → Mindset en mobile (no full-height) */
-  .ideas-section,
-  .mindset-section {
-    height: auto;
-    min-height: 60vh;
-    padding: 4rem 2rem;
-  }
-
-  /* Carrusel táctil desactivado: mobile usa el mismo scroll inmersivo que desktop */
-  .mobile-carousel {
-    display: none;
-    position: relative;
-    background: #7040AC;
-    padding: 2rem 0 3.5rem;
-    overflow: hidden;
-  }
-  .mobile-track {
-    display: flex;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: transform;
-  }
-  .mobile-slide {
-    min-width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 1.5rem;
-  }
-  .mobile-card {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 4/3;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 16px 48px rgba(0,0,0,0.4);
-  }
-  .mobile-card-img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  .mobile-card-num {
-    position: absolute;
-    bottom: 0.75rem; right: 1rem;
-    font-family: var(--font-display);
-    font-size: 3.5rem;
-    font-weight: 800;
-    color: rgba(255,255,255,0.1);
-    line-height: 1;
-    user-select: none;
-  }
-  .mobile-card--impact {
-    background: #0a0a0f;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-    padding: 2rem 1.5rem;
-    aspect-ratio: auto;
-    min-height: 240px;
-  }
-  .mobile-dots {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 1.25rem;
-  }
-  .mobile-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.3);
-    cursor: pointer;
-    transition: background 0.3s, transform 0.3s;
-  }
-  .mobile-dot.active { background: #fff; transform: scale(1.6); }
-  .mobile-arrow {
-    position: absolute;
-    top: 50%; transform: translateY(-60%);
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.2);
-    color: #fff;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer; padding: 0;
-    transition: background 0.2s;
-  }
-  .mobile-arrow svg { width: 18px; height: 18px; }
-  .mobile-arrow:disabled { opacity: 0.25; cursor: default; }
-  .mobile-arrow--prev { left: 0.5rem; }
-  .mobile-arrow--next { right: 0.5rem; }
-  .mobile-arrow:not(:disabled):hover { background: rgba(255,255,255,0.28); }
-}
-
-/* ════════════════════════════════════════════
-   DESKTOP SCROLL JOURNEY
-   ════════════════════════════════════════════ */
-.journey-scroll-container {
-  height: 600vh;
+/* Vertical ticker viewport: clips the scrolling track and fades the
+   top/bottom edges so items appear/disappear softly. */
+.ideas-marquee {
   position: relative;
-  background: transparent; /* el body maneja el color — sin línea de corte */
-}
-.journey-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
+  height: 22rem;
   overflow: hidden;
-  background: transparent; /* el overlay maneja el color */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14%, #000 86%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 14%, #000 86%, transparent 100%);
 }
-
-/* Overlay morado — fade-in via JS */
-.sticky-bg-overlay {
-  position: absolute;
-  inset: 0;
-  background: #7040AC;
-  z-index: 0;
-  pointer-events: none;
+@media (min-width: 1024px) {
+  .ideas-marquee { height: 30rem; }
 }
-
-.h-track {
+.ideas-track {
   display: flex;
-  position: absolute;
-  inset: 0;
-  width: 500vw;
-  height: 100%;
+  flex-direction: column;
+  animation: ideas-scroll 48s linear infinite;
   will-change: transform;
-  z-index: 1;
 }
-.h-panel {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  flex-shrink: 0;
-  overflow: hidden;
+/* Pause when hovering the ticker. */
+.ideas-marquee:hover .ideas-track {
+  animation-play-state: paused;
 }
-.panel-img {
-  position: absolute;
-  inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: center;
+@keyframes ideas-scroll {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-50%); }
 }
-.panel-small {
+@media (prefers-reduced-motion: reduce) {
+  .ideas-track { animation: none; }
+}
+.ideas-stat {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  text-align: center;
+  gap: 0.4rem;
+  /* Uniform vertical rhythm on every item (incl. the last) keeps the
+     -50% loop seamless. */
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--color-border);
+  cursor: default;
 }
-.panel-small .panel-img {
-  position: relative;
-  inset: auto;
-  width: 60%; height: 68%;
-  object-fit: cover;
+.ideas-sec--dark .ideas-stat {
+  border-bottom-color: rgba(255, 255, 255, 0.12);
 }
-.panel-small .panel-overlay { display: none; }
-.panel-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.20) 0%, transparent 30%, transparent 65%, rgba(0,0,0,0.55) 100%);
-  pointer-events: none;
-}
-.panel-num {
-  position: absolute;
-  bottom: 2.5rem; right: 2.5rem;
+.ideas-stat-value {
   font-family: var(--font-display);
-  font-size: clamp(5rem, 12vw, 10rem);
-  font-weight: 800;
-  color: rgba(255,255,255,0.07);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.05em;
-  user-select: none;
-  pointer-events: none;
+  letter-spacing: -0.04em;
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
-.scroll-hint {
+@media (min-width: 1024px) {
+  .ideas-stat-value { font-size: clamp(2.75rem, 4vw, 4.5rem); }
+}
+.ideas-stat-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* ── Journey (horizontal scroll) ──
+   Desktop: .journey-sec is pinned at 100vh and GSAP translates .journey-track
+   left through the 4 panels. The heading stays fixed (flex column), the track
+   fills the rest. Mobile: the panels stack vertically (see media query). */
+/* Starts white (matching Ideas) and crossfades to dark in sync with Ideas —
+   driven by the same `journeyActive` flag — so the two sections cross the
+   color together and no dividing line ever shows. */
+.journey-sec {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--color-bg);
+  transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.journey-sec--dark {
+  background: var(--color-dark);
+}
+.journey-stage {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+/* Ambient drifting glow behind the rooms — fills the space during the
+   horizontal transitions so it never feels empty. Pure CSS, never touches
+   the content's visibility. */
+.journey-orb {
   position: absolute;
-  bottom: 3rem; left: 50%;
-  transform: translateX(-50%);
-  z-index: 20;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+}
+.journey-orb-1 {
+  width: clamp(280px, 42vw, 640px);
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(112, 64, 172, 0.45) 0%, transparent 70%);
+  top: -8%; left: -6%;
+  animation: journey-orb-1 16s ease-in-out infinite;
+}
+.journey-orb-2 {
+  width: clamp(220px, 34vw, 520px);
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(242, 119, 0, 0.32) 0%, transparent 70%);
+  bottom: -10%; right: -6%;
+  animation: journey-orb-2 20s ease-in-out infinite;
+}
+@keyframes journey-orb-1 {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(7vw, 5vh); }
+}
+@keyframes journey-orb-2 {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(-6vw, -4vh); }
+}
+.journey-heading {
+  flex: 0 0 auto;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.5rem, 3.5vw, 3rem);
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  line-height: 1.2;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: clamp(4.5rem, 9vh, 6.5rem) 1.5rem 0;
+}
+.journey-track {
+  flex: 1 1 auto;
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+.journey-panel {
+  flex: 0 0 100vw;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  pointer-events: none;
-  transition: opacity 0.1s linear;
+  justify-content: center;
+  gap: 0.9rem;
+  padding: 1rem 1.5rem 7rem;
+  text-align: center;
 }
-.hint-label {
-  font-size: 0.7rem;
+/* Sized by the SHORTER of width/height so the SVG never grows tall enough to
+   push the title + description past the (clipped) bottom of the panel. */
+.jp-visual {
+  width: min(40vh, clamp(240px, 30vw, 440px));
+  aspect-ratio: 1;
+}
+.jp-num {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  color: var(--color-accent-2);
+}
+.jp-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.75rem);
   font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.6);
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  line-height: 1;
 }
-.hint-arrow {
-  width: 20px; height: 20px;
-  color: rgba(255,255,255,0.6);
-  animation: bounce-down 1.4s ease-in-out infinite;
+.jp-line {
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 34ch;
 }
-@keyframes bounce-down {
-  0%,100% { transform: translateY(0);   opacity: 0.6; }
-  50%     { transform: translateY(6px); opacity: 1;   }
-}
-.progress-bar-wrap {
+/* Progress lane + travelling Nuro face (guide) */
+.journey-path {
   position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 3px;
-  background: rgba(255,255,255,0.1);
-  z-index: 30;
+  bottom: clamp(1.5rem, 4.5vh, 2.75rem);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(680px, 78vw);
+  height: 52px;
 }
-.progress-bar {
-  height: 100%;
-  background: var(--color-accent);
-  transition: width 0.05s linear;
-  max-width: 100%;
-}
-.side-nav {
+.journey-thread,
+.journey-thread-fill {
   position: absolute;
-  right: 1.5rem; top: 50%;
+  top: 50%;
+  left: 0;
+  height: 2px;
+  border-radius: 2px;
   transform: translateY(-50%);
+}
+.journey-thread {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.15);
+}
+/* Width is set inline from the scroll progress. */
+.journey-thread-fill {
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-2));
+}
+.journey-station {
+  position: absolute;
+  top: 50%;
+  width: 9px; height: 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.25);
+  transform: translate(-50%, -50%);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+.journey-station--on {
+  background: var(--color-accent-2);
+  box-shadow: 0 0 0 4px rgba(242, 119, 0, 0.18);
+}
+/* The face token. Left is set inline from the scroll progress. */
+.journey-traveler {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+/* Cream disc gives the (black-mouthed) face contrast on the dark background. */
+.tv-disc {
+  width: 48px; height: 48px;
+  border-radius: 999px;
+  background: var(--color-bg);
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  z-index: 30;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 4px rgba(112, 64, 172, 0.18),
+              0 8px 22px rgba(242, 119, 0, 0.28);
+  animation: tv-bob 2.6s ease-in-out infinite;
 }
-.nav-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.30);
-  transition: background 0.3s, transform 0.3s;
+@keyframes tv-bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
 }
-.nav-dot.active { background: #ffffff; transform: scale(1.7); }
+.tv-face {
+  width: 78%; height: 78%;
+  object-fit: contain;
+}
 
-/* ── Impact Panel ── */
-.impact-panel {
-  background: #0a0a0f;
+/* ── Journey SVG visuals (continuous, subtle, on-brand) ── */
+.rv {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+/* 01 Explore — planets orbiting the centre, each at its own speed (inner
+   orbits faster, like a real planetary system). Rotating the group around
+   (100,100) carries the planet around its ring. */
+.ex-orbit {
+  transform-box: view-box;
+  transform-origin: 100px 100px;
+}
+.ex-o1 { animation: ex-orbit 7s linear infinite; }
+.ex-o2 { animation: ex-orbit 11s linear infinite; }
+.ex-o3 { animation: ex-orbit 16s linear infinite; }
+.ex-o4 { animation: ex-orbit 11s linear infinite; animation-delay: -5.5s; }
+@keyframes ex-orbit { to { transform: rotate(360deg); } }
+.ex-sun { animation: jp-pulse 3s ease-in-out infinite; }
+@keyframes jp-pulse { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
+/* 02 Experiment — flow along the branching paths + pulsing endpoints */
+.xp-path {
+  stroke-dasharray: 6 8;
+  animation: xp-flow 1.1s linear infinite;
+}
+.xp-d { animation-delay: 0.2s; }
+@keyframes xp-flow { to { stroke-dashoffset: -14; } }
+.xp-node { animation: jp-pulse 1.8s ease-in-out infinite; }
+.xp-nd { animation-delay: 0.45s; }
+/* 03 Learn — bars breathing + line drawing itself */
+.ln-bar {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  animation: ln-grow 3s ease-in-out infinite;
+}
+.ln-d1 { animation-delay: 0.2s; }
+.ln-d2 { animation-delay: 0.4s; }
+.ln-d3 { animation-delay: 0.6s; }
+.ln-d4 { animation-delay: 0.8s; }
+@keyframes ln-grow { 0%, 100% { transform: scaleY(0.55); } 50% { transform: scaleY(1); } }
+.ln-line {
+  stroke-dasharray: 360;
+  stroke-dashoffset: 360;
+  animation: ln-draw 3.6s ease-in-out infinite;
+}
+@keyframes ln-draw {
+  0%   { stroke-dashoffset: 360; }
+  40%  { stroke-dashoffset: 0; }
+  75%  { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -360; }
+}
+/* 04 Scale — concentric rings expanding outward + bobbing arrow */
+.sc-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: sc-expand 3s ease-out infinite;
+}
+.sc-d1 { animation-delay: 1s; }
+.sc-d2 { animation-delay: 2s; }
+@keyframes sc-expand {
+  0%   { transform: scale(0.4); opacity: 0.9; }
+  100% { transform: scale(3.6); opacity: 0; }
+}
+.sc-arrow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sc-bob 2s ease-in-out infinite;
+}
+@keyframes sc-bob { 0%, 100% { transform: translateY(2px); } 50% { transform: translateY(-3px); } }
+
+/* Mobile: stack the panels vertically; no pin / horizontal translate. */
+@media (max-width: 1023px) {
+  .journey-sec { height: auto; overflow: visible; }
+  .journey-stage { height: auto; }
+  .journey-heading { padding: 4rem 1.5rem 0; }
+  .journey-track {
+    flex-direction: column;
+    width: 100%;
+    transform: none !important;
+  }
+  .journey-panel {
+    flex: none;
+    width: 100%;
+    min-height: 78vh;
+  }
+  .journey-path { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rv * { animation: none !important; }
+  .journey-orb { animation: none !important; }
+  .tv-disc { animation: none !important; }
+}
+
+/* ── Portfolio logos marquee ── */
+/* Starts black (matching Mindset) and crossfades to white on entry, in
+   sync with Mindset returning to white — so the seam never shows. */
+.logos-sec {
+  background: var(--color-dark);
+  transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 6rem 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.impact-inner {
+.logos-sec--light {
+  background: var(--color-bg);
+}
+.logos-inner {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 3rem;
   text-align: center;
-  padding: 2rem;
+  width: 100%;
 }
-.impact-eyebrow {
+/* Same look as the Mindset statement title; white on the black phase,
+   dark once the section crossfades to white. */
+.logos-title {
   font-family: var(--font-display);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-accent);
+  font-size: clamp(1.75rem, 4.5vw, 3.5rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  line-height: 1.25;
+  max-width: 880px;
+  transition: color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.impact-stats {
-  display: flex;
-  gap: clamp(2rem, 8vw, 6rem);
-  align-items: flex-start;
-  justify-content: center;
-  flex-wrap: wrap;
+.logos-sec--light .logos-title {
+  color: var(--color-text);
 }
-.impact-stat {
+/* Horizontal ticker viewport: clips the scrolling track and fades the
+   left/right edges so logos appear/disappear softly. */
+.logos-marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+}
+.logos-track {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  width: max-content;
+  animation: logos-scroll 40s linear infinite;
+  will-change: transform;
 }
-.impact-value {
-  font-family: var(--font-display);
-  font-size: clamp(2.5rem, 7vw, 7.5rem);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.04em;
-  background: linear-gradient(135deg, #ffffff 0%, rgba(255,255,255,0.7) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* Pause when hovering the ticker. */
+.logos-marquee:hover .logos-track {
+  animation-play-state: paused;
 }
-.impact-label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.45);
+/* Track holds two copies; starting at -50% and moving to 0 makes the
+   logos travel left→right seamlessly. */
+@keyframes logos-scroll {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logos-track { animation: none; }
+}
+.logo-item {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 clamp(2rem, 5vw, 4.5rem);
+}
+.logo-img {
+  height: clamp(2.5rem, 5vw, 4rem);
+  width: auto;
+  object-fit: contain;
+  opacity: 0.55;
+  filter: grayscale(100%);
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+.logo-item:hover .logo-img {
+  opacity: 1;
+  filter: none;
 }
 .impact-cta {
   display: inline-flex;
@@ -742,7 +944,7 @@ onUnmounted(() => {
   text-decoration: none;
 }
 .impact-cta:hover {
-  background: #5a32a0;
+  background: var(--color-accent-hover);
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(112,64,172,0.4);
 }

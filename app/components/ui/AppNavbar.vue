@@ -1,6 +1,6 @@
 <template>
   <!-- Outer wrapper — positions the pill -->
-  <div class="nav-wrapper" :class="{ 'nav-wrapper--hidden': hideNav }">
+  <div class="nav-wrapper">
     <nav class="nav-pill" :class="scrolled ? 'nav-pill--scrolled' : ''">
 
       <!-- Logo -->
@@ -62,11 +62,11 @@
         @click="menuOpen = !menuOpen"
         aria-label="Toggle menu"
       >
-        <span class="block w-5 h-[1.5px] bg-[#1a1a2e] transition-all duration-300 origin-center"
+        <span class="block w-5 h-[1.5px] bg-dark transition-all duration-300 origin-center"
           :class="menuOpen ? 'rotate-45 translate-y-[6.5px]' : ''"></span>
-        <span class="block w-5 h-[1.5px] bg-[#1a1a2e] transition-all duration-300"
+        <span class="block w-5 h-[1.5px] bg-dark transition-all duration-300"
           :class="menuOpen ? 'opacity-0' : ''"></span>
-        <span class="block w-5 h-[1.5px] bg-[#1a1a2e] transition-all duration-300 origin-center"
+        <span class="block w-5 h-[1.5px] bg-dark transition-all duration-300 origin-center"
           :class="menuOpen ? '-rotate-45 -translate-y-[6.5px]' : ''"></span>
       </button>
 
@@ -106,7 +106,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
-const hideNav  = useState('hideNav', () => false)
 const scrolled = ref(false)
 const menuOpen = ref(false)
 const activeDropdown = ref(null)
@@ -163,13 +162,6 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 }
 .nav-wrapper > * { pointer-events: all; }
 
-.nav-wrapper--hidden {
-  opacity: 0;
-  transform: translateY(-20px);
-  pointer-events: none;
-}
-.nav-wrapper--hidden > * { pointer-events: none; }
-
 /* ── Pill ────────────────────────────────────────────────── */
 .nav-pill {
   display: flex;
@@ -181,14 +173,14 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(112, 64, 172, 0.12);
+  border: 1px solid rgba(10, 10, 15, 0.08);
   border-radius: 999px;
-  box-shadow: 0 4px 24px rgba(112, 64, 172, 0.1), 0 1px 4px rgba(0,0,0,0.04);
+  box-shadow: 0 4px 24px rgba(10, 10, 15, 0.06), 0 1px 4px rgba(0,0,0,0.04);
   transition: box-shadow 0.3s, background 0.3s;
 }
 .nav-pill--scrolled {
   background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 8px 32px rgba(112, 64, 172, 0.15), 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 8px 32px rgba(10, 10, 15, 0.1), 0 2px 8px rgba(0,0,0,0.06);
 }
 
 /* ── Logo ────────────────────────────────────────────────── */
@@ -239,8 +231,8 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   align-items: center;
   margin-left: auto;
   padding: 0.5rem 1.25rem;
-  background: #1a1a2e;
-  color: #F9F0E5;
+  background: var(--color-dark);
+  color: #ffffff;
   font-family: var(--font-display);
   font-size: 0.825rem;
   font-weight: 600;
@@ -250,7 +242,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   flex-shrink: 0;
 }
 .nav-cta:hover {
-  background: #7040AC;
+  background: var(--color-accent);
   transform: translateY(-1px);
 }
 

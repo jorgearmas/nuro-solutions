@@ -5,13 +5,17 @@
 /* ─── Design Tokens — Nuro Brandbook ─────────────────────── */
 :root {
   /* Backgrounds */
-  --color-bg:           #F9F0E5;
+  --color-bg:           #ffffff;
   --color-surface:      #ffffff;
-  --color-surface-2:    #f3eef8;
+  --color-surface-2:    #f5f5f7;
+
+  /* Dark / Black */
+  --color-dark:         #0a0a0f;
+  --color-dark-surface: #15151c;
 
   /* Primary accent — Purple */
   --color-accent:       #7040AC;
-  --color-accent-hover: #3C4A95;
+  --color-accent-hover: #5a32a0;
   --color-accent-glow:  rgba(112, 64, 172, 0.12);
 
   /* Secondary accent — Orange */
@@ -19,14 +23,14 @@
   --color-accent-2-hover: #F55D28;
 
   /* Text */
-  --color-text:         #1a1a2e;
-  --color-muted:        #6b6b8a;
+  --color-text:         #0a0a0f;
+  --color-muted:        #6b6b76;
 
   /* Borders */
-  --color-border:       #e2d9f3;
+  --color-border:       #e5e5ea;
 
   /* Gradient helpers */
-  --gradient-primary: linear-gradient(135deg, #3C4A95 0%, #7040AC 50%, #F27700 100%);
+  --gradient-primary: linear-gradient(135deg, #0a0a0f 0%, #7040AC 55%, #F27700 100%);
   --gradient-soft:    linear-gradient(135deg, rgba(112,64,172,0.08) 0%, rgba(242,119,0,0.08) 100%);
 
   --font-display: 'Satoshi', sans-serif;
@@ -39,22 +43,11 @@
 html { scroll-behavior: smooth; }
 
 body {
+  background-color: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* ─── Colores por sección ────────────────────────────────── */
-body.bg-hero    { background-color: #0a0a0f; }
-body.bg-ideas   { background-color: #ffffff; }
-body.bg-mindset { background-color: #F27700; }
-body.bg-journey { background-color: #7040AC; }
-
-/* Fuera de las secciones: vuelve al color base */
-body:not(.bg-hero):not(.bg-ideas):not(.bg-mindset):not(.bg-journey) {
-  background-color: var(--color-bg);
 }
 
 /* ─── Typography ─────────────────────────────────────────── */

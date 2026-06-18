@@ -220,7 +220,7 @@ const services = [
 }
 .service-row--open {
   border-color: var(--color-accent);
-  background: linear-gradient(135deg, rgba(112, 64, 172, 0.30) 0%, rgba(242, 119, 0, 0.30) 100%);
+  background: linear-gradient(135deg, rgba(112, 64, 172, 0.18) 0%, rgba(242, 119, 0, 0.18) 100%);
 }
 .service-row__header {
   display: flex;
@@ -250,7 +250,7 @@ const services = [
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-muted);
-  background: var(--color-surface-2, #141a22);
+  background: var(--color-surface-2);
   border: 1px solid var(--color-border);
   padding: 0.2rem 0.6rem;
   border-radius: 999px;

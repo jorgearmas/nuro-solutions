@@ -1,5 +1,9 @@
 <template>
-  <IndustryPage :industry="industry" />
+  <IndustryPage :industry="industry">
+    <template #cards>
+      <HealthcareCards :cards="industry.theme.cards" />
+    </template>
+  </IndustryPage>
 </template>
 
 <script setup>

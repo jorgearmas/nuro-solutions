@@ -302,7 +302,7 @@ async function handleSubmit() {
   color: var(--color-muted);
 }
 .form-input {
-  background: var(--color-bg);
+  background: var(--color-surface-2);
   border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 0.875rem 1rem;

@@ -16,8 +16,15 @@ type LazyComponent<T> = DefineComponent<HydrationStrategies, {}, {}, {}, {}, {},
 
 export const AppFooter: typeof import("../app/components/ui/AppFooter.vue")['default']
 export const AppNavbar: typeof import("../app/components/ui/AppNavbar.vue")['default']
+export const EcommerceCards: typeof import("../app/components/sections/EcommerceCards.vue")['default']
+export const EducationCards: typeof import("../app/components/sections/EducationCards.vue")['default']
+export const HealthcareCards: typeof import("../app/components/sections/HealthcareCards.vue")['default']
+export const HospitalityCards: typeof import("../app/components/sections/HospitalityCards.vue")['default']
 export const IndustryPage: typeof import("../app/components/sections/IndustryPage.vue")['default']
 export const NuroJourney: typeof import("../app/components/sections/NuroJourney.vue")['default']
+export const RealEstateCards: typeof import("../app/components/sections/RealEstateCards.vue")['default']
+export const RetailCards: typeof import("../app/components/sections/RetailCards.vue")['default']
+export const WellnessCards: typeof import("../app/components/sections/WellnessCards.vue")['default']
 export const NuxtWelcome: typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']
 export const NuxtLayout: typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']
 export const NuxtErrorBoundary: typeof import("../node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue")['default']
@@ -43,8 +50,15 @@ export const Body: typeof import("../node_modules/nuxt/dist/head/runtime/compone
 export const NuxtIsland: typeof import("../node_modules/nuxt/dist/app/components/nuxt-island")['default']
 export const LazyAppFooter: LazyComponent<typeof import("../app/components/ui/AppFooter.vue")['default']>
 export const LazyAppNavbar: LazyComponent<typeof import("../app/components/ui/AppNavbar.vue")['default']>
+export const LazyEcommerceCards: LazyComponent<typeof import("../app/components/sections/EcommerceCards.vue")['default']>
+export const LazyEducationCards: LazyComponent<typeof import("../app/components/sections/EducationCards.vue")['default']>
+export const LazyHealthcareCards: LazyComponent<typeof import("../app/components/sections/HealthcareCards.vue")['default']>
+export const LazyHospitalityCards: LazyComponent<typeof import("../app/components/sections/HospitalityCards.vue")['default']>
 export const LazyIndustryPage: LazyComponent<typeof import("../app/components/sections/IndustryPage.vue")['default']>
 export const LazyNuroJourney: LazyComponent<typeof import("../app/components/sections/NuroJourney.vue")['default']>
+export const LazyRealEstateCards: LazyComponent<typeof import("../app/components/sections/RealEstateCards.vue")['default']>
+export const LazyRetailCards: LazyComponent<typeof import("../app/components/sections/RetailCards.vue")['default']>
+export const LazyWellnessCards: LazyComponent<typeof import("../app/components/sections/WellnessCards.vue")['default']>
 export const LazyNuxtWelcome: LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']>
 export const LazyNuxtLayout: LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']>
 export const LazyNuxtErrorBoundary: LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue")['default']>

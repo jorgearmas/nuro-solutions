@@ -100,7 +100,7 @@ const drivers = [
     ],
     visual: `
       <div style="display:flex;flex-direction:column;gap:1rem;">
-        <div style="display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;background:var(--color-bg);border:1px solid var(--color-border);border-radius:8px;">
+        <div style="display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:8px;">
           <div style="width:40px;height:40px;border-radius:50%;background:var(--color-accent-glow);border:1px solid var(--color-accent);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:0.75rem;color:var(--color-accent);font-weight:700;">A1</div>
           <div style="flex:1;">
             <div style="font-family:var(--font-display);font-size:0.875rem;margin-bottom:4px;">High-Intent Decision Maker</div>
@@ -108,7 +108,7 @@ const drivers = [
           </div>
           <span style="font-family:var(--font-display);font-size:0.75rem;color:var(--color-accent);">85%</span>
         </div>
-        <div style="display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;background:var(--color-bg);border:1px solid var(--color-border);border-radius:8px;">
+        <div style="display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:8px;">
           <div style="width:40px;height:40px;border-radius:50%;background:rgba(37,99,235,0.06);border:1px solid var(--color-border);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:0.75rem;color:var(--color-muted);font-weight:700;">A2</div>
           <div style="flex:1;">
             <div style="font-family:var(--font-display);font-size:0.875rem;color:var(--color-muted);margin-bottom:4px;">Research-Phase Buyer</div>
@@ -116,7 +116,7 @@ const drivers = [
           </div>
           <span style="font-family:var(--font-display);font-size:0.75rem;color:var(--color-muted);">62%</span>
         </div>
-        <div style="display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;background:var(--color-bg);border:1px solid var(--color-border);border-radius:8px;">
+        <div style="display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:8px;">
           <div style="width:40px;height:40px;border-radius:50%;background:rgba(37,99,235,0.06);border:1px solid var(--color-border);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:0.75rem;color:var(--color-muted);font-weight:700;">A3</div>
           <div style="flex:1;">
             <div style="font-family:var(--font-display);font-size:0.875rem;color:var(--color-muted);margin-bottom:4px;">Awareness Stage Lead</div>
@@ -139,11 +139,11 @@ const drivers = [
     ],
     visual: `
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
-        <div style="padding:1rem;background:var(--color-bg);border:1px solid var(--color-accent);border-radius:8px;text-align:center;">
+        <div style="padding:1rem;background:var(--color-surface-2);border:1px solid var(--color-accent);border-radius:8px;text-align:center;">
           <div style="font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent);margin-bottom:0.5rem;">Strategy</div>
           <div style="font-size:0.8rem;color:var(--color-muted);">Audience insight, channel mix, funnel mapping</div>
         </div>
-        <div style="padding:1rem;background:var(--color-bg);border:1px solid var(--color-accent);border-radius:8px;text-align:center;">
+        <div style="padding:1rem;background:var(--color-surface-2);border:1px solid var(--color-accent);border-radius:8px;text-align:center;">
           <div style="font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent);margin-bottom:0.5rem;">Creative</div>
           <div style="font-size:0.8rem;color:var(--color-muted);">Copy, design, video, motion</div>
         </div>
@@ -167,13 +167,13 @@ const drivers = [
     visual: `
       <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
 
-        <div style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:0.7rem 1rem;background:var(--color-bg);border:1px solid var(--color-border);border-radius:6px 6px 0 0;font-size:0.8rem;">
+        <div style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:0.7rem 1rem;background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:6px 6px 0 0;font-size:0.8rem;">
           <span style="color:var(--color-muted);font-family:var(--font-display);">Lead entered funnel</span>
           <span style="color:var(--color-accent);font-family:var(--font-display);font-size:0.7rem;">AUTO</span>
         </div>
         <div style="width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:10px solid var(--color-border);margin:0 auto;"></div>
 
-        <div style="width:83%;display:flex;justify-content:space-between;align-items:center;padding:0.7rem 1rem;background:var(--color-bg);border:1px solid var(--color-border);border-radius:6px 6px 0 0;font-size:0.8rem;">
+        <div style="width:83%;display:flex;justify-content:space-between;align-items:center;padding:0.7rem 1rem;background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:6px 6px 0 0;font-size:0.8rem;">
           <span style="color:var(--color-muted);font-family:var(--font-display);">Segment identified</span>
           <span style="color:var(--color-accent);font-family:var(--font-display);font-size:0.7rem;">AUTO</span>
         </div>
@@ -185,7 +185,7 @@ const drivers = [
         </div>
         <div style="width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:10px solid var(--color-accent);opacity:0.5;margin:0 auto;"></div>
 
-        <div style="width:49%;display:flex;justify-content:space-between;align-items:center;padding:0.7rem 1rem;background:var(--color-bg);border:1px solid var(--color-border);border-radius:0 0 6px 6px;font-size:0.8rem;">
+        <div style="width:49%;display:flex;justify-content:space-between;align-items:center;padding:0.7rem 1rem;background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:0 0 6px 6px;font-size:0.8rem;">
           <span style="color:var(--color-muted);font-family:var(--font-display);">Conversion tracked → optimize</span>
           <span style="color:var(--color-accent);font-family:var(--font-display);font-size:0.7rem;">LOOP</span>
         </div>
