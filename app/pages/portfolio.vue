@@ -27,7 +27,7 @@
             class="portfolio-card"
           >
             <div class="portfolio-card__top">
-              <div class="portfolio-card__logo">
+              <div class="portfolio-card__logo" :class="{ 'portfolio-card__logo--zoom': client.logoZoom }">
                 <img :src="client.logo" :alt="client.name" class="client-logo-img" />
               </div>
               <div class="portfolio-card__meta">
@@ -104,6 +104,7 @@
 const clients = [
   {
     logo: '/mi-consulting_portafolio.png',
+    logoZoom: true,
     name: 'MI Consulting',
     industry: 'SQF Consulting',
     countryCode: 'us',
@@ -260,6 +261,9 @@ const coreProducts = [
   display: flex; align-items: center; justify-content: center;
   overflow: hidden;
   padding: 20px;
+}
+.portfolio-card__logo--zoom {
+  padding: 4px;
 }
 .client-logo-img {
   width: 100%; height: 100%;
