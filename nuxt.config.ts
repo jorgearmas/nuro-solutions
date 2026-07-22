@@ -6,6 +6,15 @@ export default defineNuxtConfig({
     { path: '~/components/sections', prefix: '' },
   ],
   modules: ['@nuxtjs/tailwindcss'],
+  runtimeConfig: {
+    public: {
+      // EmailJS credentials (public by design — safe on the client).
+      // Values come from .env: NUXT_PUBLIC_EMAILJS_*
+      emailjsPublicKey: '',
+      emailjsServiceId: '',
+      emailjsTemplateId: '',
+    },
+  },
   devServer: {
     port: 3001   // o el que quieras, 3001, 3002, etc.
   },

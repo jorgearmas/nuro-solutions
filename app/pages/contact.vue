@@ -158,15 +158,14 @@ import { ref, reactive } from 'vue'
 import emailjs from 'emailjs-com'
 
 // ── EmailJS config ──────────────────────────────
-// Reemplazá estos 3 valores con los de tu cuenta (dashboard.emailjs.com):
-//   Account → API Keys → Public Key
-//   Email Services → Service ID
-//   Email Templates → Template ID
+// Credenciales desde .env (NUXT_PUBLIC_EMAILJS_*). Son públicas por diseño.
 // El destino (start@nurosolutions.com) se configura en el campo "To Email"
 // de la plantilla en EmailJS.
-const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY'
-const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID'
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID'
+const {
+  emailjsPublicKey: EMAILJS_PUBLIC_KEY,
+  emailjsServiceId: EMAILJS_SERVICE_ID,
+  emailjsTemplateId: EMAILJS_TEMPLATE_ID,
+} = useRuntimeConfig().public
 
 const form = reactive({ firstName: '', lastName: '', business: '', email: '', phone: '', message: '' })
 const status = ref(null)
