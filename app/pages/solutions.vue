@@ -4,8 +4,12 @@
 
     <!-- ── 1. Hero ────────────────────────────────────────── -->
     <section class="snap-sec page-hero">
+      <video class="hero-bg-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+        <source src="https://res.cloudinary.com/dpi6oudmk/video/upload/v1784681701/Background_Solutions_xhlwae.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-bg-overlay" aria-hidden="true"></div>
       <div class="orb" aria-hidden="true"></div>
-      <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-24 pb-16 w-full">
+      <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-24 pb-16 w-full">
         <div class="section-tag"><span class="glow-dot"></span>Solutions</div>
         <h1 class="text-5xl lg:text-7xl font-display mb-6 max-w-3xl">
           Everything you need to <em class="accent-em">scale with intent.</em>
@@ -167,7 +171,19 @@ const services = [
   display: flex;
   align-items: center;
   border-bottom: 1px solid var(--color-border);
-  background: var(--color-bg);
+  background: var(--color-dark);
+}
+.hero-bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  z-index: 0;
+}
+.hero-bg-overlay {
+  position: absolute; inset: 0;
+  z-index: 1;
+  background: rgba(10, 10, 15, 0.82);
 }
 .orb {
   position: absolute;
@@ -177,7 +193,10 @@ const services = [
   filter: blur(120px);
   background: radial-gradient(circle, rgba(112,64,172,0.12) 0%, transparent 70%);
   pointer-events: none;
+  z-index: 2;
 }
+.page-hero h1 { color: #ffffff; }
+.page-hero p { color: rgba(255, 255, 255, 0.72); }
 .accent-em {
   font-style: italic;
   background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-2) 100%);

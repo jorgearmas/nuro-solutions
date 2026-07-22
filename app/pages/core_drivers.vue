@@ -4,15 +4,19 @@
 
     <!-- ── 1. Hero ────────────────────────────────────────── -->
     <section class="snap-sec page-hero">
+      <video class="hero-bg-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+        <source src="https://res.cloudinary.com/dpi6oudmk/video/upload/v1784681649/Background_Core_Drivers_mlkoqm.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-bg-overlay" aria-hidden="true"></div>
       <div class="orb" aria-hidden="true"></div>
-      <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-24 pb-16 w-full">
+      <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-24 pb-16 w-full">
         <div class="section-tag"><span class="glow-dot"></span>Core Drivers</div>
         <h1 class="text-5xl lg:text-7xl font-display mb-6 max-w-3xl">
           The art and science<br />of <em class="accent-em">intentional growth.</em>
         </h1>
         <p class="text-muted text-lg max-w-xl leading-relaxed">
           Three integrated disciplines that power every campaign we build.
-          Together they form the Nuro system — where creativity meets data, and
+          Together they form the Nuro system, where creativity meets data, and
           strategy meets scale.
         </p>
       </div>
@@ -90,7 +94,7 @@
 const drivers = [
   {
     title: 'Analytical Targeting',
-    description: 'Great marketing isn\'t about interruption — it\'s about resonance. We study your audience\'s motivations, fears, and desires to craft messaging that feels personal, not promotional. By combining consumer psychology with behavioral data, we build campaigns that your audience actually feels.',
+    description: 'Great marketing isn\'t about interruption, it\'s about resonance. We study your audience\'s motivations, fears, and desires to craft messaging that feels personal, not promotional. By combining consumer psychology with behavioral data, we build campaigns that your audience actually feels.',
     points: [
       'Audience archetype mapping',
       'Emotional trigger identification',
@@ -129,7 +133,7 @@ const drivers = [
   },
   {
     title: 'Creative Integration',
-    description: 'We believe the artificial divide between creative and strategy kills campaigns. At Nuro, our creative team and strategists work as one. Every asset, every message, every visual is designed with purpose — cohesive across channels and calibrated for performance.',
+    description: 'We believe the artificial divide between creative and strategy kills campaigns. At Nuro, our creative team and strategists work as one. Every asset, every message, every visual is designed with purpose, cohesive across channels and calibrated for performance.',
     points: [
       'Cross-channel brand consistency',
       'Strategy-informed creative briefs',
@@ -156,7 +160,7 @@ const drivers = [
   },
   {
     title: 'Automation & Data-Driven',
-    description: 'Intuition starts campaigns. Data wins them. We build automation frameworks that nurture leads at scale without losing the human touch — and pair them with real-time analytics that make every optimization decision faster, clearer, and more confident.',
+    description: 'Intuition starts campaigns. Data wins them. We build automation frameworks that nurture leads at scale without losing the human touch, and pair them with real-time analytics that make every optimization decision faster, clearer, and more confident.',
     points: [
       'Lead nurture automation flows',
       'Real-time performance dashboards',
@@ -222,7 +226,19 @@ const flowSteps = ['Analytical Targeting', 'Creative Integration', 'Automation &
   display: flex;
   align-items: center;
   border-bottom: 1px solid var(--color-border);
-  background: var(--color-bg);
+  background: var(--color-dark);
+}
+.hero-bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  z-index: 0;
+}
+.hero-bg-overlay {
+  position: absolute; inset: 0;
+  z-index: 1;
+  background: rgba(10, 10, 15, 0.82);
 }
 .orb {
   position: absolute;
@@ -232,7 +248,10 @@ const flowSteps = ['Analytical Targeting', 'Creative Integration', 'Automation &
   filter: blur(120px);
   background: radial-gradient(circle, rgba(112,64,172,0.12) 0%, transparent 70%);
   pointer-events: none;
+  z-index: 2;
 }
+.page-hero h1 { color: #ffffff; }
+.page-hero p { color: rgba(255, 255, 255, 0.72); }
 .accent-em {
   font-style: italic;
   background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-2) 100%);

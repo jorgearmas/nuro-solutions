@@ -4,8 +4,12 @@
 
     <!-- ── 1. Hero ────────────────────────────────────────── -->
     <section class="snap-sec page-hero">
+      <video class="hero-bg-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+        <source src="https://res.cloudinary.com/dpi6oudmk/video/upload/v1784681665/Background_Portafolio_fpgsbi.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-bg-overlay" aria-hidden="true"></div>
       <div class="orb" aria-hidden="true"></div>
-      <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-24 pb-16 w-full">
+      <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-24 pb-16 w-full">
         <div class="section-tag"><span class="glow-dot"></span>Portfolio</div>
         <h1 class="text-5xl lg:text-7xl font-display mb-6 max-w-3xl">
           Brands we've helped <em class="accent-em">grow.</em>
@@ -156,13 +160,6 @@ const clients = [
 
 const coreProducts = [
   {
-    name: 'Page Notes',
-    url: 'https://app.pagenotes.me/',
-    description: 'A web-based workspace designed to keep everything in one place — from your daily agenda to long-term projects.',
-    icon: `<svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>`,
-    features: ['Agenda & Calendar', 'Knowledge Center', 'Project Management', 'Task Tracking'],
-  },
-  {
     name: 'Nuro Publisher',
     url: 'https://nuropublisher.com/',
     description: 'Automated social media campaign publisher — schedule, publish, and manage content across platforms without the manual work.',
@@ -197,7 +194,19 @@ const coreProducts = [
   display: flex;
   align-items: center;
   border-bottom: 1px solid var(--color-border);
-  background: var(--color-bg);
+  background: var(--color-dark);
+}
+.hero-bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  z-index: 0;
+}
+.hero-bg-overlay {
+  position: absolute; inset: 0;
+  z-index: 1;
+  background: rgba(10, 10, 15, 0.82);
 }
 .orb {
   position: absolute;
@@ -207,7 +216,10 @@ const coreProducts = [
   filter: blur(120px);
   background: radial-gradient(circle, rgba(112,64,172,0.12) 0%, transparent 70%);
   pointer-events: none;
+  z-index: 2;
 }
+.page-hero h1 { color: #ffffff; }
+.page-hero p { color: rgba(255, 255, 255, 0.72); }
 .accent-em {
   font-style: italic;
   background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-2) 100%);
@@ -319,7 +331,7 @@ const coreProducts = [
 }
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(360px, 100%), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 480px));
   gap: 2rem;
 }
 .product-card {

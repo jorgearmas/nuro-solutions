@@ -17,7 +17,7 @@
       <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 w-full hero-content">
         <div class="max-w-4xl">
           <div class="section-tag">
-            <span class="glow-dot"></span>Growthcraft Partner
+            <span class="glow-dot"></span>Rooted in Guatemala, Global reach
           </div>
           <h1 class="hero-headline">
             <span class="block text-white">Your</span>
@@ -43,8 +43,8 @@
         <div class="ideas-left">
           <h2 class="ideas-title">Can Your <span class="accent-word">Ideas</span> Change The World?</h2>
           <p class="ideas-text">
-            Nuro delivers data-driven marketing systems engineered to increase conversions,
-            lower acquisition costs, and scale ROI — intentionally.
+            At Nuro Solutions, we help companies and professionals shape the commercial
+            future they envision.
           </p>
         </div>
         <div class="ideas-right">
