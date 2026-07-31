@@ -31,6 +31,16 @@ export default defineNuxtConfig({
           rel: 'stylesheet',
           href: 'https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400,300&display=swap'
         }
+      ],
+      script: [
+        // Google tag (gtag.js)
+        { src: 'https://www.googletagmanager.com/gtag/js?id=G-BV819L4NZ8', async: true },
+        {
+          innerHTML: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-BV819L4NZ8');`
+        }
       ]
     }
   }

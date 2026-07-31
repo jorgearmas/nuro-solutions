@@ -648,7 +648,11 @@ const _inlineRuntimeConfig = {
       }
     }
   },
-  "public": {}
+  "public": {
+    "emailjsPublicKey": "",
+    "emailjsServiceId": "",
+    "emailjsTemplateId": ""
+  }
 };
 const envOptions = {
   prefix: "NITRO_",
