@@ -1,6 +1,7 @@
 <template>
   <!-- Outer wrapper — positions the pill -->
-  <div class="nav-wrapper">
+  <div class="nav-wrapper" :class="{ 'nav-wrapper--hidden': hidden }"
+       @mouseenter="hidden = false">
     <nav class="nav-pill" :class="scrolled ? 'nav-pill--scrolled' : ''">
 
       <!-- Logo -->
@@ -107,10 +108,12 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 
 const scrolled = ref(false)
+const hidden = ref(false)
 const menuOpen = ref(false)
 const activeDropdown = ref(null)
 const logoUrl = '/logo.png'
 let dropdownTimer = null
+let lastScrollY = 0
 
 const navLinks = [
   { label: 'Industries', to: '/industries', children: [
@@ -135,10 +138,37 @@ function openDropdown(label) {
 function closeDropdown() {
   dropdownTimer = setTimeout(() => { activeDropdown.value = null }, 150)
 }
-function onScroll() { scrolled.value = window.scrollY > 20 }
+function onScroll() {
+  const y = window.scrollY
+  scrolled.value = y > 20
 
-onMounted(() => window.addEventListener('scroll', onScroll))
-onUnmounted(() => window.removeEventListener('scroll', onScroll))
+  // Auto-hide: hide when scrolling down (past a threshold), show when
+  // scrolling up or near the top. Keep it open while a dropdown/menu is open.
+  if (activeDropdown.value || menuOpen.value || y < 120) {
+    hidden.value = false
+  } else if (y > lastScrollY + 4) {
+    hidden.value = true
+  } else if (y < lastScrollY - 4) {
+    hidden.value = false
+  }
+  lastScrollY = y
+}
+
+// Reveal when the pointer reaches the very top edge of the screen,
+// so the menu is reachable even without scrolling.
+function onMouseMove(e) {
+  if (e.clientY <= 24) hidden.value = false
+}
+
+onMounted(() => {
+  lastScrollY = window.scrollY
+  window.addEventListener('scroll', onScroll, { passive: true })
+  window.addEventListener('mousemove', onMouseMove, { passive: true })
+})
+onUnmounted(() => {
+  window.removeEventListener('scroll', onScroll)
+  window.removeEventListener('mousemove', onMouseMove)
+})
 </script>
 
 <style scoped>
@@ -161,6 +191,14 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 .nav-wrapper > * { pointer-events: all; }
+
+/* Auto-hide: slides the pill up out of view when scrolling down.
+   It comes back when scrolling up or near the top of the page. */
+.nav-wrapper--hidden {
+  opacity: 0;
+  transform: translateY(-120%);
+  pointer-events: none;
+}
 
 /* ── Pill ────────────────────────────────────────────────── */
 .nav-pill {

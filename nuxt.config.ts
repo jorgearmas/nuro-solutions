@@ -24,9 +24,13 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'Nuro Solutions — Data-driven marketing systems engineered to increase conversions, lower acquisition costs, and scale ROI intentionally.' },
+        { name: 'description', content: 'Nuro Solutions. Data-driven marketing systems engineered to increase conversions, lower acquisition costs, and scale ROI intentionally.' },
       ],
       link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
+        { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
         {
           rel: 'stylesheet',
           href: 'https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400,300&display=swap'

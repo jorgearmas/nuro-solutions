@@ -14,8 +14,8 @@
       <div class="orb orb-1" aria-hidden="true"></div>
       <div class="orb orb-2" aria-hidden="true"></div>
 
-      <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 w-full hero-content">
-        <div class="max-w-4xl">
+      <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 w-full hero-content hero-grid">
+        <div class="hero-left">
           <div class="section-tag">
             <span class="glow-dot"></span>Rooted in Guatemala, Global reach
           </div>
@@ -24,16 +24,20 @@
             <span class="block accent-word">Growthcraft</span>
             <span class="block text-white">Partner</span>
           </h1>
-          <div class="flex flex-wrap gap-4 mt-10">
+          <div class="flex flex-wrap gap-4 mt-10 hero-cta">
             <NuxtLink to="/contact" class="btn-primary">
-              Get Started
+              Schedule
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </NuxtLink>
-            <NuxtLink to="/portfolio" class="btn-ghost btn-white">See Our Work</NuxtLink>
+            <NuxtLink to="/portfolio" class="btn-ghost btn-white">See Our Results</NuxtLink>
           </div>
         </div>
+        <p class="hero-subcopy">
+          Nuro Solutions exist to empower people and organizations to transform
+          commercial needs &amp; ideas into tangible impact.
+        </p>
       </div>
     </section>
 
@@ -43,9 +47,81 @@
         <div class="ideas-left">
           <h2 class="ideas-title">Can Your <span class="accent-word">Ideas</span> Change The World?</h2>
           <p class="ideas-text">
-            At Nuro Solutions, we help companies and professionals shape the commercial
-            future they envision.
+            We operate from Guatemala with a global reach, serving multiple market
+            sectors and addressing needs across B2C, B2B, and B2D.
           </p>
+          <div class="ideas-map-wrap">
+            <img src="/world-dots.svg" class="ideas-map" alt="Dotted world map showing Nuro Solutions' global reach" />
+            <!-- Nuro smiley pinned on Guatemala (home base) -->
+            <svg class="map-smiley" viewBox="0 0 100 100" aria-label="Nuro Solutions — Guatemala">
+              <circle cx="50" cy="50" r="44" fill="var(--color-bg)" />
+              <ellipse cx="38" cy="42" rx="6" ry="8" fill="#7040AC" />
+              <ellipse cx="62" cy="42" rx="6" ry="8" fill="#F27700" />
+              <path d="M30 58 A20 20 0 0 0 70 58 L60 58 A10 10 0 0 1 40 58 Z" fill="#0a0a0f" />
+            </svg>
+            <!-- Nuro orange smileys pinned on key cities -->
+            <svg class="map-smiley map-smiley--orange map-smiley--la" viewBox="0 0 100 100" aria-label="Nuro Solutions — Los Angeles">
+              <circle cx="50" cy="50" r="44" fill="#F27700" />
+              <ellipse cx="38" cy="42" rx="6" ry="8" fill="#ffffff" />
+              <ellipse cx="62" cy="42" rx="6" ry="8" fill="#ffffff" />
+              <path d="M30 58 A20 20 0 0 0 70 58 L60 58 A10 10 0 0 1 40 58 Z" fill="#ffffff" />
+            </svg>
+            <svg class="map-smiley map-smiley--orange map-smiley--toronto" viewBox="0 0 100 100" aria-label="Nuro Solutions — Toronto">
+              <circle cx="50" cy="50" r="44" fill="#F27700" />
+              <ellipse cx="38" cy="42" rx="6" ry="8" fill="#ffffff" />
+              <ellipse cx="62" cy="42" rx="6" ry="8" fill="#ffffff" />
+              <path d="M30 58 A20 20 0 0 0 70 58 L60 58 A10 10 0 0 1 40 58 Z" fill="#ffffff" />
+            </svg>
+            <svg class="map-smiley map-smiley--orange map-smiley--atlanta" viewBox="0 0 100 100" aria-label="Nuro Solutions — Atlanta">
+              <circle cx="50" cy="50" r="44" fill="#F27700" />
+              <ellipse cx="38" cy="42" rx="6" ry="8" fill="#ffffff" />
+              <ellipse cx="62" cy="42" rx="6" ry="8" fill="#ffffff" />
+              <path d="M30 58 A20 20 0 0 0 70 58 L60 58 A10 10 0 0 1 40 58 Z" fill="#ffffff" />
+            </svg>
+            <svg class="map-smiley map-smiley--orange map-smiley--bogota" viewBox="0 0 100 100" aria-label="Nuro Solutions — Bogotá">
+              <circle cx="50" cy="50" r="44" fill="#F27700" />
+              <ellipse cx="38" cy="42" rx="6" ry="8" fill="#ffffff" />
+              <ellipse cx="62" cy="42" rx="6" ry="8" fill="#ffffff" />
+              <path d="M30 58 A20 20 0 0 0 70 58 L60 58 A10 10 0 0 1 40 58 Z" fill="#ffffff" />
+            </svg>
+            <svg class="map-smiley map-smiley--orange map-smiley--saopaulo" viewBox="0 0 100 100" aria-label="Nuro Solutions — São Paulo">
+              <circle cx="50" cy="50" r="44" fill="#F27700" />
+              <ellipse cx="38" cy="42" rx="6" ry="8" fill="#ffffff" />
+              <ellipse cx="62" cy="42" rx="6" ry="8" fill="#ffffff" />
+              <path d="M30 58 A20 20 0 0 0 70 58 L60 58 A10 10 0 0 1 40 58 Z" fill="#ffffff" />
+            </svg>
+            <!-- Purple smileys -->
+            <svg class="map-smiley map-smiley--purple map-smiley--manchester" viewBox="0 0 100 100" aria-label="Nuro Solutions — Manchester">
+              <circle cx="50" cy="50" r="44" fill="#7040AC" />
+              <ellipse cx="38" cy="42" rx="6" ry="8" fill="#ffffff" />
+              <ellipse cx="62" cy="42" rx="6" ry="8" fill="#ffffff" />
+              <path d="M30 58 A20 20 0 0 0 70 58 L60 58 A10 10 0 0 1 40 58 Z" fill="#ffffff" />
+            </svg>
+            <svg class="map-smiley map-smiley--purple map-smiley--madrid" viewBox="0 0 100 100" aria-label="Nuro Solutions — Madrid">
+              <circle cx="50" cy="50" r="44" fill="#7040AC" />
+              <ellipse cx="38" cy="42" rx="6" ry="8" fill="#ffffff" />
+              <ellipse cx="62" cy="42" rx="6" ry="8" fill="#ffffff" />
+              <path d="M30 58 A20 20 0 0 0 70 58 L60 58 A10 10 0 0 1 40 58 Z" fill="#ffffff" />
+            </svg>
+            <svg class="map-smiley map-smiley--purple map-smiley--ankara" viewBox="0 0 100 100" aria-label="Nuro Solutions — Ankara">
+              <circle cx="50" cy="50" r="44" fill="#7040AC" />
+              <ellipse cx="38" cy="42" rx="6" ry="8" fill="#ffffff" />
+              <ellipse cx="62" cy="42" rx="6" ry="8" fill="#ffffff" />
+              <path d="M30 58 A20 20 0 0 0 70 58 L60 58 A10 10 0 0 1 40 58 Z" fill="#ffffff" />
+            </svg>
+            <svg class="map-smiley map-smiley--purple map-smiley--beijing" viewBox="0 0 100 100" aria-label="Nuro Solutions — Beijing">
+              <circle cx="50" cy="50" r="44" fill="#7040AC" />
+              <ellipse cx="38" cy="42" rx="6" ry="8" fill="#ffffff" />
+              <ellipse cx="62" cy="42" rx="6" ry="8" fill="#ffffff" />
+              <path d="M30 58 A20 20 0 0 0 70 58 L60 58 A10 10 0 0 1 40 58 Z" fill="#ffffff" />
+            </svg>
+            <svg class="map-smiley map-smiley--purple map-smiley--sydney" viewBox="0 0 100 100" aria-label="Nuro Solutions — Sydney">
+              <circle cx="50" cy="50" r="44" fill="#7040AC" />
+              <ellipse cx="38" cy="42" rx="6" ry="8" fill="#ffffff" />
+              <ellipse cx="62" cy="42" rx="6" ry="8" fill="#ffffff" />
+              <path d="M30 58 A20 20 0 0 0 70 58 L60 58 A10 10 0 0 1 40 58 Z" fill="#ffffff" />
+            </svg>
+          </div>
         </div>
         <div class="ideas-right">
           <!-- Vertical ticker: the list is duplicated so the loop is
@@ -104,7 +180,7 @@
             </div>
             <span class="jp-num jp-reveal">01</span>
             <h3 class="jp-title jp-reveal">Explore</h3>
-            <p class="jp-line jp-reveal">We map the terrain — data, context and opportunities — before deciding.</p>
+            <p class="jp-line jp-reveal">We map the terrain, data, context and opportunities, before deciding.</p>
           </article>
 
           <!-- 02 · Experiment -->
@@ -187,17 +263,24 @@
              4 stations are the rooms; they fill in as the face passes. -->
         <div class="journey-path" aria-hidden="true">
           <div class="journey-thread"></div>
-          <div class="journey-thread-fill" :style="{ width: journeyProgress * 100 + '%' }"></div>
+          <div class="journey-thread-fill" :style="{ width: 'max(0px, calc(' + journeyProgress * 100 + '% - 20px))' }"></div>
           <span
             v-for="i in 4"
             :key="`st-${i}`"
             class="journey-station"
-            :class="{ 'journey-station--on': activeRoom >= i - 1 }"
+            :class="{
+              'journey-station--on': activeRoom >= i - 1,
+              'journey-station--covered': Math.abs(journeyProgress - (i - 1) / 3) < 0.04,
+            }"
             :style="{ left: ((i - 1) / 3) * 100 + '%' }"
           ></span>
           <div class="journey-traveler" :style="{ left: journeyProgress * 100 + '%' }">
             <div class="tv-disc">
-              <img src="/medium_face.png" alt="" class="tv-face" />
+              <svg class="tv-face" viewBox="0 0 100 100" aria-hidden="true">
+                <ellipse cx="35" cy="40" rx="8" ry="9" fill="#ffffff" />
+                <ellipse cx="65" cy="40" rx="8" ry="9" fill="#ffffff" />
+                <path d="M28 56 A22 22 0 0 0 72 56 L61 56 A11 11 0 0 1 39 56 Z" fill="#ffffff" />
+              </svg>
             </div>
           </div>
         </div>
@@ -210,18 +293,175 @@
         <h2 class="logos-title">
           Real <span class="accent-word">Action</span>, Real Cases
         </h2>
-        <!-- Horizontal ticker: the list is duplicated so the loop is
-             seamless; it scrolls left→right and pauses on hover. -->
-        <div class="logos-marquee">
-          <div class="logos-track">
-            <div v-for="logo in portfolioLogos" :key="`a-${logo.name}`" class="logo-item">
-              <img :src="logo.src" :alt="logo.name" class="logo-img" />
-            </div>
-            <div v-for="logo in portfolioLogos" :key="`b-${logo.name}`" class="logo-item" aria-hidden="true">
-              <img :src="logo.src" :alt="logo.name" class="logo-img" />
+
+        <!-- Case feature: Reborn -->
+        <div class="case-feature">
+          <div class="cf-left">
+            <img src="/Reborn_wordmark.png" alt="Reborn Detailing Studio" class="cf-logo" />
+            <p class="cf-text">
+              Reborn had the craft but blended in with every other detailer in town,
+              inconsistent bookings and a calendar that lived or died by referrals. We
+              mapped their real audience, rebuilt the messaging around high-intent
+              buyers, and launched behavior-driven campaigns that turned attention into
+              booked appointments. In 90 days:
+            </p>
+            <ul class="cf-list">
+              <li>3.1× more qualified booking requests</li>
+              <li>42% lower cost per acquisition on paid social</li>
+              <li>+68% returning-customer rate via journey-stage retargeting</li>
+              <li>Ceramic-coating calendar sold out two months running</li>
+              <li>Local brand recall doubled in post-campaign surveys</li>
+            </ul>
+          </div>
+
+          <div class="cf-right">
+            <div
+              class="cf-step"
+              v-for="(s, i) in processSteps"
+              :key="s.n"
+              :class="{ 'cf-step--last': i === processSteps.length - 1 }"
+            >
+              <div class="cf-step-marker"><span class="cf-step-num">{{ s.n }}</span></div>
+              <div class="cf-step-body">
+                <span class="cf-step-title">{{ s.title }}</span>
+                <p class="cf-step-desc">{{ s.desc }}</p>
+              </div>
             </div>
           </div>
         </div>
+
+        <!-- Case feature: MI Consulting (reversed layout) -->
+        <div class="case-feature case-feature--reverse">
+          <div class="cf-right cf-right--funnel">
+            <div class="cf-funnel">
+              <div
+                class="cf-funnel-stage"
+                v-for="(s, i) in miSteps"
+                :key="s.n"
+                :class="`cf-funnel-stage--${i + 1}`"
+              >
+                <span class="cf-funnel-label">{{ s.short }}</span>
+              </div>
+            </div>
+            <p class="cf-funnel-note">A measurable path from demand to closed deal.</p>
+          </div>
+
+          <div class="cf-left cf-left--right">
+            <img src="/mi-consulting_wordmark.png" alt="MI Consulting Group" class="cf-logo" />
+            <p class="cf-text">
+              MI Consulting ran on referrals with no predictable pipeline. We designed a
+              repeatable growth engine where every stage feeds the next, turning scattered
+              outreach into a single, measurable path from demand to closed deal.
+            </p>
+            <ul class="cf-list">
+              <li>Demand capture through high-intent Google paid media</li>
+              <li>An outbound desk of trained agents running cold-call sales</li>
+              <li>Email sequences enriched with Apollo.io contact databases</li>
+              <li>Funnel data unified into insights that guide every decision</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Case feature: Retail Infrastructure (normal layout, diagram) -->
+        <div class="case-feature">
+          <div class="cf-left">
+            <div class="cf-oslogo" aria-label="RetailOS">
+              <svg class="cf-oslogo-mark" viewBox="0 0 56 44" role="img" aria-hidden="true">
+                <defs>
+                  <linearGradient id="osGrad" x1="0" y1="1" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#7040AC" />
+                    <stop offset="100%" stop-color="#F27700" />
+                  </linearGradient>
+                </defs>
+                <!-- growth ribbon -->
+                <path d="M4 38 Q 20 36 30 24 T 50 8" fill="none"
+                      stroke="url(#osGrad)" stroke-width="4" stroke-linecap="round"
+                      opacity="0.33" />
+                <!-- ascending bars -->
+                <rect x="6"  y="26" width="7" height="12" rx="2" fill="url(#osGrad)" />
+                <rect x="16" y="18" width="7" height="20" rx="2" fill="url(#osGrad)" />
+                <rect x="26" y="10" width="7" height="28" rx="2" fill="url(#osGrad)" />
+                <!-- accent dot at the tip -->
+                <circle cx="50" cy="8" r="3.4" fill="#F27700" />
+              </svg>
+              <span class="cf-oslogo-text">Retail<span class="cf-oslogo-os">OS</span></span>
+            </div>
+            <p class="cf-text">
+              For retail operations we deploy the full on-site stack, POS terminals,
+              workstations, networking and custom software, configured to each store's
+              layout and workflow. Across 4 retailers we matched the hardware and the
+              software to their business model instead of a one-size-fits-all template.
+            </p>
+            <ul class="cf-list">
+              <li>POS terminals, workstations and peripherals installed and configured</li>
+              <li>Store networking with routers, switches, secure Wi-Fi and VLANs</li>
+              <li>Custom software built around each client's checkout and inventory flow</li>
+              <li>Sales, stock and reporting unified into one operating system</li>
+            </ul>
+          </div>
+
+          <div class="cf-right cf-right--diagram">
+            <svg class="cf-diagram" viewBox="0 0 340 300" role="img"
+                 aria-label="A central custom software hub connected to POS, PCs, network and server nodes">
+              <defs>
+                <linearGradient id="infraGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#7040AC" />
+                  <stop offset="100%" stop-color="#F27700" />
+                </linearGradient>
+              </defs>
+
+              <!-- Connectors (drawn first, sit under the nodes) -->
+              <g class="cf-diagram-link">
+                <line x1="170" y1="150" x2="60"  y2="60" />
+                <line x1="170" y1="150" x2="280" y2="60" />
+                <line x1="170" y1="150" x2="60"  y2="240" />
+                <line x1="170" y1="150" x2="280" y2="240" />
+              </g>
+
+              <!-- Central hub: custom software -->
+              <rect x="118" y="122" width="104" height="56" rx="13" fill="url(#infraGrad)" />
+              <text x="170" y="145" class="cf-diagram-hub">Custom</text>
+              <text x="170" y="162" class="cf-diagram-hub">Software</text>
+
+              <!-- POS (top-left) -->
+              <g>
+                <rect x="18" y="33" width="84" height="54" rx="11" class="cf-node" />
+                <rect x="52" y="44" width="16" height="12" rx="1.5" class="cf-ic cf-ic--p" />
+                <line x1="60" y1="56" x2="60" y2="60" class="cf-ic cf-ic--p" />
+                <line x1="54" y1="60" x2="66" y2="60" class="cf-ic cf-ic--p" />
+                <text x="60" y="78" class="cf-node-label">POS</text>
+              </g>
+
+              <!-- PCs (top-right) -->
+              <g>
+                <rect x="238" y="33" width="84" height="54" rx="11" class="cf-node" />
+                <rect x="271" y="43" width="18" height="12" rx="1.5" class="cf-ic cf-ic--p" />
+                <path d="M268 58 h24 l3 4 h-30 Z" class="cf-ic cf-ic--p" />
+                <text x="280" y="80" class="cf-node-label">PCs</text>
+              </g>
+
+              <!-- Network (bottom-left) -->
+              <g>
+                <rect x="18" y="213" width="84" height="54" rx="11" class="cf-node" />
+                <path d="M50 234 a14 14 0 0 1 20 0" class="cf-ic cf-ic--o cf-ic--stroke" />
+                <path d="M54 239 a8 8 0 0 1 12 0" class="cf-ic cf-ic--o cf-ic--stroke" />
+                <circle cx="60" cy="244" r="2" class="cf-ic cf-ic--o" />
+                <text x="60" y="260" class="cf-node-label">Network</text>
+              </g>
+
+              <!-- Server (bottom-right) -->
+              <g>
+                <rect x="238" y="213" width="84" height="54" rx="11" class="cf-node" />
+                <rect x="271" y="230" width="18" height="6" rx="1.5" class="cf-ic cf-ic--o cf-ic--stroke" />
+                <rect x="271" y="239" width="18" height="6" rx="1.5" class="cf-ic cf-ic--o cf-ic--stroke" />
+                <circle cx="275" cy="233" r="1.1" class="cf-ic cf-ic--o" />
+                <circle cx="275" cy="242" r="1.1" class="cf-ic cf-ic--o" />
+                <text x="280" y="260" class="cf-node-label">Server</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+
         <NuxtLink to="/contact" class="impact-cta">
           Let's get the conversation started
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -242,10 +482,10 @@ import { onMounted, onUnmounted, ref } from 'vue'
 const impactStats = [
   { value: '3+',    label: 'Years in Market' },
   { value: '20+',   label: 'Brands Grown' },
-  { value: '60%',   label: 'Increase in Customer Retention' },
+  { value: '85%',   label: 'Increase in Customer Retention' },
   { value: '45%',   label: 'Avg. Acquisition Cost Reduction' },
   { value: '3.5x',  label: 'Average Conversion Rate Growth' },
-  { value: '200%',  label: 'Avg. ROI Increase' },
+  { value: '250%',  label: 'Avg. ROI Increase' },
   { value: '100K+', label: 'Data Insights Activated' },
   { value: '15+',   label: 'Data Pipelines Automated' },
   { value: '6K',    label: 'Geolocation Points Mapped' },
@@ -259,6 +499,22 @@ const portfolioLogos = [
   { name: 'MEM',                     src: '/MEM_portafolio.png' },
   { name: 'UVG',                     src: '/UVG_portafolio.png' },
   { name: 'Medident',               src: '/Medident_portafolio.png' },
+]
+
+/* ── Case feature: process we ran for Reborn ── */
+const processSteps = [
+  { n: '01', title: 'Audience deep-dive',     desc: 'Interviews, reviews and booking data to find who actually buys.' },
+  { n: '02', title: 'Archetype mapping',      desc: 'Split high-intent decision makers from awareness-stage leads.' },
+  { n: '03', title: 'Message-to-market fit',  desc: 'Rebuilt positioning around emotion and outcome, not features.' },
+  { n: '04', title: 'Launch & optimize',      desc: 'Behavior-driven campaigns, tuned weekly against booked jobs.' },
+]
+
+/* ── Case feature: process we ran for MI Consulting ── */
+const miSteps = [
+  { n: '01', title: 'Paid media acquisition',  short: 'Paid media',      desc: 'Targeted Google campaigns built around high-intent search demand.' },
+  { n: '02', title: 'Outbound sales desk',     short: 'Outbound sales',  desc: 'Trained phone agents running structured cold-call sales scripts.' },
+  { n: '03', title: 'Email outreach at scale', short: 'Email outreach',  desc: 'Segmented sequences powered by enriched Apollo.io databases.' },
+  { n: '04', title: 'Data analysis & insights', short: 'Data & insights', desc: 'Unified the funnel data to surface what drives qualified leads.' },
 ]
 
 /* ── Journey (horizontal scroll) ──
@@ -293,16 +549,22 @@ onMounted(async () => {
   mm.add('(min-width: 1024px)', () => {
     const track = trackRef.value
     const panels = gsap.utils.toArray('.journey-panel')
+    const n = panels.length
     const distance = () => track.scrollWidth - window.innerWidth
 
-    // Dwell on room 1: hold the track still for the first HOLD fraction of the
-    // scroll, then move linearly. `eased` maps raw scroll progress → track
-    // progress so the face/stations track the actual movement (stay put during
-    // the dwell). Total scroll is stretched by 1/(1-HOLD) to keep the same
-    // travel speed once it starts moving.
-    const HOLD = 0.07
-    const eased = (p) => (p < HOLD ? 0 : (p - HOLD) / (1 - HOLD))
-    const totalScroll = () => distance() / (1 - HOLD)
+    // Dwell at BOTH ends: the first panel holds still for the first HOLD
+    // fraction of scroll (less sensitive initial exit) and the last panel
+    // (Scale) holds for the last HOLD_END fraction, so the jump into the next
+    // section isn't so immediate. The middle moves linearly; totalScroll is
+    // stretched by 1/(1-HOLD-HOLD_END) to keep the same travel speed.
+    const HOLD = 0.12
+    const HOLD_END = 0.12
+    const eased = (p) => {
+      if (p < HOLD) return 0
+      if (p > 1 - HOLD_END) return 1
+      return (p - HOLD) / (1 - HOLD - HOLD_END)
+    }
+    const totalScroll = () => (window.innerHeight * (n - 1) * 1.8) / (1 - HOLD - HOLD_END)
 
     // Crossfade Ideas + Journey to dark together and KEEP them dark for the
     // whole horizontal scroll (approach + pin). The end is generous (covers
@@ -323,12 +585,12 @@ onMounted(async () => {
         start: 'top top',
         end: () => '+=' + totalScroll(),
         pin: true,
-        scrub: 1,
+        scrub: 0.2,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           const p = eased(self.progress)
           journeyProgress.value = p
-          activeRoom.value = Math.round(p * (panels.length - 1))
+          activeRoom.value = Math.round(p * (n - 1))
         },
       },
     })
@@ -372,9 +634,12 @@ onMounted(async () => {
   })
 
   if (logosSecRef.value) {
+    // Trigger on the section's top crossing into the upper viewport rather
+    // than a visible-area ratio: the section is now taller than the viewport
+    // (three case features), so a large threshold could never be reached.
     logosIo = new IntersectionObserver(
       ([entry]) => { logosActive.value = entry.isIntersecting },
-      { threshold: 0.35 },
+      { threshold: 0, rootMargin: '0px 0px -55% 0px' },
     )
     logosIo.observe(logosSecRef.value)
   }
@@ -432,6 +697,38 @@ onUnmounted(() => {
   padding-top: 8rem;
   padding-bottom: 5rem;
 }
+.hero-grid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8rem;
+}
+.hero-left {
+  flex-shrink: 0;
+}
+.hero-cta :deep(.btn-primary),
+.hero-cta :deep(.btn-ghost) {
+  border-radius: 9999px;
+}
+.hero-subcopy {
+  text-align: right;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: clamp(1.1rem, 1.6vw, 1.5rem);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  max-width: 30rem;
+  flex-shrink: 0;
+}
+@media (max-width: 1024px) {
+  .hero-grid {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .hero-subcopy {
+    max-width: 36rem;
+    margin-top: 2.5rem;
+  }
+}
 .hero-headline {
   font-size: clamp(3rem, 8vw, 7rem);
   line-height: 1; letter-spacing: -0.04em;
@@ -484,6 +781,11 @@ onUnmounted(() => {
   flex-direction: column;
   gap: 1.5rem;
 }
+@media (min-width: 1024px) {
+  .ideas-left {
+    padding-left: 8rem;
+  }
+}
 .ideas-title {
   font-family: var(--font-display);
   font-size: clamp(1.75rem, 4.5vw, 3.5rem);
@@ -498,6 +800,44 @@ onUnmounted(() => {
   color: var(--color-muted);
   max-width: 480px;
 }
+.ideas-map-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  margin-top: 1rem;
+}
+.ideas-map {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+}
+/* Smiley marker pinned on Guatemala (25.5% / 64.2% of the map) */
+.map-smiley {
+  position: absolute;
+  left: 25.5%;
+  top: 64.2%;
+  width: 6%;
+  height: auto;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 4px 10px rgba(10, 10, 15, 0.25));
+  pointer-events: none;
+}
+/* Orange city smileys share the same small size */
+.map-smiley--orange {
+  width: 2.5%;
+}
+.map-smiley--la       { left: 17.8%; top: 55.6%; }
+.map-smiley--toronto  { left: 28.1%; top: 50.4%; }
+.map-smiley--atlanta  { left: 26.8%; top: 55.6%; }
+.map-smiley--bogota   { left: 29.8%; top: 68.5%; }
+.map-smiley--saopaulo { left: 37.5%; top: 80.5%; }
+.map-smiley--purple { width: 2.5%; }
+.map-smiley--manchester { left: 49.8%; top: 44.4%; }
+.map-smiley--madrid  { left: 48.9%; top: 52.2%; }
+.map-smiley--ankara  { left: 59.2%; top: 52.2%; }
+.map-smiley--beijing { left: 81.9%; top: 52.2%; }
+.map-smiley--sydney  { left: 92.0%; top: 85.7%; }
 .ideas-right {
   width: 100%;
 }
@@ -539,11 +879,7 @@ onUnmounted(() => {
   /* Uniform vertical rhythm on every item (incl. the last) keeps the
      -50% loop seamless. */
   padding: 1.5rem 0;
-  border-bottom: 1px solid var(--color-border);
   cursor: default;
-}
-.ideas-sec--dark .ideas-stat {
-  border-bottom-color: rgba(255, 255, 255, 0.12);
 }
 .ideas-stat-value {
   font-family: var(--font-display);
@@ -637,13 +973,19 @@ onUnmounted(() => {
   padding: clamp(4.5rem, 9vh, 6.5rem) 1.5rem 0;
 }
 .journey-track {
+  --panel-w: 74vw;
   flex: 1 1 auto;
   display: flex;
   width: max-content;
+  /* Side padding = (100vw - panel width)/2 so the first/last panels still
+     center at the ends of the 0 → -distance travel. Panels stay evenly
+     spaced, which keeps the face + stations in sync with each stop. */
+  padding-left: calc((100vw - var(--panel-w)) / 2);
+  padding-right: calc((100vw - var(--panel-w)) / 2);
   will-change: transform;
 }
 .journey-panel {
-  flex: 0 0 100vw;
+  flex: 0 0 var(--panel-w);
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -713,11 +1055,16 @@ onUnmounted(() => {
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.25);
   transform: translate(-50%, -50%);
-  transition: background 0.3s ease, box-shadow 0.3s ease;
+  transition: background 0.3s ease, box-shadow 0.3s ease, opacity 0.2s ease;
 }
 .journey-station--on {
   background: var(--color-accent-2);
   box-shadow: 0 0 0 4px rgba(242, 119, 0, 0.18);
+}
+/* Hide the station dot while the face token is passing over it, so the
+   orange dot doesn't show through the smiley's mouth. */
+.journey-station--covered {
+  opacity: 0;
 }
 /* The face token. Left is set inline from the scroll progress. */
 .journey-traveler {
@@ -726,16 +1073,12 @@ onUnmounted(() => {
   transform: translate(-50%, -50%);
   z-index: 2;
 }
-/* Cream disc gives the (black-mouthed) face contrast on the dark background. */
+/* Transparent traveler: just the white smiley floats along the thread. */
 .tv-disc {
-  width: 48px; height: 48px;
-  border-radius: 999px;
-  background: var(--color-bg);
+  width: 62px; height: 62px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 0 4px rgba(112, 64, 172, 0.18),
-              0 8px 22px rgba(242, 119, 0, 0.28);
   animation: tv-bob 2.6s ease-in-out infinite;
 }
 @keyframes tv-bob {
@@ -743,7 +1086,7 @@ onUnmounted(() => {
   50%      { transform: translateY(-6px); }
 }
 .tv-face {
-  width: 78%; height: 78%;
+  width: 100%; height: 100%;
   object-fit: contain;
 }
 
@@ -827,6 +1170,8 @@ onUnmounted(() => {
   .journey-track {
     flex-direction: column;
     width: 100%;
+    padding-left: 0;
+    padding-right: 0;
     transform: none !important;
   }
   .journey-panel {
@@ -880,6 +1225,285 @@ onUnmounted(() => {
 .logos-sec--light .logos-title {
   color: var(--color-text);
 }
+
+/* ── Case feature (Reborn) ───────────────────────────────── */
+.case-feature {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  width: 100%;
+  max-width: 1100px;
+  margin: 2.75rem auto 3.5rem;
+  text-align: left;
+}
+@media (min-width: 900px) {
+  .case-feature {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+}
+.cf-eyebrow {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 1rem;
+}
+.cf-logo {
+  display: block;
+  max-width: 100%;
+  margin-bottom: 1.5rem;
+}
+/* Reborn: sized by width (wide wordmark) so it reads clearly smaller. */
+.cf-left:not(.cf-left--right) .cf-logo {
+  width: 240px;
+  height: auto;
+}
+/* MI Consulting logo larger, sized by height. */
+.cf-left--right .cf-logo {
+  width: auto;
+  height: 72px;
+}
+/* Reversed layout (MI Consulting): logo + context on the right, aligned right. */
+.cf-left--right {
+  align-items: flex-end;
+  text-align: right;
+}
+@media (max-width: 899px) {
+  /* On stacked mobile, keep the process card above the text for both blocks. */
+  .case-feature--reverse .cf-right { order: 2; }
+  .case-feature--reverse .cf-left { order: 1; }
+  .cf-left--right {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+.cf-left {
+  display: flex;
+  flex-direction: column;
+}
+.cf-left--right .cf-list li {
+  padding-left: 0;
+  padding-right: 1.4rem;
+}
+.cf-left--right .cf-list li::before {
+  left: auto;
+  right: 0;
+}
+.cf-text {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-muted);
+  max-width: 460px;
+  margin-bottom: 1.5rem;
+}
+.cf-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0;
+  margin: 0;
+}
+.cf-list li {
+  position: relative;
+  padding-left: 1.4rem;
+  font-size: 0.95rem;
+  color: var(--color-text);
+}
+.cf-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-accent-2);
+}
+.cf-right {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  padding: 2rem 1.75rem;
+  box-shadow: 0 12px 44px rgba(10, 10, 15, 0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  overflow: hidden;
+}
+/* Process stepper (vertical timeline) */
+.cf-step {
+  position: relative;
+  display: flex;
+  gap: 1rem;
+  padding-bottom: 1.4rem;
+}
+.cf-step--last {
+  padding-bottom: 0;
+}
+.cf-step-marker {
+  position: relative;
+  flex-shrink: 0;
+}
+.cf-step-num {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-2));
+}
+/* Connector line between steps */
+.cf-step:not(.cf-step--last) .cf-step-marker::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 38px;
+  bottom: -1.4rem;
+  width: 2px;
+  transform: translateX(-50%);
+  background: rgba(112, 64, 172, 0.18);
+}
+.cf-step-body {
+  padding-top: 0.35rem;
+}
+.cf-step-title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.2rem;
+}
+.cf-step-desc {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--color-muted);
+}
+
+/* ── Funnel (MI Consulting) ──
+   Four trapezoid stages stacked into a sales funnel, carrying the brand
+   gradient top→bottom (purple demand → orange outcome). Each clip-path cuts
+   its slice so the stages line up edge-to-edge into one continuous funnel. */
+.cf-right--funnel {
+  gap: 1.25rem;
+  justify-content: center;
+}
+.cf-funnel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cf-funnel-stage {
+  display: grid;
+  place-items: center;
+  height: 58px;
+  padding: 0 1rem;
+  text-align: center;
+}
+.cf-funnel-label {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.2;
+}
+.cf-funnel-stage--1 {
+  background: #7040AC;
+  clip-path: polygon(0 0, 100% 0, 93.75% 100%, 6.25% 100%);
+}
+.cf-funnel-stage--2 {
+  background: #9B5273;
+  clip-path: polygon(6.25% 0, 93.75% 0, 87.5% 100%, 12.5% 100%);
+}
+.cf-funnel-stage--3 {
+  background: #C6643A;
+  clip-path: polygon(12.5% 0, 87.5% 0, 81.25% 100%, 18.75% 100%);
+}
+.cf-funnel-stage--4 {
+  background: #F27700;
+  clip-path: polygon(18.75% 0, 81.25% 0, 75% 100%, 25% 100%);
+}
+.cf-funnel-note {
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--color-muted);
+}
+
+/* ── Infrastructure diagram (Retail Infrastructure) ──
+   Hub-and-spoke: a central custom-software hub wired to POS, PCs, network
+   and server nodes. Distinct from the stepper and the funnel. */
+.cf-right--diagram {
+  gap: 1rem;
+  justify-content: center;
+}
+.cf-diagram {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.cf-diagram-link line {
+  stroke: rgba(112, 64, 172, 0.28);
+  stroke-width: 2;
+  stroke-dasharray: 4 4;
+}
+.cf-diagram-hub {
+  fill: #ffffff;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  text-anchor: middle;
+}
+.cf-node {
+  fill: #ffffff;
+  stroke: var(--color-border);
+  stroke-width: 1;
+  filter: drop-shadow(0 4px 12px rgba(10, 10, 15, 0.06));
+}
+.cf-node-label {
+  fill: var(--color-text);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  text-anchor: middle;
+}
+.cf-ic--p { fill: var(--color-accent); stroke: var(--color-accent); }
+.cf-ic--o { fill: var(--color-accent-2); stroke: var(--color-accent-2); }
+.cf-ic--stroke { fill: none; stroke-width: 1.8; stroke-linecap: round; }
+/* Generic retail-OS logo (hypothetical brand) for the infrastructure case. */
+.cf-oslogo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+.cf-oslogo-mark {
+  width: 58px;
+  height: auto;
+  flex-shrink: 0;
+}
+.cf-oslogo-text {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+  line-height: 1;
+}
+.cf-oslogo-os {
+  color: var(--color-accent-2);
+}
+
 /* Horizontal ticker viewport: clips the scrolling track and fades the
    left/right edges so logos appear/disappear softly. */
 .logos-marquee {
