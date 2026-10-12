@@ -113,8 +113,14 @@ onUnmounted(() => { if (io) io.disconnect() })
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  gap: clamp(0.5rem, 2vw, 2rem);
-  --base: clamp(120px, 15vw, 200px);
+  gap: clamp(0.35rem, 2vw, 2rem);
+  /* Plant widths are fixed px (--base × scale). The 5 plants + gaps must fit
+     the viewport or they push the page wider than the screen (horizontal
+     scroll → the fixed navbar runs off-screen). Keep --base small enough on
+     phones, and clip as a hard safety net so the page can never scroll sideways. */
+  --base: clamp(52px, 13vw, 200px);
+  max-width: 100%;
+  overflow-x: clip;
 }
 .wl-ground {
   position: absolute;
@@ -169,7 +175,7 @@ onUnmounted(() => { if (io) io.disconnect() })
 .wl-grid {
   display: grid;
   gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   width: 100%;
 }
 .wl-card {

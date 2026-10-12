@@ -52,14 +52,14 @@
         </template>
       </div>
 
-      <!-- CTA -->
-      <NuxtLink to="/contact" class="nav-cta hidden lg:inline-flex">
+      <!-- CTA (desktop only — visibility handled in scoped CSS, see note) -->
+      <NuxtLink to="/contact" class="nav-cta nav-cta--pill">
         Get Started
       </NuxtLink>
 
       <!-- Hamburger (mobile) -->
       <button
-        class="lg:hidden flex flex-col justify-center gap-[5px] p-1 ml-1"
+        class="lg:hidden flex flex-col justify-center gap-[5px] p-1 ml-auto mr-1"
         @click="menuOpen = !menuOpen"
         aria-label="Toggle menu"
       >
@@ -284,6 +284,16 @@ onUnmounted(() => {
   transform: translateY(-1px);
 }
 
+/* The CTA inside the pill must be hidden on mobile (the hamburger takes over).
+   Tailwind's `hidden` cannot do this here: Vue's scoped `.nav-cta[data-v]`
+   rule outspecifies `.hidden`, so the button would always show and overflow.
+   We control it with an equally-scoped, more specific selector instead.
+   The mobile-menu CTA is not a direct child of .nav-pill, so it stays visible. */
+.nav-pill > .nav-cta--pill { display: none; }
+@media (min-width: 1024px) {
+  .nav-pill > .nav-cta--pill { display: inline-flex; }
+}
+
 /* ── Dropdown ────────────────────────────────────────────── */
 .dropdown {
   position: absolute;
@@ -334,7 +344,13 @@ onUnmounted(() => {
   transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 8px 30px rgba(112,64,172,0.1);
 }
-.mobile-menu--open { max-height: 600px; }
+.mobile-menu--open {
+  /* Cap to the visible viewport (leaving room for the pill + top gap) and
+     scroll internally, so long menus never run off the bottom of the screen. */
+  max-height: calc(100dvh - 92px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
 
 .mobile-link {
   display: block;

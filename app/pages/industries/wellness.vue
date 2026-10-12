@@ -11,7 +11,7 @@ const industry = {
   label: 'Wellness',
   headline: 'Grow the brands that help people live better.',
   description: 'Growth strategies for gyms, spas, nutrition brands, and mental health platforms focused on lifestyle transformation.',
-  video: 'https://res.cloudinary.com/dpi6oudmk/video/upload/v1779915092/wellness_industries_immsjy.mp4',
+  video: 'https://res.cloudinary.com/dpi6oudmk/video/upload/v1791772624/wellness_industries_2_fkkn7k.mp4',
   theme: {
     color: '#22C55E',
     colorRgb: '34, 197, 94',
