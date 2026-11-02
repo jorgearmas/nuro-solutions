@@ -142,10 +142,10 @@
       </div>
     </section>
 
-    <!-- ── Journey: Experimental Mindset (horizontal scroll) ──
-         Desktop: the section is pinned and the track translates left as you
-         scroll, walking through the 4 phases. Mobile: panels stack vertically
-         (the horizontal/pin setup is gated to ≥1024px via gsap.matchMedia). -->
+    <!-- ── Journey: Experimental Mindset (Instagram-style carousel) ──
+         Desktop: the section is pinned and each slice of scroll snaps the
+         track to the next panel (arrows + dots too). Mobile: native swipe
+         carousel with scroll-snap. -->
     <section class="journey-sec" :class="{ 'journey-sec--dark': journeyActive && !logosActive }" ref="journeyRef">
       <div class="journey-orb journey-orb-1" aria-hidden="true"></div>
       <div class="journey-orb journey-orb-2" aria-hidden="true"></div>
@@ -156,7 +156,7 @@
 
         <div class="journey-track" ref="trackRef">
           <!-- 01 · Explore -->
-          <article class="journey-panel">
+          <article class="journey-panel" :class="{ 'journey-panel--active': activeRoom === 0 }">
             <div class="jp-visual jp-reveal">
               <svg viewBox="0 0 200 200" class="rv" aria-hidden="true">
                 <defs>
@@ -184,7 +184,7 @@
           </article>
 
           <!-- 02 · Experiment -->
-          <article class="journey-panel">
+          <article class="journey-panel" :class="{ 'journey-panel--active': activeRoom === 1 }">
             <div class="jp-visual jp-reveal">
               <svg viewBox="0 0 200 200" class="rv" aria-hidden="true">
                 <defs>
@@ -208,7 +208,7 @@
           </article>
 
           <!-- 03 · Learn -->
-          <article class="journey-panel">
+          <article class="journey-panel" :class="{ 'journey-panel--active': activeRoom === 2 }">
             <div class="jp-visual jp-reveal">
               <svg viewBox="0 0 200 200" class="rv" aria-hidden="true">
                 <defs>
@@ -234,7 +234,7 @@
           </article>
 
           <!-- 04 · Scale -->
-          <article class="journey-panel">
+          <article class="journey-panel" :class="{ 'journey-panel--active': activeRoom === 3 }">
             <div class="jp-visual jp-reveal">
               <svg viewBox="0 0 200 200" class="rv" aria-hidden="true">
                 <defs>
@@ -258,25 +258,51 @@
           </article>
         </div>
 
-        <!-- Progress lane: the Nuro face travels left→right along the thread as
-             you scroll, doubling as the guide and the progress indicator. The
-             4 stations are the rooms; they fill in as the face passes. -->
-        <div class="journey-path" aria-hidden="true">
-          <div class="journey-thread"></div>
-          <div class="journey-thread-fill" :style="{ width: 'max(0px, calc(' + journeyProgress * 100 + '% - 20px))' }"></div>
-          <span
-            v-for="i in 4"
-            :key="`st-${i}`"
+        <!-- Instagram-style carousel arrows (desktop only). -->
+        <button
+          type="button"
+          class="journey-arrow journey-arrow--prev"
+          :class="{ 'is-hidden': activeRoom === 0 }"
+          aria-label="Previous phase"
+          @click="goToRoom(activeRoom - 1)"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="journey-arrow journey-arrow--next"
+          :class="{ 'is-hidden': activeRoom === journeyRooms.length - 1 }"
+          aria-label="Next phase"
+          @click="goToRoom(activeRoom + 1)"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6" />
+          </svg>
+        </button>
+        <!-- Progress lane: the Nuro face hops station to station in sync with
+             the carousel. The stations double as the carousel dots. -->
+        <div class="journey-path" aria-label="Journey phases">
+          <div class="journey-thread" aria-hidden="true"></div>
+          <div class="journey-thread-fill" aria-hidden="true" :style="{ width: 'max(0px, calc(' + journeyPos * 100 + '% - 20px))' }"></div>
+          <button
+            v-for="(room, i) in journeyRooms"
+            :key="room"
+            type="button"
             class="journey-station"
             :class="{
-              'journey-station--on': activeRoom >= i - 1,
-              'journey-station--covered': Math.abs(journeyProgress - (i - 1) / 3) < 0.04,
+              'journey-station--on': activeRoom >= i,
+              'journey-station--covered': activeRoom === i,
             }"
-            :style="{ left: ((i - 1) / 3) * 100 + '%' }"
-          ></span>
-          <div class="journey-traveler" :style="{ left: journeyProgress * 100 + '%' }">
+            :style="{ left: (i / (journeyRooms.length - 1)) * 100 + '%' }"
+            :aria-label="`Go to ${room}`"
+            :aria-current="activeRoom === i ? 'step' : undefined"
+            @click="goToRoom(i)"
+          ></button>
+          <div class="journey-traveler" aria-hidden="true" :style="{ left: journeyPos * 100 + '%' }">
             <div class="tv-disc">
-              <svg class="tv-face" viewBox="0 0 100 100" aria-hidden="true">
+              <svg class="tv-face" viewBox="0 0 100 100">
                 <ellipse cx="35" cy="40" rx="8" ry="9" fill="#ffffff" />
                 <ellipse cx="65" cy="40" rx="8" ry="9" fill="#ffffff" />
                 <path d="M28 56 A22 22 0 0 0 72 56 L61 56 A11 11 0 0 1 39 56 Z" fill="#ffffff" />
@@ -476,7 +502,7 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 
 /* ── Impact stats ── */
 const impactStats = [
@@ -524,7 +550,17 @@ const journeyRef = ref(null)
 const trackRef = ref(null)
 const journeyActive = ref(false)
 const activeRoom = ref(0)
-const journeyProgress = ref(0) // 0→1 across the horizontal scroll (drives the traveller)
+const journeyRooms = ['Explore', 'Experiment', 'Learn', 'Scale']
+// 0→1 position of the Nuro face on the lane; snaps with the active slide.
+const journeyPos = computed(() => activeRoom.value / (journeyRooms.length - 1))
+
+// Arrows/dots call goToRoom; each matchMedia scope (desktop pin vs mobile
+// swipe) installs its own way of reaching a slide.
+let goToRoomImpl = null
+const goToRoom = (i) => {
+  const k = Math.max(0, Math.min(journeyRooms.length - 1, i))
+  if (goToRoomImpl) goToRoomImpl(k)
+}
 
 /* ── Logos section: crossfade black → white on entry. Starts dark (matching
    the journey above it) and lightens once scrolled in, so the seam never
@@ -545,26 +581,24 @@ onMounted(async () => {
 
   mm = gsap.matchMedia()
 
-  // Desktop: pin the journey and translate the track left as you scroll.
+  // Desktop: pin the journey and step through the panels like an Instagram
+  // carousel. The scroll range is split into one equal slice per panel; when
+  // the slice changes, the track slides (time-based tween, not scrubbed) so it
+  // always lands exactly on a panel instead of stopping between two.
   mm.add('(min-width: 1024px)', () => {
     const track = trackRef.value
     const panels = gsap.utils.toArray('.journey-panel')
     const n = panels.length
-    const distance = () => track.scrollWidth - window.innerWidth
+    const step = () => panels[1].offsetLeft - panels[0].offsetLeft
+    const SLICE = 1 // viewport heights of scroll per panel
+    const totalScroll = () => window.innerHeight * n * SLICE
 
-    // Dwell at BOTH ends: the first panel holds still for the first HOLD
-    // fraction of scroll (less sensitive initial exit) and the last panel
-    // (Scale) holds for the last HOLD_END fraction, so the jump into the next
-    // section isn't so immediate. The middle moves linearly; totalScroll is
-    // stretched by 1/(1-HOLD-HOLD_END) to keep the same travel speed.
-    const HOLD = 0.12
-    const HOLD_END = 0.12
-    const eased = (p) => {
-      if (p < HOLD) return 0
-      if (p > 1 - HOLD_END) return 1
-      return (p - HOLD) / (1 - HOLD - HOLD_END)
-    }
-    const totalScroll = () => (window.innerHeight * (n - 1) * 1.8) / (1 - HOLD - HOLD_END)
+    const slideTo = (i) => gsap.to(track, {
+      x: -i * step(),
+      duration: 0.75,
+      ease: 'power3.out',
+      overwrite: true,
+    })
 
     // Crossfade Ideas + Journey to dark together and KEEP them dark for the
     // whole horizontal scroll (approach + pin). The end is generous (covers
@@ -577,53 +611,36 @@ onMounted(async () => {
       onToggle: (self) => { journeyActive.value = self.isActive },
     })
 
-    const horizontal = gsap.to(track, {
-      x: () => -distance(),
-      ease: eased,
-      scrollTrigger: {
-        trigger: journeyRef.value,
-        start: 'top top',
-        end: () => '+=' + totalScroll(),
-        pin: true,
-        scrub: 0.2,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          const p = eased(self.progress)
-          journeyProgress.value = p
-          activeRoom.value = Math.round(p * (n - 1))
-        },
+    const pin = ScrollTrigger.create({
+      trigger: journeyRef.value,
+      start: 'top top',
+      end: () => '+=' + totalScroll(),
+      pin: true,
+      onUpdate: (self) => {
+        const i = Math.min(n - 1, Math.floor(self.progress * n))
+        if (i !== activeRoom.value) {
+          activeRoom.value = i
+          slideTo(i)
+        }
       },
+      // Keep the track aligned to the current panel after a resize.
+      onRefresh: () => gsap.set(track, { x: -activeRoom.value * step() }),
     })
 
-    // Per-panel motion, all scrub-tied to the horizontal scroll so nothing
-    // ever gets stuck hidden: when a panel is centered its content is fully
-    // visible. This also fills the gaps between rooms so the transition isn't
-    // empty.
-    // Filler: subtle parallax drift on each SVG across its traversal. This is
-    // transform-only (never touches opacity), so the text can't get hidden.
-    panels.forEach((panel) => {
-      gsap.fromTo(
-        panel.querySelector('.rv'),
-        { xPercent: 12 },
-        {
-          xPercent: -12,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: panel,
-            containerAnimation: horizontal,
-            start: 'left right',
-            end: 'right left',
-            scrub: true,
-          },
-        },
-      )
-    })
+    // Arrows/dots scroll the page to the middle of that panel's slice, which
+    // in turn triggers the slide above.
+    goToRoomImpl = (i) => {
+      const y = pin.start + ((i + 0.5) / n) * (pin.end - pin.start)
+      window.scrollTo({ top: y, behavior: 'smooth' })
+    }
 
-    // matchMedia auto-reverts everything created in this scope on cleanup.
+    // matchMedia auto-reverts the triggers created in this scope on cleanup;
+    // the track's leftover transform is neutralised by the mobile CSS.
+    return () => { goToRoomImpl = null }
   })
 
-  // Mobile: no pin/horizontal scroll — the panels stack vertically, so the
-  // crossfade just spans the (tall) stacked section.
+  // Mobile: the track is a native horizontal scroller with scroll-snap, so
+  // the panels are swiped one at a time. activeRoom follows the snap position.
   mm.add('(max-width: 1023px)', () => {
     ScrollTrigger.create({
       trigger: journeyRef.value,
@@ -631,6 +648,20 @@ onMounted(async () => {
       end: 'bottom 30%',
       onToggle: (self) => { journeyActive.value = self.isActive },
     })
+
+    const track = trackRef.value
+    const onSwipe = () => {
+      const i = Math.round(track.scrollLeft / track.clientWidth)
+      if (i !== activeRoom.value) activeRoom.value = i
+    }
+    track.addEventListener('scroll', onSwipe, { passive: true })
+    onSwipe()
+    goToRoomImpl = (i) => track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' })
+
+    return () => {
+      track.removeEventListener('scroll', onSwipe)
+      goToRoomImpl = null
+    }
   })
 
   if (logosSecRef.value) {
@@ -994,7 +1025,28 @@ onUnmounted(() => {
   gap: 0.9rem;
   padding: 1rem 1.5rem 7rem;
   text-align: center;
+  /* Carousel states: neighbours peek in dimmed and slightly shrunk; the
+     active slide grows in as the track lands on it. */
+  opacity: 0.22;
+  transform: scale(0.88);
+  transition:
+    opacity 0.6s ease,
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
 }
+.journey-panel--active {
+  opacity: 1;
+  transform: scale(1);
+}
+/* Content of the incoming slide rises in with a small stagger. Transform
+   only, so it can never stay hidden. */
+.jp-reveal {
+  transform: translateY(14px);
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.journey-panel--active .jp-reveal { transform: none; }
+.journey-panel--active .jp-reveal:nth-child(2) { transition-delay: 0.06s; }
+.journey-panel--active .jp-reveal:nth-child(3) { transition-delay: 0.12s; }
+.journey-panel--active .jp-reveal:nth-child(4) { transition-delay: 0.18s; }
 /* Sized by the SHORTER of width/height so the SVG never grows tall enough to
    push the title + description past the (clipped) bottom of the panel. */
 .jp-visual {
@@ -1022,7 +1074,8 @@ onUnmounted(() => {
   color: rgba(255, 255, 255, 0.6);
   max-width: 34ch;
 }
-/* Progress lane + travelling Nuro face (guide) */
+/* Progress lane + Nuro face. The face and the fill hop between stations
+   with the same duration/curve as the slide, so they land together. */
 .journey-path {
   position: absolute;
   bottom: clamp(1.5rem, 4.5vh, 2.75rem);
@@ -1044,36 +1097,47 @@ onUnmounted(() => {
   width: 100%;
   background: rgba(255, 255, 255, 0.15);
 }
-/* Width is set inline from the scroll progress. */
 .journey-thread-fill {
   background: linear-gradient(90deg, var(--color-accent), var(--color-accent-2));
+  transition: width 0.75s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .journey-station {
   position: absolute;
   top: 50%;
   width: 9px; height: 9px;
+  padding: 0;
+  border: 0;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
   transform: translate(-50%, -50%);
   transition: background 0.3s ease, box-shadow 0.3s ease, opacity 0.2s ease;
 }
-.journey-station--on {
+/* Bigger invisible hit area for clicking/tapping a station. */
+.journey-station::after {
+  content: '';
+  position: absolute;
+  inset: -12px;
+}
+.journey-station:hover { background: rgba(255, 255, 255, 0.6); }
+.journey-station--on,
+.journey-station--on:hover {
   background: var(--color-accent-2);
   box-shadow: 0 0 0 4px rgba(242, 119, 0, 0.18);
 }
-/* Hide the station dot while the face token is passing over it, so the
-   orange dot doesn't show through the smiley's mouth. */
+/* Hide the station the face sits on so the orange dot doesn't show through
+   the smiley's mouth. */
 .journey-station--covered {
   opacity: 0;
 }
-/* The face token. Left is set inline from the scroll progress. */
 .journey-traveler {
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
+  pointer-events: none;
+  transition: left 0.75s cubic-bezier(0.22, 1, 0.36, 1);
 }
-/* Transparent traveler: just the white smiley floats along the thread. */
 .tv-disc {
   width: 62px; height: 62px;
   display: flex;
@@ -1087,8 +1151,32 @@ onUnmounted(() => {
 }
 .tv-face {
   width: 100%; height: 100%;
-  object-fit: contain;
 }
+
+/* Carousel arrows */
+.journey-arrow {
+  position: absolute;
+  top: 55%;
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--color-dark);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: opacity 0.3s ease, transform 0.2s ease;
+}
+.journey-arrow svg { width: 20px; height: 20px; }
+.journey-arrow:hover { transform: translateY(-50%) scale(1.08); }
+.journey-arrow--prev { left: clamp(1rem, 5vw, 4.5rem); }
+.journey-arrow--next { right: clamp(1rem, 5vw, 4.5rem); }
+.journey-arrow.is-hidden { opacity: 0; pointer-events: none; }
 
 /* ── Journey SVG visuals (continuous, subtle, on-brand) ── */
 .rv {
@@ -1162,29 +1250,51 @@ onUnmounted(() => {
 }
 @keyframes sc-bob { 0%, 100% { transform: translateY(2px); } 50% { transform: translateY(-3px); } }
 
-/* Mobile: stack the panels vertically; no pin / horizontal translate. */
+/* Mobile: no pin. The track becomes a native swipe carousel with
+   scroll-snap (one panel per swipe), dots sit under it, arrows are hidden. */
 @media (max-width: 1023px) {
-  .journey-sec { height: auto; overflow: visible; }
-  .journey-stage { height: auto; }
+  .journey-sec { height: auto; overflow: hidden; }
+  .journey-stage { height: auto; padding-bottom: 2.5rem; }
   .journey-heading { padding: 4rem 1.5rem 0; }
   .journey-track {
-    flex-direction: column;
     width: 100%;
     padding-left: 0;
     padding-right: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
     transform: none !important;
   }
+  .journey-track::-webkit-scrollbar { display: none; }
   .journey-panel {
-    flex: none;
-    width: 100%;
-    min-height: 78vh;
+    flex: 0 0 100%;
+    min-height: 68vh;
+    padding: 2rem 1.5rem 1.5rem;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    /* The finger drives the motion here, so no dimming/scaling. */
+    opacity: 1;
+    transform: none;
   }
-  .journey-path { display: none; }
+  .journey-path {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    width: min(320px, 72vw);
+    margin: 0.5rem auto 0;
+  }
+  .journey-arrow { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .rv * { animation: none !important; }
   .journey-orb { animation: none !important; }
+  .journey-panel,
+  .jp-reveal,
+  .journey-thread-fill,
+  .journey-traveler { transition: none !important; }
   .tv-disc { animation: none !important; }
 }
 
