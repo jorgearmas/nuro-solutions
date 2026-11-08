@@ -129,6 +129,7 @@ const navLinks = [
   { label: 'Core Drivers', to: '/core_drivers' },
   { label: 'Portfolio', to: '/portfolio' },
   { label: 'Contact', to: '/contact' },
+  { label: 'Careers', to: '/careers' },
 ]
 
 function openDropdown(label) {

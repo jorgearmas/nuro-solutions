@@ -7,12 +7,21 @@ export default defineNuxtConfig({
   ],
   modules: ['@nuxtjs/tailwindcss'],
   runtimeConfig: {
+    // ── Server-only (never sent to the browser) ──
+    // Nuro Platform base URL, no trailing slash. NUXT_PLATFORM_API_URL
+    platformApiUrl: 'http://localhost:8080',
+    // Shared secret for the Careers API (same value as WEBSITE_API_KEY in
+    // Nuro Platform). NUXT_PLATFORM_API_KEY
+    platformApiKey: '',
     public: {
       // EmailJS credentials (public by design — safe on the client).
       // Values come from .env: NUXT_PUBLIC_EMAILJS_*
       emailjsPublicKey: '',
       emailjsServiceId: '',
       emailjsTemplateId: '',
+      // Cloudflare Turnstile site key (public by design).
+      // NUXT_PUBLIC_TURNSTILE_SITE_KEY
+      turnstileSiteKey: '',
     },
   },
   devServer: {
