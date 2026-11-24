@@ -6,8 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 npm run dev       # dev server on port 3001
-npm run build     # production build
-npm run generate  # static site generation
+npm run build     # production build (don't run while dev is running: it overwrites .nuxt)
 npm run preview   # preview production build
 ```
 
@@ -21,9 +20,9 @@ No test suite or linter configured.
 
 **Component auto-import prefixes:**
 - `app/components/ui/` → prefix `App` (e.g. `AppNavbar`, `AppFooter`)
-- `app/components/sections/` → no prefix (e.g. `IndustryPage`, `NuroJourney`)
+- `app/components/sections/` → no prefix (e.g. `IndustryPage`, `CareersApplyForm`)
 
-**Pages:** `app/pages/` — file-based routing. Industry sub-pages all live in `pages/industries/`.
+**Pages:** `app/pages/` — file-based routing. Industry sub-pages live in `pages/industries/` and Careers in `pages/careers/`.
 
 ## Design System
 
@@ -41,41 +40,53 @@ No test suite or linter configured.
 
 **Global utility classes** (in `main.css`): `.btn-primary`, `.btn-ghost`, `.section-tag`, `.card`, `.glow-dot`, `.accent-line`. Add visual variants locally with scoped `<style scoped>`, not by modifying these globals.
 
-## Background Crossfade System (index page)
+## Index Page Sections
 
-The `body` element drives full-page color transitions via CSS class swaps (not inline styles). The `body` transition is `0.8s cubic-bezier(0.4, 0, 0.2, 1)` defined in `main.css`.
+`pages/index.vue` has four sections, identified by class: `.hero-sec`, `.ideas-sec`, `.journey-sec`, `.logos-sec`.
 
-Section-to-color mapping:
+Background crossfades use modifier classes on the sections themselves, not `body`:
+- `.ideas-sec--dark` when `journeyActive`
+- `.journey-sec--dark` when `journeyActive && !logosActive`
+- `.logos-sec--light` when `logosActive`
+
+`journeyActive` comes from a GSAP ScrollTrigger. `logosActive` comes from an `IntersectionObserver` with `rootMargin: '0px 0px -55% 0px'`.
+
+## Journey Carousel (index page)
+
+Instagram-style carousel with 4 panels: Explore, Experiment, Learn, Scale. GSAP and ScrollTrigger are lazy-imported in `onMounted`, and `gsap.matchMedia` splits the two layouts:
+
+- **Desktop (>=1024px):** `.journey-sec` is pinned. The scroll range has one equal slice per panel (`SLICE` sets its length in viewport heights). When the slice changes, a time-based tween slides `.journey-track` to that panel, so it never stops between two.
+- **Mobile (<=1023px):** no pin. `.journey-track` is a native horizontal scroller with `scroll-snap`.
+
+`activeRoom` drives the active panel and the progress lane. The Nuro face (`.journey-traveler`) hops between stations using `journeyPos`, and `.journey-station` buttons act as the carousel dots. `goToRoom(i)` serves the arrows (desktop only) and stations; each layout installs its own `goToRoomImpl`.
+
+Don't use ScrollTrigger `snap` here: it conflicts with `html { scroll-behavior: smooth }` in `main.css`.
+
+## Careers
+
+Offers are created and published in Nuro Platform (`../nurosolutions-platform`, Recruitment module). This site only displays them and sends applications back.
+
 ```
-bg-hero    → #0a0a0f  (dark)
-bg-ideas   → #ffffff  (white)
-bg-mindset → #F27700  (orange)
-bg-journey → #7040AC  (purple)
+Browser -> /api/careers/* (app/server, Vercel) -> Nuro Platform /api/recruitment/*
 ```
 
-`setBodyBg(name)` in `pages/index.vue` removes all body bg classes and adds the new one. It is driven by two `IntersectionObserver` instances:
-1. General `io` — watches hero/ideas/mindset sections with `rootMargin: '-40% 0px -59% 0px'`
-2. `journeyIo` — watches the journey container with `rootMargin: '0px 0px -55% 0px'`; fires the orange→purple crossfade on entry and restores mindset on scroll-back (only after `journeyEntered = true` to avoid the false flash on initial load)
+The browser never calls Nuro Platform directly. The server routes add the secret `X-Website-Key` and the visitor's IP in `X-Client-IP`, forward only whitelisted fields, and turn unexpected platform responses into a generic 502.
 
-The navbar is hidden during the journey via `hideNav` — a global `useState('hideNav')` shared between `AppNavbar` and `pages/index.vue`.
+- **Pages:** `pages/careers/index.vue` (list) and `pages/careers/[slug].vue` (detail + form). Offers are fetched client-side in `onMounted`.
+- **Form:** `components/sections/CareersApplyForm.vue`, with `composables/useCareers.js` and `composables/useTurnstile.js`.
+- **Server routes:** `app/server/` (with `srcDir: 'app/'`, Nuxt 3 looks for `server/` there, not at the repo root). Shared logic is in `server/utils/platform.js`.
+- **CV limits:** PDF only, max 4 MB, because Vercel functions reject bodies over 4.5 MB. The platform re-validates everything, including the Turnstile token.
+- **Offer text:** render as plain text, never with `v-html`.
 
-## Journey Scroll Section (index page)
+Environment variables:
 
-Desktop horizontal scroll effect built without GSAP ScrollTrigger — uses a native `scroll` event listener + manual math:
+| Variable | Where | Exposure |
+|---|---|---|
+| `NUXT_PLATFORM_API_URL` | Vercel, `.env` | Server only |
+| `NUXT_PLATFORM_API_KEY` | Vercel, `.env` | Server only; must equal `WEBSITE_API_KEY` on the platform |
+| `NUXT_PUBLIC_TURNSTILE_SITE_KEY` | Vercel, `.env` | Public |
 
-- `.journey-scroll-container` is `600vh` tall (creates scroll space)
-- `.journey-sticky` is `position: sticky; top: 0; height: 100vh`
-- `.h-track` contains 5 panels (4 room images + impact panel) laid out `500vw` wide
-- Scroll progress `p = scrolled / totalRange` drives:
-  - GSAP `set()` to translate the track horizontally
-  - `stickyBgOpacity` for the purple overlay fade-in (reaches 1 at `p = 0.15`)
-  - `hintOpacity` scroll indicator fade-out
-  - `activeRoom` for side-nav dots
-- Panel dwell: track movement stops at `DWELL_START = 0.85` so the last 15% of scroll is dwell time on the impact panel
-
-GSAP is lazy-imported (`await import('gsap')`) only in `onMounted`.
-
-Mobile uses the same immersive scroll (`.mobile-carousel` is `display: none`).
+Local dev needs Nuro Platform running on `:8080` (Sail) and Cloudflare's always-pass Turnstile test keys (see `.env.example`). Production uses `nuxt build` on Vercel; `nuxt generate` would drop the server routes and break Careers.
 
 ## Industry Pages Pattern
 

@@ -51,76 +51,19 @@
             sectors and addressing needs across B2C, B2B, and B2D.
           </p>
           <div class="ideas-map-wrap">
-            <img src="/world-dots.svg" class="ideas-map" alt="Dotted world map showing Nuro Solutions' global reach" />
-            <!-- Nuro smiley pinned on Guatemala (home base) -->
-            <svg class="map-smiley" viewBox="0 0 100 100" aria-label="Nuro Solutions — Guatemala">
-              <circle cx="50" cy="50" r="44" fill="var(--color-bg)" />
-              <ellipse cx="38" cy="42" rx="6" ry="8" fill="#7040AC" />
-              <ellipse cx="62" cy="42" rx="6" ry="8" fill="#F27700" />
-              <path d="M30 58 A20 20 0 0 0 70 58 L60 58 A10 10 0 0 1 40 58 Z" fill="#0a0a0f" />
-            </svg>
-            <!-- Nuro orange smileys pinned on key cities -->
-            <svg class="map-smiley map-smiley--orange map-smiley--la" viewBox="0 0 100 100" aria-label="Nuro Solutions — Los Angeles">
-              <circle cx="50" cy="50" r="44" fill="#F27700" />
-              <ellipse cx="38" cy="42" rx="6" ry="8" fill="#ffffff" />
-              <ellipse cx="62" cy="42" rx="6" ry="8" fill="#ffffff" />
-              <path d="M30 58 A20 20 0 0 0 70 58 L60 58 A10 10 0 0 1 40 58 Z" fill="#ffffff" />
-            </svg>
-            <svg class="map-smiley map-smiley--orange map-smiley--toronto" viewBox="0 0 100 100" aria-label="Nuro Solutions — Toronto">
-              <circle cx="50" cy="50" r="44" fill="#F27700" />
-              <ellipse cx="38" cy="42" rx="6" ry="8" fill="#ffffff" />
-              <ellipse cx="62" cy="42" rx="6" ry="8" fill="#ffffff" />
-              <path d="M30 58 A20 20 0 0 0 70 58 L60 58 A10 10 0 0 1 40 58 Z" fill="#ffffff" />
-            </svg>
-            <svg class="map-smiley map-smiley--orange map-smiley--atlanta" viewBox="0 0 100 100" aria-label="Nuro Solutions — Atlanta">
-              <circle cx="50" cy="50" r="44" fill="#F27700" />
-              <ellipse cx="38" cy="42" rx="6" ry="8" fill="#ffffff" />
-              <ellipse cx="62" cy="42" rx="6" ry="8" fill="#ffffff" />
-              <path d="M30 58 A20 20 0 0 0 70 58 L60 58 A10 10 0 0 1 40 58 Z" fill="#ffffff" />
-            </svg>
-            <svg class="map-smiley map-smiley--orange map-smiley--bogota" viewBox="0 0 100 100" aria-label="Nuro Solutions — Bogotá">
-              <circle cx="50" cy="50" r="44" fill="#F27700" />
-              <ellipse cx="38" cy="42" rx="6" ry="8" fill="#ffffff" />
-              <ellipse cx="62" cy="42" rx="6" ry="8" fill="#ffffff" />
-              <path d="M30 58 A20 20 0 0 0 70 58 L60 58 A10 10 0 0 1 40 58 Z" fill="#ffffff" />
-            </svg>
-            <svg class="map-smiley map-smiley--orange map-smiley--saopaulo" viewBox="0 0 100 100" aria-label="Nuro Solutions — São Paulo">
-              <circle cx="50" cy="50" r="44" fill="#F27700" />
-              <ellipse cx="38" cy="42" rx="6" ry="8" fill="#ffffff" />
-              <ellipse cx="62" cy="42" rx="6" ry="8" fill="#ffffff" />
-              <path d="M30 58 A20 20 0 0 0 70 58 L60 58 A10 10 0 0 1 40 58 Z" fill="#ffffff" />
-            </svg>
-            <!-- Purple smileys -->
-            <svg class="map-smiley map-smiley--purple map-smiley--manchester" viewBox="0 0 100 100" aria-label="Nuro Solutions — Manchester">
-              <circle cx="50" cy="50" r="44" fill="#7040AC" />
-              <ellipse cx="38" cy="42" rx="6" ry="8" fill="#ffffff" />
-              <ellipse cx="62" cy="42" rx="6" ry="8" fill="#ffffff" />
-              <path d="M30 58 A20 20 0 0 0 70 58 L60 58 A10 10 0 0 1 40 58 Z" fill="#ffffff" />
-            </svg>
-            <svg class="map-smiley map-smiley--purple map-smiley--madrid" viewBox="0 0 100 100" aria-label="Nuro Solutions — Madrid">
-              <circle cx="50" cy="50" r="44" fill="#7040AC" />
-              <ellipse cx="38" cy="42" rx="6" ry="8" fill="#ffffff" />
-              <ellipse cx="62" cy="42" rx="6" ry="8" fill="#ffffff" />
-              <path d="M30 58 A20 20 0 0 0 70 58 L60 58 A10 10 0 0 1 40 58 Z" fill="#ffffff" />
-            </svg>
-            <svg class="map-smiley map-smiley--purple map-smiley--ankara" viewBox="0 0 100 100" aria-label="Nuro Solutions — Ankara">
-              <circle cx="50" cy="50" r="44" fill="#7040AC" />
-              <ellipse cx="38" cy="42" rx="6" ry="8" fill="#ffffff" />
-              <ellipse cx="62" cy="42" rx="6" ry="8" fill="#ffffff" />
-              <path d="M30 58 A20 20 0 0 0 70 58 L60 58 A10 10 0 0 1 40 58 Z" fill="#ffffff" />
-            </svg>
-            <svg class="map-smiley map-smiley--purple map-smiley--beijing" viewBox="0 0 100 100" aria-label="Nuro Solutions — Beijing">
-              <circle cx="50" cy="50" r="44" fill="#7040AC" />
-              <ellipse cx="38" cy="42" rx="6" ry="8" fill="#ffffff" />
-              <ellipse cx="62" cy="42" rx="6" ry="8" fill="#ffffff" />
-              <path d="M30 58 A20 20 0 0 0 70 58 L60 58 A10 10 0 0 1 40 58 Z" fill="#ffffff" />
-            </svg>
-            <svg class="map-smiley map-smiley--purple map-smiley--sydney" viewBox="0 0 100 100" aria-label="Nuro Solutions — Sydney">
-              <circle cx="50" cy="50" r="44" fill="#7040AC" />
-              <ellipse cx="38" cy="42" rx="6" ry="8" fill="#ffffff" />
-              <ellipse cx="62" cy="42" rx="6" ry="8" fill="#ffffff" />
-              <path d="M30 58 A20 20 0 0 0 70 58 L60 58 A10 10 0 0 1 40 58 Z" fill="#ffffff" />
-            </svg>
+            <picture>
+              <source type="image/avif" srcset="/map/nuro_map-640.avif 640w, /map/nuro_map-1120.avif 1120w" sizes="(max-width: 640px) 100vw, 560px" />
+              <source type="image/webp" srcset="/map/nuro_map-640.webp 640w, /map/nuro_map-1120.webp 1120w" sizes="(max-width: 640px) 100vw, 560px" />
+              <img
+                src="/map/nuro_map-1120.png"
+                class="ideas-map"
+                width="1120"
+                height="676"
+                loading="lazy"
+                decoding="async"
+                alt="World map showing Nuro Solutions' home base in Guatemala and the cities it serves"
+              />
+            </picture>
           </div>
         </div>
         <div class="ideas-right">
@@ -302,11 +245,7 @@
           ></button>
           <div class="journey-traveler" aria-hidden="true" :style="{ left: journeyPos * 100 + '%' }">
             <div class="tv-disc">
-              <svg class="tv-face" viewBox="0 0 100 100">
-                <ellipse cx="35" cy="40" rx="8" ry="9" fill="#ffffff" />
-                <ellipse cx="65" cy="40" rx="8" ry="9" fill="#ffffff" />
-                <path d="M28 56 A22 22 0 0 0 72 56 L61 56 A11 11 0 0 1 39 56 Z" fill="#ffffff" />
-              </svg>
+              <img src="/nuro_jumping_face.svg" class="tv-face" alt="" width="34" height="34" />
             </div>
           </div>
         </div>
@@ -843,32 +782,6 @@ onUnmounted(() => {
   height: auto;
   user-select: none;
 }
-/* Smiley marker pinned on Guatemala (25.5% / 64.2% of the map) */
-.map-smiley {
-  position: absolute;
-  left: 25.5%;
-  top: 64.2%;
-  width: 6%;
-  height: auto;
-  transform: translate(-50%, -50%);
-  filter: drop-shadow(0 4px 10px rgba(10, 10, 15, 0.25));
-  pointer-events: none;
-}
-/* Orange city smileys share the same small size */
-.map-smiley--orange {
-  width: 2.5%;
-}
-.map-smiley--la       { left: 17.8%; top: 55.6%; }
-.map-smiley--toronto  { left: 28.1%; top: 50.4%; }
-.map-smiley--atlanta  { left: 26.8%; top: 55.6%; }
-.map-smiley--bogota   { left: 29.8%; top: 68.5%; }
-.map-smiley--saopaulo { left: 37.5%; top: 80.5%; }
-.map-smiley--purple { width: 2.5%; }
-.map-smiley--manchester { left: 49.8%; top: 44.4%; }
-.map-smiley--madrid  { left: 48.9%; top: 52.2%; }
-.map-smiley--ankara  { left: 59.2%; top: 52.2%; }
-.map-smiley--beijing { left: 81.9%; top: 52.2%; }
-.map-smiley--sydney  { left: 92.0%; top: 85.7%; }
 .ideas-right {
   width: 100%;
 }
@@ -1150,7 +1063,7 @@ onUnmounted(() => {
   50%      { transform: translateY(-6px); }
 }
 .tv-face {
-  width: 100%; height: 100%;
+  width: 34px; height: 34px;
 }
 
 /* Carousel arrows */
