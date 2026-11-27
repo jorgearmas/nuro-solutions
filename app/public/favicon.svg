@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
+  <style>
+    .l { fill: #8C52FF; }
+    .r { fill: #FF914D; }
+    .m { fill: #000000; }
+    @media (prefers-color-scheme: dark) {
+      .l, .r, .m { fill: #ffffff; }
+    }
+  </style>
+  <circle class="l" cx="40.5" cy="41" r="17.5"/>
+  <circle class="r" cx="138" cy="41" r="17.5"/>
+  <path class="m" d="M25 90.5H59.5A31 31 0 0 0 121.5 90.5H156A65.5 65.5 0 0 1 25 90.5Z"/>
+</svg>

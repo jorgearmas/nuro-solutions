@@ -36,9 +36,12 @@ export default defineNuxtConfig({
         { name: 'description', content: 'Nuro Solutions. Data-driven marketing systems engineered to increase conversions, lower acquisition costs, and scale ROI intentionally.' },
       ],
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
-        { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
+        // SVG first: it switches to a white face when the browser uses a dark
+        // theme. The .ico is the fallback for browsers without SVG favicons
+        // (e.g. Safari). The PNG links are omitted on purpose: Chrome prefers
+        // a size-matching PNG over the SVG and would never show the white one.
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+        { rel: 'icon', href: '/favicon.ico', sizes: '32x32' },
         { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
         {
           rel: 'stylesheet',

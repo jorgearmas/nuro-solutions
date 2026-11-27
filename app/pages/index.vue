@@ -459,11 +459,16 @@ const impactStats = [
 
 /* ── Portfolio logos (horizontal marquee) ── */
 const portfolioLogos = [
-  { name: 'MI Consulting',          src: '/mi-consulting_portafolio.png' },
-  { name: 'Reborn Detailing Studio', src: '/Reborn_portafolio.png' },
-  { name: 'MEM',                     src: '/MEM_portafolio.png' },
-  { name: 'UVG',                     src: '/UVG_portafolio.png' },
-  { name: 'Medident',               src: '/Medident_portafolio.png' },
+  { name: 'MI Consulting Group',    src: '/portfolio/mi-consulting-group.webp' },
+  { name: 'Team Legacy Accounting', src: '/portfolio/team-legacy-accounting.webp' },
+  { name: 'Bulldog Barber Shop',    src: '/portfolio/bulldog-barber-shop.webp' },
+  { name: 'Be Glam',                src: '/portfolio/be-glam.webp' },
+  { name: 'Construvida',            src: '/portfolio/construvida.webp' },
+  { name: 'EBClosion',              src: '/portfolio/ebclosion.webp' },
+  { name: 'Samboro',                src: '/portfolio/samboro.webp' },
+  { name: 'Reborn Detailing Academy', src: '/portfolio/reborn-detailing-academy.webp' },
+  { name: 'Reborn Detailing Studio',  src: '/portfolio/reborn-detailing-studio.webp' },
+  { name: 'MediDent',               src: '/portfolio/medident.webp' },
 ]
 
 /* ── Case feature: process we ran for Reborn ── */

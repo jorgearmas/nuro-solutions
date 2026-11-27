@@ -26,20 +26,23 @@
       <div class="max-w-7xl mx-auto px-6 lg:px-10 w-full space-y-12">
         <div class="portfolio-grid">
           <div
-            v-for="client in clients"
+            v-for="(client, i) in clients"
             :key="client.name"
             class="portfolio-card"
+            :class="{ 'portfolio-card--offset': offsetCards.has(i) }"
           >
             <div class="portfolio-card__top">
               <div class="portfolio-card__logo">
-                <img :src="client.logo" :alt="client.name" class="client-logo-img" />
+                <img :src="client.logo" :alt="client.name" class="client-logo-img" width="400" height="400" loading="lazy" decoding="async" />
               </div>
               <div class="portfolio-card__meta">
                 <div class="portfolio-card__industry">{{ client.industry }}</div>
                 <img
-                  :src="`https://flagcdn.com/24x18/${client.countryCode}.png`"
-                  :alt="client.country"
-                  :title="client.country"
+                  v-for="c in client.countries"
+                  :key="c.code"
+                  :src="`https://flagcdn.com/24x18/${c.code}.png`"
+                  :alt="c.name"
+                  :title="c.name"
                   class="client-flag"
                 />
               </div>
@@ -105,58 +108,113 @@
 </template>
 
 <script setup>
+const GT = { code: 'gt', name: 'Guatemala' }
+const US = { code: 'us', name: 'USA' }
+const CR = { code: 'cr', name: 'Costa Rica' }
+
 const clients = [
   {
-    logo: '/mi-consulting_portafolio.png',
-    name: 'MI Consulting',
-    industry: 'SQF Consulting',
-    countryCode: 'us',
-    country: 'USA',
-    description: 'Landing page, marketing analytics, and lead generation for a consultancy specializing in Safe Quality Food certification.',
-    tags: ['Landing Page', 'Marketing Analytics', 'Lead Generation'],
+    logo: '/portfolio/mi-consulting-group.webp',
+    name: 'MI Consulting Group',
+    industry: 'Compliance',
+    countries: [US, CR],
+    description: 'Client acquisition and data analysis, plus the data schema and software that run their compliance management.',
+    tags: ['Client Acquisition', 'Data Analysis', 'Data Schema Design', 'Compliance Software'],
     url: null,
   },
   {
-    logo: '/Reborn_portafolio.png',
+    logo: '/portfolio/team-legacy-accounting.webp',
+    name: 'Team Legacy Accounting',
+    industry: 'Finance',
+    countries: [US],
+    description: 'Designed and implemented the systems and automations that bring in their corporate clients.',
+    tags: ['Systems Design', 'Automation', 'Corporate Client Acquisition'],
+    url: null,
+  },
+  {
+    logo: '/portfolio/bulldog-barber-shop.webp',
+    name: 'Bulldog Barber Shop',
+    industry: 'Services',
+    countries: [GT],
+    description: 'Digital marketing and a consistent online presence, run on a monthly content calendar that keeps the chairs booked.',
+    tags: ['Digital Marketing', 'Online Presence', 'Content Calendar', 'Social Media'],
+    url: null,
+  },
+  {
+    logo: '/portfolio/be-glam.webp',
+    name: 'Be Glam',
+    industry: 'Retail',
+    countries: [GT],
+    description: 'A product-led content calendar and an online presence built around launches and promotions that turn followers into buyers.',
+    tags: ['Digital Marketing', 'Online Presence', 'Content Calendar', 'Product Promotions'],
+    url: null,
+  },
+  {
+    logo: '/portfolio/construvida.webp',
+    name: 'Construvida',
+    industry: 'Real Estate',
+    countries: [GT],
+    description: 'An online presence that builds trust in each development, with a content calendar that follows every project from launch to sale.',
+    tags: ['Digital Marketing', 'Online Presence', 'Content Calendar', 'Lead Generation'],
+    url: null,
+  },
+  {
+    logo: '/portfolio/ebclosion.webp',
+    name: 'EBClosion',
+    industry: 'Software',
+    countries: [GT],
+    description: 'Software and data integration, and the commercial implementation that took their product to market.',
+    tags: ['Software Integration', 'Data Integration', 'Commercial Implementation'],
+    url: null,
+  },
+  {
+    logo: '/portfolio/samboro.webp',
+    name: 'Samboro',
+    industry: 'Construction',
+    countries: [GT],
+    description: 'Content creation plus video design and editing that showcase their floors, tiles, and facades.',
+    tags: ['Content Creation', 'Video Design', 'Video Editing'],
+    url: null,
+  },
+  {
+    logo: '/portfolio/reborn-detailing-academy.webp',
+    name: 'Reborn Detailing Academy',
+    industry: 'Services',
+    countries: [GT],
+    description: 'Content creation, campaign and promotion design, and client acquisition, backed by digital marketing, online presence, and data analysis.',
+    tags: ['Content Creation', 'Campaigns & Promotions', 'Client Acquisition', 'Digital Marketing', 'Data Analysis'],
+    url: null,
+  },
+  {
+    logo: '/portfolio/reborn-detailing-studio.webp',
     name: 'Reborn Detailing Studio',
     industry: 'Automotive',
-    countryCode: 'gt',
-    country: 'Guatemala',
+    countries: [GT],
     description: 'Full digital strategy: landing page, marketing analytics, lead generation, social media strategy, and content creation.',
     tags: ['Landing Page', 'Social Media', 'Content Creation', 'Lead Generation'],
     url: null,
   },
   {
-    logo: '/MEM_portafolio.png',
-    name: 'Ministerio de Energía y Minas',
-    industry: 'Government',
-    countryCode: 'gt',
-    country: 'Guatemala',
-    description: 'Data management systems development for Guatemala\'s energy and mining sector.',
-    tags: ['Systems Dev', 'Data Management'],
-    url: null,
-  },
-  {
-    logo: '/UVG_portafolio.png',
-    name: 'Universidad del Valle de Guatemala',
-    industry: 'Education',
-    countryCode: 'gt',
-    country: 'Guatemala',
-    description: 'Data management systems built for health research at one of Guatemala\'s leading universities.',
-    tags: ['Systems Dev', 'Data Management', 'Health Research'],
-    url: null,
-  },
-  {
-    logo: '/Medident_portafolio.png',
+    logo: '/portfolio/medident.webp',
     name: 'MediDent',
     industry: 'Healthcare',
-    countryCode: 'gt',
-    country: 'Guatemala',
-    description: 'Social media strategy, content generation, and lead generation for a dental healthcare provider.',
-    tags: ['Social Media Strategy', 'Content Generation', 'Lead Generation'],
+    countries: [GT],
+    description: 'An online presence patients can trust and a content calendar that turns dental education into booked appointments.',
+    tags: ['Digital Marketing', 'Online Presence', 'Content Calendar', 'Patient Acquisition'],
     url: null,
   },
 ]
+
+// Desktop grid has 3 per row. A short last row would leave a card alone,
+// so the leftovers are split into centred rows of 2 at the top and bottom
+// (10 cards -> 2-3-3-2, 11 -> 3-3-3-2). Each listed card starts its row one
+// column in, which centres the pair.
+const offsetCards = computed(() => {
+  const n = clients.length
+  if (n % 3 === 2) return new Set([n - 2])
+  if (n % 3 === 1 && n >= 4) return new Set([0, n - 2])
+  return new Set()
+})
 
 const coreProducts = [
   {
@@ -243,6 +301,12 @@ const coreProducts = [
   grid-template-columns: repeat(auto-fill, minmax(min(360px, 100%), 1fr));
   gap: 2rem;
 }
+/* 3 per row on a 6-column grid so a pair can sit centred (see offsetCards). */
+@media (min-width: 1280px) {
+  .portfolio-grid { grid-template-columns: repeat(6, 1fr); }
+  .portfolio-card { grid-column: span 2; }
+  .portfolio-card--offset { grid-column: 2 / span 2; }
+}
 .portfolio-card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -282,6 +346,7 @@ const coreProducts = [
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  flex-wrap: wrap;
 }
 .portfolio-card__industry {
   font-size: 0.7rem;
