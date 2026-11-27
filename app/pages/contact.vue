@@ -174,7 +174,7 @@ const sending = ref(false)
 const team = [
   { initials: 'CR', name: 'Christopher Ramirez', role: 'Founder & CEO', quote: 'Every dollar we invest in creativity has a measurable purpose behind it.' },
   { initials: 'MP', name: 'Melissa Payes', role: 'Co-founder & CFO', quote: 'We turn strategy into repeatable systems that drive real results.' },
-  { initials: 'ED', name: 'Evan Duarte', role: 'COO', quote: 'Operations is where strategy proves itself, one well-run process at a time.' },
+  { initials: 'ED', name: 'Evander Dardón', role: 'COO', quote: 'Operations is where strategy proves itself, one well-run process at a time.' },
   { initials: 'NE', name: 'Nicolle Enriquez', role: 'CMO', quote: 'Great marketing does not interrupt people, it connects with them.' },
   { initials: 'JA', name: 'Jorge Armas', role: 'CTO', quote: 'Technology is the foundation that transforms vision into scalable reality.' },
 ]
